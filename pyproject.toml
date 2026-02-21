@@ -1,0 +1,17 @@
+[project]
+name = "nexusmind"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "beautifulsoup4>=4.14.3",
+    "langchain>=1.2.10",
+    "langgraph>=1.0.9",
+    "pandas>=3.0.1",
+    "pydantic>=2.12.5",
+    "python-dotenv>=1.2.1",
+    "qdrant-client>=1.17.0",
+    "requests>=2.32.5",
+    "streamlit>=1.19.0",
+]
