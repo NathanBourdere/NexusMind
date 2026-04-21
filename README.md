@@ -55,5 +55,5 @@ N'hésitez pas à contribuer au projet en soumettant des pull requests ou en cr�
 
 ## Auteur
 
-Ce projet a été développé par [Votre Nom].
+Ce projet a été développé par Nathan BOURDERE ANDREOU.
 
