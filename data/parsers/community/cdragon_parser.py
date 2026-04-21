@@ -1,0 +1,1 @@
+# CommunityDragon : Données bas-niveau (binaires) et assets
