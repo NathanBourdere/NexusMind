@@ -56,18 +56,38 @@ class RiotLiveParser:
         try:
             # Parse participants
             participants = []
-            for participant in game_data['participants']:
+            for idx, participant in enumerate(game_data['participants']):
+                # Créer l'ID Riot formaté
+                riot_id = f"{participant['summonerName']}#{self.region.upper()}"
+
                 summoner = Summoner(
-                    summoner_id=participant['summonerId'],
-                    summoner_name=participant['summonerName'],
-                    champion_id=participant['championId'],
+                    participant_id=idx + 1,  # 1 à 10
+                    riot_id=riot_id,
                     team_id=participant['teamId'],
+                    champion_id=str(participant['championId']),
+                    summoner_spells=[
+                        f"SummonerSpell_{participant.get('spell1Id', 0)}",
+                        f"SummonerSpell_{participant.get('spell2Id', 0)}"
+                    ],
+                    runes=participant.get('perks', {}).get('perkIds', []),
+                    ability_upgrade_history=[],
+                    current_ability_ranks={"Q": 0, "W": 0, "E": 0, "R": 0},
+                    level=1,  # Niveau par défaut en début de partie
+                    kills=0,
+                    deaths=0,
+                    assists=0,
+                    cs_score=0,
+                    vision_score=0,
+                    current_gold=500,  # Gold de départ
+                    total_gold=500,
+                    items=[],  # Liste vide au début
                     metadata={
                         'source': 'Riot Live API',
                         'profile_icon_id': participant.get('profileIconId', 0),
                         'spell1_id': participant.get('spell1Id', 0),
                         'spell2_id': participant.get('spell2Id', 0),
-                        'is_bot': participant.get('bot', False)
+                        'is_bot': participant.get('bot', False),
+                        'original_summoner_id': participant['summonerId']
                     }
                 )
                 participants.append(summoner)

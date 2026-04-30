@@ -16,6 +16,10 @@ from data.parsers.analytics.leaguepedia_parser import LeaguepediaParser
 
 # Import des schémas
 from core.schema.GameStateSnapshot import GameStateSnapshot
+from core.schema.Champion import Champion
+from core.schema.Item import Item
+from core.schema.Matchup import Matchup
+from core.schema.Summoner import Summoner
 
 
 class MainParser:
@@ -36,143 +40,174 @@ class MainParser:
             'leaguepedia': self.leaguepedia_parser
         }
 
-    async def parse_champion_complete(self, champion_name: str, role: str = "top") -> Optional[Dict[str, Any]]:
-        """Parse un champion avec toutes les sources disponibles"""
+    async def parse_champion_complete(self, champion_name: str, role: str = "top") -> Optional[Champion]:
+        """Parse un champion avec toutes les sources disponibles et retourne un objet Champion Pydantic"""
         try:
-            champion_data = {
-                'champion_name': champion_name,
-                'role': role,
-                'sources': {},
-                'metadata': {
-                    'timestamp': datetime.now().isoformat(),
-                    'sources_used': []
-                }
-            }
+            # Récupérer les données statiques de Riot (retourne déjà un objet Champion)
+            champion = self.riot_static_parser.parse_champion(champion_name)
 
-            # Récupérer les données statiques de Riot
-            riot_static_data = self.riot_static_parser.parse_champion(champion_name)
-            if riot_static_data:
-                champion_data['sources']['riot_static'] = riot_static_data
-                champion_data['metadata']['sources_used'].append('Riot Data Dragon')
+            if not champion:
+                return None
 
-            # Récupérer les mécaniques avancées du Wiki
+            # Enrichir avec les mécaniques avancées du Wiki (stockées dans metadata)
             wiki_mechanics = self.wiki_parser.parse_champion_mechanics(champion_name)
             if wiki_mechanics:
-                champion_data['sources']['wiki'] = wiki_mechanics
-                champion_data['metadata']['sources_used'].append('LoL Wiki (Fandom)')
+                # Fusionner les mécaniques dans le metadata existant
+                if champion.metadata is None:
+                    champion.metadata = {}
+                champion.metadata.update({
+                    'wiki_mechanics': wiki_mechanics,
+                    'wiki_source': 'LoL Wiki (Fandom)'
+                })
 
-            # Récupérer les stats analytiques de LoLalytics
+            # Enrichir avec les stats analytiques de LoLalytics (stockées dans metadata)
             lolalytics_stats = self.lolalytics_parser.parse_champion_stats(champion_name, role)
             if lolalytics_stats:
-                champion_data['sources']['lolalytics'] = lolalytics_stats
-                champion_data['metadata']['sources_used'].append('LoLalytics')
+                if champion.metadata is None:
+                    champion.metadata = {}
+                champion.metadata.update({
+                    'lolalytics_stats': lolalytics_stats,
+                    'lolalytics_role': role,
+                    'lolalytics_source': 'LoLalytics'
+                })
 
-            # Récupérer les stats pro de Leaguepedia
+            # Enrichir avec les stats pro de Leaguepedia (stockées dans metadata)
             leaguepedia_stats = self.leaguepedia_parser.parse_pro_champion_stats(champion_name)
             if leaguepedia_stats:
-                champion_data['sources']['leaguepedia'] = leaguepedia_stats
-                champion_data['metadata']['sources_used'].append('Leaguepedia')
+                if champion.metadata is None:
+                    champion.metadata = {}
+                champion.metadata.update({
+                    'leaguepedia_stats': leaguepedia_stats,
+                    'leaguepedia_source': 'Leaguepedia'
+                })
 
-            return champion_data
+            # Ajouter les métadonnées de traitement
+            if champion.metadata is None:
+                champion.metadata = {}
+            champion.metadata.update({
+                'last_updated': datetime.now().isoformat(),
+                'scout_role': role,
+                'data_sources': ['Riot Data Dragon', 'LoL Wiki (Fandom)', 'LoLalytics', 'Leaguepedia']
+            })
+
+            return champion
 
         except Exception as e:
             print(f"Error parsing complete champion data for {champion_name}: {e}")
             return None
 
-    async def parse_matchup_complete(self, champion1: str, champion2: str, role: str = "top") -> Optional[Dict[str, Any]]:
-        """Parse un matchup complet avec toutes les sources"""
+    async def parse_matchup_complete(self, champion1: str, champion2: str, role: str = "top") -> Optional[Matchup]:
+        """Parse un matchup complet avec toutes les sources et retourne un objet Matchup Pydantic"""
         try:
-            matchup_data = {
-                'champion1': champion1,
-                'champion2': champion2,
-                'role': role,
-                'sources': {},
-                'metadata': {
-                    'timestamp': datetime.now().isoformat(),
-                    'sources_used': []
-                }
-            }
-
             # Récupérer les données des deux champions
             champion1_data = await self.parse_champion_complete(champion1, role)
             champion2_data = await self.parse_champion_complete(champion2, role)
 
-            if champion1_data:
-                matchup_data['champion1_data'] = champion1_data
-
-            if champion2_data:
-                matchup_data['champion2_data'] = champion2_data
+            if not champion1_data or not champion2_data:
+                return None
 
             # Récupérer le matchup spécifique depuis LoLalytics
             lolalytics_matchup = self.lolalytics_parser.parse_matchup(champion1, champion2, role)
-            if lolalytics_matchup:
-                matchup_data['sources']['lolalytics_matchup'] = lolalytics_matchup
-                matchup_data['metadata']['sources_used'].append('LoLalytics Matchup')
 
-            return matchup_data
+            # Créer l'objet Matchup Pydantic
+            matchup = Matchup(
+                champion1_name=champion1,
+                champion2_name=champion2,
+                role=role,
+                win_rate_champion1=champion1_data.metadata.get('lolalytics_stats', {}).get('win_rate', 50.0) if champion1_data.metadata else 50.0,
+                win_rate_champion2=champion2_data.metadata.get('lolalytics_stats', {}).get('win_rate', 50.0) if champion2_data.metadata else 50.0,
+                games_played=0,
+                difficulty="medium",
+                metadata={
+                    'champion1_data': champion1_data.model_dump() if champion1_data else {},
+                    'champion2_data': champion2_data.model_dump() if champion2_data else {},
+                    'lolalytics_matchup': lolalytics_matchup.model_dump() if lolalytics_matchup else {},
+                    'last_updated': datetime.now().isoformat(),
+                    'data_sources': ['LoLalytics', 'Riot Data Dragon']
+                }
+            )
+
+            return matchup
 
         except Exception as e:
             print(f"Error parsing complete matchup {champion1} vs {champion2}: {e}")
             return None
 
-    async def parse_game_state_complete(self, summoner_name: str) -> Optional[Dict[str, Any]]:
-        """Parse l'état complet d'une partie en cours"""
+    async def parse_game_state_complete(self, summoner_name: str) -> Optional[GameStateSnapshot]:
+        """Parse l'état complet d'une partie en cours et retourne un objet GameStateSnapshot Pydantic"""
         try:
-            game_state_data = {
-                'summoner_name': summoner_name,
-                'sources': {},
-                'metadata': {
-                    'timestamp': datetime.now().isoformat(),
-                    'sources_used': []
-                }
-            }
-
             # Récupérer les données en temps réel de Riot
             active_game = self.riot_live_parser.get_active_game(summoner_name)
-            if active_game:
-                game_state = self.riot_live_parser.parse_game_state(active_game)
-                if game_state:
-                    game_state_data['sources']['riot_live'] = game_state
-                    game_state_data['metadata']['sources_used'].append('Riot Live API')
 
-                    # Enrichir avec les données des champions
-                    if hasattr(game_state, 'participants'):
-                        for participant in game_state.participants:
-                            champion_name = participant.champion_id
-                            if champion_name:
-                                champion_data = await self.parse_champion_complete(champion_name)
-                                if champion_data:
-                                    game_state_data['champions_data'] = game_state_data.get('champions_data', {})
-                                    game_state_data['champions_data'][champion_name] = champion_data
+            if not active_game:
+                return None
 
-            return game_state_data
+            # Parser l'état du jeu (retourne déjà un objet GameStateSnapshot)
+            game_state = self.riot_live_parser.parse_game_state(active_game)
+
+            if not game_state:
+                return None
+
+            # Enrichir avec les données des champions
+            if hasattr(game_state, 'participants') and game_state.participants:
+                for participant in game_state.participants:
+                    champion_name = participant.champion_id
+                    if champion_name:
+                        champion_data = await self.parse_champion_complete(champion_name)
+                        if champion_data and game_state.metadata is None:
+                            game_state.metadata = {}
+                        if champion_data and game_state.metadata is not None:
+                            game_state.metadata[f'champion_{champion_name}'] = champion_data.model_dump()
+
+            # Ajouter les métadonnées de traitement
+            if game_state.metadata is None:
+                game_state.metadata = {}
+            game_state.metadata.update({
+                'last_updated': datetime.now().isoformat(),
+                'scout_summoner': summoner_name,
+                'data_sources': ['Riot Live API', 'Riot Data Dragon']
+            })
+
+            return game_state
 
         except Exception as e:
             print(f"Error parsing complete game state for {summoner_name}: {e}")
             return None
 
     async def parse_meta_report(self) -> Optional[Dict[str, Any]]:
-        """Génère un rapport complet de la meta actuelle"""
+        """Génère un rapport complet de la meta actuelle avec des données structurées"""
         try:
             meta_report = {
                 'timestamp': datetime.now().isoformat(),
-                'sources': {},
+                'lolalytics_meta': None,
+                'leaguepedia_trends': None,
+                'champions_data': {},
                 'metadata': {
-                    'sources_used': []
+                    'data_sources': ['LoLalytics', 'Leaguepedia'],
+                    'last_updated': datetime.now().isoformat()
                 }
             }
 
             # Récupérer le rapport meta de LoLalytics
             lolalytics_meta = self.lolalytics_parser.get_meta_report()
             if lolalytics_meta:
-                meta_report['sources']['lolalytics'] = lolalytics_meta
-                meta_report['metadata']['sources_used'].append('LoLalytics')
+                meta_report['lolalytics_meta'] = lolalytics_meta
+
+                # Extraire les données de champions pour les structurer
+                tier_lists = lolalytics_meta.get('tier_lists', {})
+                for role, champions in tier_lists.items():
+                    for champion_data in champions:
+                        champion_name = champion_data.get('champion', '')
+                        if champion_name and champion_name not in meta_report['champions_data']:
+                            # Récupérer les données complètes du champion
+                            champion = await self.parse_champion_complete(champion_name, role)
+                            if champion:
+                                meta_report['champions_data'][champion_name] = champion.model_dump()
 
             # Récupérer les tendances du patch actuel de Leaguepedia
             leaguepedia_trends = self.leaguepedia_parser.get_current_patch_trends()
             if leaguepedia_trends:
-                meta_report['sources']['leaguepedia'] = leaguepedia_trends
-                meta_report['metadata']['sources_used'].append('Leaguepedia')
+                meta_report['leaguepedia_trends'] = leaguepedia_trends
 
             return meta_report
 
@@ -180,22 +215,23 @@ class MainParser:
             print(f"Error generating meta report: {e}")
             return None
 
-    async def parse_all_champions(self) -> Dict[str, Dict[str, Any]]:
-        """Parse tous les champions avec les données de base"""
+    async def parse_all_champions(self) -> Dict[str, Champion]:
+        """Parse tous les champions avec les données de base et retourne des objets Champion Pydantic"""
         try:
             all_champions = {}
 
-            # Récupérer tous les champions depuis Riot
+            # Récupérer tous les champions depuis Riot (retourne déjà des objets Champion)
             riot_champions = self.riot_static_parser.parse_all_champions()
 
-            for champion_name, champion_data in riot_champions.items():
-                all_champions[champion_name] = {
-                    'riot_static': champion_data,
-                    'metadata': {
-                        'timestamp': datetime.now().isoformat(),
-                        'sources_used': ['Riot Data Dragon']
-                    }
-                }
+            for champion_name, champion in riot_champions.items():
+                # Enrichir avec les métadonnées
+                if champion.metadata is None:
+                    champion.metadata = {}
+                champion.metadata.update({
+                    'timestamp': datetime.now().isoformat(),
+                    'data_sources': ['Riot Data Dragon']
+                })
+                all_champions[champion_name] = champion
 
             return all_champions
 
@@ -203,22 +239,23 @@ class MainParser:
             print(f"Error parsing all champions: {e}")
             return {}
 
-    async def parse_all_items(self) -> Dict[str, Dict[str, Any]]:
-        """Parse tous les items"""
+    async def parse_all_items(self) -> Dict[str, Item]:
+        """Parse tous les items et retourne des objets Item Pydantic"""
         try:
             all_items = {}
 
-            # Récupérer tous les items depuis Riot
+            # Récupérer tous les items depuis Riot (retourne déjà des objets Item)
             riot_items = self.riot_static_parser.parse_all_items()
 
-            for item_id, item_data in riot_items.items():
-                all_items[item_id] = {
-                    'riot_static': item_data,
-                    'metadata': {
-                        'timestamp': datetime.now().isoformat(),
-                        'sources_used': ['Riot Data Dragon']
-                    }
-                }
+            for item_id, item in riot_items.items():
+                # Enrichir avec les métadonnées
+                if item.metadata is None:
+                    item.metadata = {}
+                item.metadata.update({
+                    'timestamp': datetime.now().isoformat(),
+                    'data_sources': ['Riot Data Dragon']
+                })
+                all_items[item_id] = item
 
             return all_items
 
