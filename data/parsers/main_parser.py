@@ -19,18 +19,24 @@ from core.schema.GameStateSnapshot import GameStateSnapshot
 from core.schema.Champion import Champion
 from core.schema.Item import Item
 from core.schema.Matchup import Matchup
-from core.schema.Summoner import Summoner
+
+# Import du cache
+from data.cache import get_global_cache
 
 
 class MainParser:
     """Parser principal qui orchestre tous les sous-parsers"""
 
-    def __init__(self, riot_api_key: Optional[str] = None):
+    def __init__(self, riot_api_key: Optional[str] = None, use_cache: bool = True):
         self.riot_static_parser = RiotStaticParser()
         self.riot_live_parser = RiotLiveParser(api_key=riot_api_key)
         self.wiki_parser = WikiParser()
         self.lolalytics_parser = LoLalyticsParser()
         self.leaguepedia_parser = LeaguepediaParser()
+
+        # Initialiser le cache
+        self.use_cache = use_cache
+        self.cache = get_global_cache() if use_cache else None
 
         self.data_sources = {
             'riot_static': self.riot_static_parser,
@@ -39,6 +45,9 @@ class MainParser:
             'lolalytics': self.lolalytics_parser,
             'leaguepedia': self.leaguepedia_parser
         }
+
+        # Flag pour indiquer si les données de base ont été chargées
+        self._base_data_loaded = False
 
     async def parse_champion_complete(self, champion_name: str, role: str = "top") -> Optional[Champion]:
         """Parse un champion avec toutes les sources disponibles et retourne un objet Champion Pydantic"""
@@ -375,3 +384,117 @@ class MainParser:
         except Exception as e:
             print(f"Error in parallel parsing: {e}")
             return []
+
+    # --- Méthodes de Cache et Optimisation ---
+
+    async def load_base_data(self) -> bool:
+        """Charge les données de base dans le cache (champions, items, runes)"""
+        if not self.use_cache or not self.cache:
+            print("⚠️ Cache désactivé, chargement des données de base ignoré")
+            return False
+
+        try:
+            print("🔄 Chargement des données de base dans le cache...")
+
+            # Charger tous les champions
+            all_champions = self.riot_static_parser.parse_all_champions()
+            for champion_name, champion in all_champions.items():
+                self.cache.set_champion(champion_name, champion)
+
+            # Charger tous les items
+            all_items = self.riot_static_parser.parse_all_items()
+            for item_id, item in all_items.items():
+                self.cache.set_item(item_id, item)
+
+            # Charger toutes les runes
+            all_runes = self.riot_static_parser.parse_all_runes()
+            for rune_id, rune in all_runes.items():
+                self.cache.set_rune(rune_id, rune)
+
+            # Stocker la liste des champions
+            champion_list = list(all_champions.keys())
+            self.cache.set_champion_list(champion_list)
+
+            self._base_data_loaded = True
+
+            print(f"✅ Données de base chargées: {len(all_champions)} champions, {len(all_items)} items, {len(all_runes)} runes")
+            return True
+
+        except Exception as e:
+            print(f"❌ Erreur lors du chargement des données de base: {e}")
+            return False
+
+    def get_champion_from_cache(self, champion_name: str) -> Optional[Champion]:
+        """Récupère un champion depuis le cache"""
+        if not self.use_cache or not self.cache:
+            return None
+
+        champion = self.cache.get_champion(champion_name)
+        if champion:
+            return champion
+
+        # Si pas dans le cache, essayer de le charger
+        champion = self.riot_static_parser.parse_champion(champion_name)
+        if champion:
+            self.cache.set_champion(champion_name, champion)
+        return champion
+
+    def get_item_from_cache(self, item_id: str) -> Optional[Item]:
+        """Récupère un item depuis le cache"""
+        if not self.use_cache or not self.cache:
+            return None
+
+        item = self.cache.get_item(item_id)
+        if item:
+            return item
+
+        # Si pas dans le cache, essayer de le charger
+        item = self.riot_static_parser.parse_item(item_id)
+        if item:
+            self.cache.set_item(item_id, item)
+        return item
+
+    def get_rune_from_cache(self, rune_id: int) -> Optional:
+        """Récupère une rune depuis le cache"""
+        if not self.use_cache or not self.cache:
+            return None
+
+        rune = self.cache.get_rune(rune_id)
+        if rune:
+            return rune
+
+        # Si pas dans le cache, essayer de la charger
+        rune = self.riot_static_parser.parse_rune(rune_id)
+        if rune:
+            self.cache.set_rune(rune_id, rune)
+        return rune
+
+    def get_champion_list(self) -> List[str]:
+        """Récupère la liste des champions depuis le cache ou l'API"""
+        if self.use_cache and self.cache:
+            champion_list = self.cache.get_champion_list()
+            if champion_list:
+                return champion_list
+
+        # Si pas dans le cache, charger depuis l'API
+        all_champions = self.riot_static_parser.parse_all_champions()
+        champion_list = list(all_champions.keys())
+
+        if self.use_cache and self.cache:
+            self.cache.set_champion_list(champion_list)
+
+        return champion_list
+
+    def get_cache_stats(self) -> Optional[Dict[str, Any]]:
+        """Retourne les statistiques du cache"""
+        if not self.use_cache or not self.cache:
+            return None
+
+        return self.cache.get_cache_stats()
+
+    def clear_cache(self) -> None:
+        """Nettoie le cache"""
+        if self.use_cache and self.cache:
+            self.cache.clear_all()
+            self._base_data_loaded = False
+            print("🗑️ Cache nettoyé")

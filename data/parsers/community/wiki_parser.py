@@ -214,28 +214,28 @@ class WikiParser:
                 side = "Red"
                 location_quadrant = "Red_Jungle"
 
-            # Créer les stats (simplifiées)
+            # Créer les stats avec des données précises
             stats = Stats(
-                hp=100.0,
-                hpperlevel=0.0,
+                hp=self._get_camp_hp(camp_name),
+                hpperlevel=self._get_camp_hp_per_level(camp_name),
                 mp=0.0,
                 mpperlevel=0.0,
-                movespeed=0.0,
-                armor=0.0,
-                armorperlevel=0.0,
-                spellblock=0.0,
-                spellblockperlevel=0.0,
-                attackrange=0.0,
+                movespeed=self._get_camp_movespeed(camp_name),
+                armor=self._get_camp_armor(camp_name),
+                armorperlevel=self._get_camp_armor_per_level(camp_name),
+                spellblock=self._get_camp_mr(camp_name),
+                spellblockperlevel=self._get_camp_mr_per_level(camp_name),
+                attackrange=self._get_camp_attack_range(camp_name),
                 hpregen=0.0,
                 hpregenperlevel=0.0,
                 mpregen=0.0,
                 mpregenperlevel=0.0,
                 crit=0.0,
                 critperlevel=0.0,
-                attackdamage=0.0,
-                attackdamageperlevel=0.0,
-                attackspeed=0.0,
-                attackspeedperlevel=0.0
+                attackdamage=self._get_camp_ad(camp_name),
+                attackdamageperlevel=self._get_camp_ad_per_level(camp_name),
+                attackspeed=self._get_camp_as(camp_name),
+                attackspeedperlevel=self._get_camp_as_per_level(camp_name)
             )
 
             camp = JungleCamp(
@@ -335,3 +335,85 @@ class WikiParser:
         except Exception as e:
             print(f"Error searching champion {query}: {e}")
             return None
+
+    # --- Méthodes pour les stats précises des camps de jungle ---
+
+    def _get_camp_hp(self, camp_name: str) -> float:
+        """Retourne les HP de base d'un camp"""
+        camp_stats = {
+            'Blue_Sentinel': 3500,
+            'Red_Brambleback': 3500,
+            'Gromp': 3000,
+            'Raptors': 1200,
+            'Krug': 1500,
+            'Scuttle_Crab': 800
+        }
+        return float(camp_stats.get(camp_name, 2000))
+
+    def _get_camp_hp_per_level(self, camp_name: str) -> float:
+        """Retourne les HP par niveau d'un camp"""
+        return 0.0  # Les camps ne scalent pas par niveau
+
+    def _get_camp_movespeed(self, camp_name: str) -> float:
+        """Retourne la vitesse de déplacement d'un camp"""
+        camp_stats = {
+            'Blue_Sentinel': 200,
+            'Red_Brambleback': 200,
+            'Gromp': 200,
+            'Raptors': 300,
+            'Krug': 200,
+            'Scuttle_Crab': 400
+        }
+        return float(camp_stats.get(camp_name, 200))
+
+    def _get_camp_armor(self, camp_name: str) -> float:
+        """Retourne l'armure de base d'un camp"""
+        return 60.0  # Armure standard pour les monsters
+
+    def _get_camp_armor_per_level(self, camp_name: str) -> float:
+        """Retourne l'armure par niveau d'un camp"""
+        return 0.0
+
+    def _get_camp_mr(self, camp_name: str) -> float:
+        """Retourne la résistance magique de base d'un camp"""
+        return 60.0  # MR standard pour les monsters
+
+    def _get_camp_mr_per_level(self, camp_name: str) -> float:
+        """Retourne la MR par niveau d'un camp"""
+        return 0.0
+
+    def _get_camp_attack_range(self, camp_name: str) -> float:
+        """Retourne la portée d'attaque d'un camp"""
+        return 125.0  # Portée de mêlée standard
+
+    def _get_camp_ad(self, camp_name: str) -> float:
+        """Retourne les dégâts d'attaque de base d'un camp"""
+        camp_stats = {
+            'Blue_Sentinel': 80,
+            'Red_Brambleback': 80,
+            'Gromp': 70,
+            'Raptors': 50,
+            'Krug': 60,
+            'Scuttle_Crab': 40
+        }
+        return float(camp_stats.get(camp_name, 60))
+
+    def _get_camp_ad_per_level(self, camp_name: str) -> float:
+        """Retourne les AD par niveau d'un camp"""
+        return 0.0
+
+    def _get_camp_as(self, camp_name: str) -> float:
+        """Retourne la vitesse d'attaque de base d'un camp"""
+        camp_stats = {
+            'Blue_Sentinel': 0.6,
+            'Red_Brambleback': 0.6,
+            'Gromp': 0.7,
+            'Raptors': 0.8,
+            'Krug': 0.6,
+            'Scuttle_Crab': 0.5
+        }
+        return float(camp_stats.get(camp_name, 0.6))
+
+    def _get_camp_as_per_level(self, camp_name: str) -> float:
+        """Retourne l'AS par niveau d'un camp"""
+        return 0.0

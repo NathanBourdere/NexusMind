@@ -271,7 +271,32 @@ class LoLalyticsParser:
             # Essayer de normaliser le nom du champion
             normalized_query = query.lower().replace(' ', '').replace("'", '')
 
-            for champion in range(172):
+            # Liste des champions connus (à compléter)
+            known_champions = [
+                "aatrox", "ahri", "akali", "alistar", "amumu", "anivia", "annie",
+                "aphelios", "ashe", "azir", "bard", "blitzcrank", "brand", "braum",
+                "caitlyn", "camille", "cassiopeia", "cho", "corki", "darius",
+                "diana", "drmundo", "ekko", "elise", "evelynn", "ezreal", "fiddle",
+                "fiora", "fizz", "galio", "gangplank", "garen", "gnar", "gragas",
+                "graves", "hecarim", "heimer", "illaoi", "irelia", "ivern", "janna",
+                "jarvan", "jax", "jayce", "jhin", "jinx", "kaisa", "kalista", "karma",
+                "karthus", "kassadin", "katarina", "kayle", "kayn", "kennen", "khazix",
+                "kindred", "kled", "kogmaw", "leblanc", "lee", "leona", "lissandra",
+                "lucian", "lulu", "lux", "malphite", "malzahar", "maokai", "master",
+                "morgana", "nami", "nasus", "nautilus", "neeko", "nidalee", "nocturne",
+                "nunu", "olaf", "orianna", "ornn", "pantheon", "poppy", "pyke",
+                "qiyana", "quinn", "rakan", "rammus", "reksai", "rell", "renekton",
+                "rengar", "riven", "rumble", "ryze", "sejuani", "senna", "seraphine",
+                "set", "shaco", "shen", "shyvana", "singed", "sion", "sivir", "skarner",
+                "sona", "soraka", "swain", "sylas", "syndra", "tahm", "taliyah", "talon",
+                "taric", "teemo", "thresh", "tristana", "trundle", "tryndamere", "twisted",
+                "twitch", "udyr", "urgot", "varus", "vayne", "veigar", "velkoz", "vi",
+                "viego", "viktor", "vladimir", "volibear", "warwick", "wukong", "xayah",
+                "xerath", "xinzhao", "yasuo", "yone", "yorick", "yuumi", "zac", "zed",
+                "ziggs", "zilean", "zoe", "zyra"
+            ]
+
+            for champion in known_champions:
                 if normalized_query in champion:
                     return champion
 
@@ -280,3 +305,11 @@ class LoLalyticsParser:
         except Exception as e:
             print(f"Error searching champion {query}: {e}")
             return None
+
+    def set_champion_list(self, champion_list: List[str]) -> None:
+        """Définit la liste des champions (pour éviter les appels API répétés)"""
+        self.champion_list = champion_list
+
+    def get_champion_list(self) -> List[str]:
+        """Retourne la liste des champions"""
+        return self.champion_list if hasattr(self, 'champion_list') else []
