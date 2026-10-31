@@ -61,3 +61,20 @@ Cette inspection n'a lancé ni collecte, ni modèle, ni requête Qdrant, ni suit
 applicative. Le lanceur `python` du système n'était pas exécutable ; `uv` était
 présent. Les corrections ci-dessus restent à implémenter et à tester. Aucun
 paramètre distant GitHub (branche par défaut, rulesets, secrets) n'a été vérifié.
+
+## Suite de l'audit — chantier Scout du 31 octobre 2026
+
+Les constats précédents décrivent l'état historique et ne sont pas effacés.
+Le nouveau package maintenu `src/nexusmind/` ne dépend pas des anciens parsers
+ou schémas. Il déclare l'encodeur, fixe modèle/révision, rejette les vecteurs
+invalides, conserve la provenance et utilise des noms de modules portables.
+Le parcours officiel est `nexusmind ingest`, avec quatre catégories Riot,
+archives JSON, catalogue SQLite et Qdrant ; voir le [guide](ingestion.md).
+
+Une installation isolée a révélé en plus un conflit Qdrant/protobuf, corrigé
+par dépendance client récente et contrainte protobuf explicite. Le lock évite
+également la version grpcio retirée détectée pendant l'installation. Les tests
+hors ligne couvrent normalisation, transport, erreurs de modèle, rejeu et
+roundtrip Qdrant mémoire. Les tests ne valident pas un serveur distant ni la
+qualité pédagogique du futur Coach. Les défauts dans les anciens fichiers
+restent présents ; aucune modification utilisateur locale n'est embarquée.

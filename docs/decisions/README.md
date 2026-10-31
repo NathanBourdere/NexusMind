@@ -6,6 +6,7 @@ Les changements mineurs restent dans la PR.
 
 - [0001 — Corpus Riot et pipeline simple](0001-riot-first.md)
 - [0002 — Stockage, retrieval et orchestration pédagogique](0002-rag-orchestration.md)
+- [0003 — Package Python installé et adaptateurs explicites](0003-python-package-layout.md)
 
 Nommage : `NNNN-sujet-en-kebab-case.md`. Statuts : proposé, accepté, remplacé.
 Une décision acceptée peut définir une cible encore non implémentée. Pour la

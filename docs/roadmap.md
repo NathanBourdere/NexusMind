@@ -4,15 +4,25 @@ Travail restant, pas fonctionnalités livrées. Chaque étape peut être découp
 plusieurs PR atomiques avec tests. Conserver l'objectif d'apprentissage sans
 cumuler toutes les inconnues dans une seule PR.
 
+## Avancement du chantier Scout
+
+Le package `src/nexusmind/` couvre désormais installation, normalisation Riot,
+archives JSON, catalogue SQLite, vrais embeddings multilingues et index Qdrant
+local. Les tests et Ruff sont disponibles ; le rejeu, les erreurs et les filtres
+patch/langue sont couverts. Les dossiers historiques restent hors package.
+Voir le [guide d'ingestion](ingestion.md) et l'[ADR-0003](decisions/0003-python-package-layout.md).
+Les étapes ci-dessous restent le découpage de référence ; les alias de l'ancien
+RAG, son reranking et ses schémas historiques ne sont pas corrigés par le nouveau Scout.
+
 | Étape | Branche indicative | Résultat vérifiable |
 | --- | --- | --- |
 | 0. Organiser Git | `chore/git-workflow` | `dev` initialisée depuis `scout` après comparaison avec `develop` ; finaliser les cibles de PR et protections après disponibilité des contrôles |
-| 1a. Installation | `fix/runtime-dependencies` | Dépendances directes et lock cohérents ; installation Python 3.12 propre ; casse des imports vérifiée sous Linux |
-| 1b. Socle TDD | `test/offline-foundation` | Pytest/asyncio, Ruff et fixtures ; premier test utile hors ligne et commandes documentées |
+| 1a. Installation | `feat/scout-ingestion` | Réalisée pour le package maintenu : installation Python 3.12 propre, dépendances et lock ; modules en snake_case |
+| 1b. Socle TDD | `feat/scout-ingestion` | Réalisé : Pytest, Ruff, doubles injectés, tests de panne et roundtrip Qdrant mémoire |
 | 1c. CI | `chore/offline-ci` | Workflow vert sur Linux, sans secret ou API Riot ; noms réels des contrôles documentés |
-| 2. Riot uniquement | `feat/riot-only-ingestion` | Aucun appel tiers ; version/langue explicites ; Data Dragon validé par fixtures ; délais et erreurs testés |
-| 3a. Embeddings | `fix/embedding-failures` | Panne visible ; aucun vecteur nul de secours ; dimension vérifiée |
-| 3b. Documents | `feat/versioned-documents` | JSON versionnés, lookups/rapports SQLite, chunks traçables, patch/langue, identités stables, ingestion sans doublons |
+| 2. Riot uniquement | `feat/scout-ingestion` | Réalisé sur le parcours maintenu : quatre catégories statiques, version/langue explicites, délais et retries bornés |
+| 3a. Embeddings | `feat/scout-ingestion` | Réalisé : modèle/révision fixés, vecteurs invalides rejetés, dimension et absence de troncature contrôlées |
+| 3b. Documents | `feat/scout-ingestion` | Réalisé : JSON dédupliqués, passages/rapports SQLite, chunks traçables et identités stables ; suppression des anciens passages après changement de contenu à traiter |
 | 3c. Retrieval | `fix/rag-contracts` | Alias et filtres corrigés ; vide distinct de panne ; roundtrip Qdrant isolé |
 | 4. Baseline | `test/rag-evaluation` | Au moins 20 questions annotées, mesures reproductibles, cas d'abstention et seuils décidés |
 | 5. Coach LLM | `feat/grounded-coach` | Fournisseur injecté, contexte borné, citations, abstention et exercice ; comparaison à la baseline |

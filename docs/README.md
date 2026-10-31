@@ -9,6 +9,7 @@ l'activation de protections sur GitHub.
 | --- | --- | --- |
 | [Audit](audit.md) | Avant de corriger ou planifier | État observé |
 | [Architecture](architecture.md) | Avant de modifier agents ou contrats | Existant et cible |
+| [Ingestion Scout](ingestion.md) | Pour installer, collecter et vérifier l'index | Parcours maintenu |
 | [Sources](data-sources.md) | Avant de collecter ou indexer | Politique et contrats cibles |
 | [Développement](development.md) | Pour préparer l'environnement | Commandes et limites actuelles |
 | [Git/GitHub](git-workflow.md) | Pour toute contribution | Convention et configuration à appliquer |

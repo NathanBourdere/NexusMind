@@ -16,22 +16,22 @@ limiter le prototype puis stabiliser ses contrats par tests avant intégration.
 Une modification documentaire requiert liens et cohérence, sans test artificiel
 du contenu exact des phrases.
 
-## Outillage à mettre en place
+## Outillage disponible
 
-Aucune suite n'est actuellement fournie. Ajouter dans une PR dédiée un groupe
-de développement `pytest`, `pytest-asyncio` et `ruff`, leur configuration dans
-`pyproject.toml` et le lock. Déclarer les marqueurs. Les commandes suivantes sont
-la cible **après** cette mise en place, pas des contrôles déjà disponibles :
+Le package maintenu dispose de Pytest et Ruff dans le groupe `dev`, avec
+configuration et lock. La pipeline est synchrone ; pytest-asyncio n'est donc pas
+nécessaire. Les tests sont dans `tests/`, avec marqueur `integration` pour le
+roundtrip Qdrant en mémoire. Les commandes exécutables sont :
 
 ```powershell
-rtk proxy uv run --frozen pytest -m "not integration and not live and not evaluation"
-rtk proxy uv run --frozen ruff check .
-rtk proxy uv run --frozen ruff format --check .
+rtk proxy uv run --frozen pytest -q
+rtk proxy uv run --frozen ruff check src tests
+rtk proxy uv run --frozen ruff format --check src tests
 rtk proxy uv run --frozen pytest -m integration
-rtk proxy uv run --frozen pytest -m evaluation
 ```
 
-Marquer tous les tests concernés. Documenter les variables et fixtures réellement
+Les suites live et d'évaluation décrites plus bas restent à créer. Marquer leurs
+tests lors de leur introduction. Documenter les variables et fixtures réellement
 nécessaires aux intégrations. Aucun appel live dans le contrôle obligatoire d'une PR.
 
 | Niveau / emplacement cible | Ce qu'il prouve | Ressources |

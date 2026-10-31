@@ -1,40 +1,61 @@
 # NexusMind — Coach League of Legends
 
 Projet personnel de Nathan BOURDERE ANDREOU pour apprendre le RAG,
-l'orchestration multi-agents et le déploiement à travers un coach LoL capable
-d'expliquer la macro et la micro du jeu.
+l'orchestration multi-agents et le déploiement, appliqués à un coach LoL.
 
-## État actuel
+## Parcours disponible
 
-Le dépôt contient un Scout de collecte/indexation, des parsers, des modèles
-Pydantic et un agent de recherche Qdrant. `main.py` illustre une collecte d'Ahri
-puis une recherche. La réponse est aujourd'hui un assemblage textuel ; le Coach
-LLM, le graphe d'orchestration et le déploiement restent à réaliser.
+Le Scout maintenu collecte les données publiques Riot Data Dragon : champions,
+passifs, sorts, objets, runes et sorts d'invocateur. Il archive les réponses JSON,
+produit des passages avec provenance/patch/langue, génère de vrais embeddings
+multilingues et les indexe dans Qdrant. SQLite conserve passages et rapports.
+Le rejeu d'un lot identique évite les doublons ; les échecs sont explicites.
 
-Le premier périmètre visé est un RAG fondé sur les données Riot, avec des
-réponses sourcées et une abstention lorsque le corpus ne suffit pas. Le code
-appelle encore des sources tierces : leur isolation est un chantier identifié.
-Les données Riot seules ne constituent pas un manuel exhaustif de coaching.
+La recherche de contrôle retrouve les passages indexés. Le Coach LLM, Match-v5
+et l'orchestration LangGraph restent à développer. Les données Riot seules ne
+constituent pas un corpus exhaustif de pédagogie macro/micro.
 
 ## Démarrer
 
-Python 3.12, uv et Qdrant sont les bases actuelles. Le projet possède un
-`pyproject.toml` et un `uv.lock`, sans `requirements.txt`.
+Python 3.12 et uv, depuis la racine du dépôt :
 
-Lire le [guide local](docs/development.md) avant de lancer la démo : il indique
-les prérequis manquants et les appels réseau/écritures effectués. L'installation
-et la démo ne sont pas annoncées comme validées en environnement propre.
+```powershell
+rtk proxy uv sync --frozen
+rtk proxy uv run --frozen nexusmind ingest --champion Ahri --kind champion
+rtk proxy uv run --frozen nexusmind status
+```
 
-## Contribuer et apprendre
+Le premier chargement peut télécharger les poids du modèle. Aucune clé Riot,
+aucun abonnement et aucun serveur Qdrant ne sont nécessaires au mode local.
+Sans sélection de champion ou catégorie, `nexusmind ingest` collecte le corpus
+statique complet. Les données sont écrites dans `.runtime/`, ignoré par Git.
 
-- [AGENTS.md](AGENTS.md) : instructions pour les agents et liens vers toutes les règles.
-- [Documentation](docs/README.md) : index complet.
-- [Audit](docs/audit.md) : état vérifié et défauts à corriger.
-- [Architecture](docs/architecture.md) et [sources](docs/data-sources.md) : existant, cible et limites.
-- [Git/GitHub](docs/git-workflow.md) : branches, commits atomiques et PR.
-- [TDD et évaluation](docs/testing.md) : tests hors ligne et mesure du RAG.
-- [Déploiement](docs/deployment.md) et [roadmap](docs/roadmap.md) : progression jusqu'à une release reproductible.
+Pour chercher, utiliser le patch du rapport :
 
-La branche d'intégration `dev` est initialisée depuis l'historique committé de
-`scout`, qui contient celui de `develop`. Les branches historiques sont conservées ;
-les protections GitHub restent à configurer séparément.
+```powershell
+rtk proxy uv run --frozen nexusmind search "Quels sont les sorts de Ahri ?" --patch 16.21.1
+```
+
+Le [guide d'ingestion](docs/ingestion.md) décrit les versions explicites,
+catégories, options de stockage, serveur Qdrant et limites du rejeu.
+
+## Structure
+
+```text
+src/nexusmind/   # domaine, application Scout, infrastructure et CLI maintenus
+tests/          # tests hors ligne et intégration Qdrant isolée
+docs/           # architecture, décisions et procédures
+.github/        # CI, modèles d'issues et de PR
+.runtime/       # archives, SQLite et Qdrant locaux (non versionnés)
+```
+
+Les anciens `agents/`, `core/`, `data/parsers/` et `main.py` sont conservés pour
+migration et n'entrent pas dans le package maintenu. Ne pas utiliser `main.py`
+comme point d'entrée de la nouvelle ingestion.
+
+## Contribuer
+
+- [AGENTS.md](AGENTS.md) et [index documentaire](docs/README.md).
+- [Architecture](docs/architecture.md), [sources](docs/data-sources.md) et [décisions](docs/decisions/README.md).
+- [Développement](docs/development.md), [TDD](docs/testing.md) et [Git/GitHub](docs/git-workflow.md).
+- [Audit historique](docs/audit.md), [roadmap](docs/roadmap.md) et [déploiement](docs/deployment.md).

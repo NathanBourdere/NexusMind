@@ -2,3 +2,16 @@
 __pycache__
 .venv
 .aider*
+.env.*
+!.env.example
+.worktrees/
+.runtime/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+*.log
+qdrant_storage/
+.claude/
+Microsoft/
