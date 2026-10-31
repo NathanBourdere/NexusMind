@@ -78,3 +78,7 @@ hors ligne couvrent normalisation, transport, erreurs de modèle, rejeu et
 roundtrip Qdrant mémoire. Les tests ne valident pas un serveur distant ni la
 qualité pédagogique du futur Coach. Les défauts dans les anciens fichiers
 restent présents ; aucune modification utilisateur locale n'est embarquée.
+
+La [validation datée](validation/scout-2026-10-31.md) consigne le corpus réel
+ingéré (176 ressources, 2 551 passages), le rejeu sans doublons, la recherche de
+contrôle et les résultats des tests/CI, avec leurs limites.

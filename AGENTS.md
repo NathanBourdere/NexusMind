@@ -13,6 +13,7 @@ Scout, RAG et Coach sont des composants du produit.
 - [Sources et qualité des données](docs/data-sources.md) : périmètre Riot, provenance et limites du coaching.
 - [Développement local](docs/development.md) : environnement, commandes et conventions Python.
 - [Ingestion Scout](docs/ingestion.md) : installation, collecte Riot et recherche de contrôle.
+- [Validation Scout](docs/validation/scout-2026-10-31.md) : résultats réels et limites de vérification.
 - [Git et GitHub](docs/git-workflow.md) : branches, commits atomiques, PR et versions.
 - [TDD et évaluation RAG](docs/testing.md) : Red/Green/Refactor et critères de qualité.
 - [Déploiement](docs/deployment.md) : CI/CD cible, secrets, exploitation et rollback.

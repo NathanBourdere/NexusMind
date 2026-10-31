@@ -19,7 +19,7 @@ RAG, son reranking et ses schémas historiques ne sont pas corrigés par le nouv
 | 0. Organiser Git | `chore/git-workflow` | `dev` initialisée depuis `scout` après comparaison avec `develop` ; finaliser les cibles de PR et protections après disponibilité des contrôles |
 | 1a. Installation | `feat/scout-ingestion` | Réalisée pour le package maintenu : installation Python 3.12 propre, dépendances et lock ; modules en snake_case |
 | 1b. Socle TDD | `feat/scout-ingestion` | Réalisé : Pytest, Ruff, doubles injectés, tests de panne et roundtrip Qdrant mémoire |
-| 1c. CI | `feat/scout-ingestion` | Workflow `CI` / job `python-checks` ajouté : tests, lint, build et CLI sur Linux ; succès à vérifier sur la PR |
+| 1c. CI | `feat/scout-ingestion` | Workflow `CI` / job `python-checks` : premier passage Linux réussi ; chaque nouveau commit doit repasser les contrôles |
 | 2. Riot uniquement | `feat/scout-ingestion` | Réalisé sur le parcours maintenu : quatre catégories statiques, version/langue explicites, délais et retries bornés |
 | 3a. Embeddings | `feat/scout-ingestion` | Réalisé : modèle/révision fixés, vecteurs invalides rejetés, dimension et absence de troncature contrôlées |
 | 3b. Documents | `feat/scout-ingestion` | Réalisé : JSON dédupliqués, passages/rapports SQLite, chunks traçables et identités stables ; suppression des anciens passages après changement de contenu à traiter |
