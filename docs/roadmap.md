@@ -12,7 +12,7 @@ cumuler toutes les inconnues dans une seule PR.
 | 1c. CI | `chore/offline-ci` | Workflow vert sur Linux, sans secret ou API Riot ; noms réels des contrôles documentés |
 | 2. Riot uniquement | `feat/riot-only-ingestion` | Aucun appel tiers ; version/langue explicites ; Data Dragon validé par fixtures ; délais et erreurs testés |
 | 3a. Embeddings | `fix/embedding-failures` | Panne visible ; aucun vecteur nul de secours ; dimension vérifiée |
-| 3b. Documents | `feat/versioned-documents` | Chunks traçables, patch/langue, identités stables, ingestion sans doublons |
+| 3b. Documents | `feat/versioned-documents` | JSON versionnés, lookups/rapports SQLite, chunks traçables, patch/langue, identités stables, ingestion sans doublons |
 | 3c. Retrieval | `fix/rag-contracts` | Alias et filtres corrigés ; vide distinct de panne ; roundtrip Qdrant isolé |
 | 4. Baseline | `test/rag-evaluation` | Au moins 20 questions annotées, mesures reproductibles, cas d'abstention et seuils décidés |
 | 5. Coach LLM | `feat/grounded-coach` | Fournisseur injecté, contexte borné, citations, abstention et exercice ; comparaison à la baseline |
@@ -24,6 +24,11 @@ cumuler toutes les inconnues dans une seule PR.
 Le live et les sources tierces ne conditionnent pas le MVP. Réexaminer une source
 supplémentaire uniquement pour une lacune mesurée et un accès durable autorisé,
 avec nouvel ADR.
+
+L'[ADR-0002](decisions/0002-rag-orchestration.md) précise l'orchestration validée :
+Scout et Retriever déterministes, Coach LLM, puis Analyste et vérificateur.
+Le planificateur de progression vient après l'analyse de partie ; les spécialistes
+patch et macro/micro restent optionnels selon les résultats de l'évaluation.
 
 Une tâche est terminée quand le comportement est démontré, les contrôles adaptés
 passent, la documentation correspond au code et les limites restent explicites.

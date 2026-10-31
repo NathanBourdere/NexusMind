@@ -17,7 +17,8 @@ Scout, RAG et Coach sont des composants du produit.
 - [Déploiement](docs/deployment.md) : CI/CD cible, secrets, exploitation et rollback.
 - [Feuille de route](docs/roadmap.md) : ordre des chantiers et critères d'acceptation.
 - [Décisions d'architecture](docs/decisions/README.md) et
-  [ADR-0001](docs/decisions/0001-riot-first.md) : décisions structurantes.
+  [ADR-0001](docs/decisions/0001-riot-first.md) et
+  [ADR-0002](docs/decisions/0002-rag-orchestration.md) : décisions structurantes.
 - [Modèle de PR](.github/pull_request_template.md),
   [demande de fonctionnalité](.github/ISSUE_TEMPLATE/feature.md) et
   [signalement de bug](.github/ISSUE_TEMPLATE/bug.md) : supports de contribution.
