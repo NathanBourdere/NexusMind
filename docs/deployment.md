@@ -2,17 +2,25 @@
 
 ## Statut
 
-Aucun workflow GitHub Actions, Dockerfile, Compose ou déploiement opérationnel
-n'a été observé dans les fichiers suivis. Cette page définit la cible ; elle ne
-crée aucune infrastructure. Le premier livrable reste une exécution locale reproductible.
+Le workflow [CI](../.github/workflows/ci.yml) existe désormais pour le package
+maintenu. Aucun Dockerfile, Compose ou déploiement de service n'est fourni.
+Les sections de livraison ci-dessous restent la cible ; la CI ne déploie rien.
 
-## CI après les fondations de test
+## CI du package maintenu
 
-Sur les PR ciblant `dev`/`main` et leurs pushes : checkout, Python 3.12, version
-uv fixée, `uv sync --frozen` avec groupe de développement, lint/format et tests
-unitaires hors ligne. Exécuter sous Linux pour la casse des imports. Ajouter
-une intégration Qdrant avec version d'image fixée et stockage éphémère lorsque
-ses tests existent.
+Job réel : `python-checks`, workflow `CI`, sur les PR vers `dev`/`main` et les
+pushes de ces branches. Il installe Python 3.12 avec uv 0.12.18, synchronise le
+lock, contrôle Ruff, exécute les tests hors ligne, construit le package et vérifie
+la CLI. PyTorch utilise l'index CPU sur Linux ; aucun téléchargement de modèle
+ni appel Riot n'est nécessaire aux tests. Qdrant y fonctionne en mémoire.
+Configurer `python-checks` comme contrôle requis seulement après sa première
+exécution réussie ; la création du workflow ne modifie pas les rulesets GitHub.
+
+## Évolutions de CI
+
+Ajouter une intégration Qdrant serveur avec version d'image fixée et stockage
+éphémère lorsque ses tests existent. Les contrôles mémoire actuels ne prouvent
+pas la compatibilité opérationnelle d'un serveur distant.
 
 Permissions du workflow limitées à la lecture pour les contrôles. Éviter le code
 de PR non fiable avec secrets, notamment via `pull_request_target`. Aucun secret

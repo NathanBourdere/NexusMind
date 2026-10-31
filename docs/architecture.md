@@ -1,5 +1,26 @@
 # Architecture et responsabilités
 
+## Organisation maintenue depuis le chantier Scout
+
+```text
+src/nexusmind/
+  domain/              # Document, normalisation et validation des vecteurs
+  application/         # ScoutAgent et contrats des adaptateurs
+  infrastructure/      # Riot, embeddings, SQLite et Qdrant
+  cli.py               # assemblage des dépendances et commandes
+tests/                 # tests unitaires et intégration isolée
+docs/                  # règles, décisions et procédures
+.runtime/              # données locales ignorées, créé à l'exécution
+```
+
+Le parcours fonctionnel est `nexusmind ingest` → Riot → documents → embeddings
+→ Qdrant puis catalogue SQLite, avec archives brutes et journal persistant.
+`nexusmind search` vérifie l'index sans générer de coaching. Voir le
+[guide d'ingestion](ingestion.md) et l'[ADR-0003](decisions/0003-python-package-layout.md).
+Les flux « actuels » ci-dessous décrivent l'historique audité avant ce chantier.
+Les dossiers racine historiques restent conservés pour préserver le travail
+utilisateur ; aucun import du package maintenu ne dépend d'eux.
+
 ## Flux actuel
 
 ```mermaid

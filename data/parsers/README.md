@@ -1,5 +1,11 @@
 # Parsers NexusMind
 
+Ce dossier est désormais historique. Le parcours maintenu est dans
+`src/nexusmind/` : voir le [guide d'ingestion](../../docs/ingestion.md) et
+l'[ADR-0003](../../docs/decisions/0003-python-package-layout.md). Il n'importe pas
+ces parsers ni les sources tierces. Les descriptions ci-dessous concernent
+l'ancienne implémentation, conservée pour migration.
+
 Les parsers transforment des réponses externes en objets métier Pydantic.
 Ils ne doivent pas décider du conseil pédagogique ni écrire directement dans
 Qdrant : ces rôles appartiennent à Scout et au futur Coach.

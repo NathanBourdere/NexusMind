@@ -12,13 +12,16 @@ Scout, RAG et Coach sont des composants du produit.
 - [Architecture](docs/architecture.md) : responsabilités, contrats et architecture cible.
 - [Sources et qualité des données](docs/data-sources.md) : périmètre Riot, provenance et limites du coaching.
 - [Développement local](docs/development.md) : environnement, commandes et conventions Python.
+- [Ingestion Scout](docs/ingestion.md) : installation, collecte Riot et recherche de contrôle.
+- [Validation Scout](docs/validation/scout-2026-10-31.md) : résultats réels et limites de vérification.
 - [Git et GitHub](docs/git-workflow.md) : branches, commits atomiques, PR et versions.
 - [TDD et évaluation RAG](docs/testing.md) : Red/Green/Refactor et critères de qualité.
 - [Déploiement](docs/deployment.md) : CI/CD cible, secrets, exploitation et rollback.
 - [Feuille de route](docs/roadmap.md) : ordre des chantiers et critères d'acceptation.
 - [Décisions d'architecture](docs/decisions/README.md) et
   [ADR-0001](docs/decisions/0001-riot-first.md) et
-  [ADR-0002](docs/decisions/0002-rag-orchestration.md) : décisions structurantes.
+  [ADR-0002](docs/decisions/0002-rag-orchestration.md) et
+  [ADR-0003](docs/decisions/0003-python-package-layout.md) : décisions structurantes.
 - [Modèle de PR](.github/pull_request_template.md),
   [demande de fonctionnalité](.github/ISSUE_TEMPLATE/feature.md) et
   [signalement de bug](.github/ISSUE_TEMPLATE/bug.md) : supports de contribution.
@@ -74,3 +77,14 @@ et des chemins explicites si le lanceur ignore le répertoire demandé.
 
 La documentation est en français, les identifiants Python et les sujets de
 commits en anglais. Respecter la casse exacte des modules, notamment pour Linux.
+
+## Code maintenu
+
+Ajouter le code dans `src/nexusmind/` et les tests dans `tests/`. Garder le domaine
+indépendant des adaptateurs et injecter leurs ports dans l'application. La CLI
+supportée est `uv run nexusmind`, pas le `main.py` historique. Les anciens dossiers
+racine sont conservés pour migration, sans ajout de nouveaux comportements.
+Exécuter `uv run pytest -q`, `uv run ruff check src tests` et
+`uv run ruff format --check src tests` (avec le préfixe RTK local). La suite est
+hors ligne et utilise Qdrant en mémoire ; ne pas la confondre avec une validation
+sur serveur distant ou une évaluation pédagogique du RAG.

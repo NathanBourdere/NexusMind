@@ -3,7 +3,8 @@
 ## Périmètre initial
 
 Le premier corpus doit pouvoir fonctionner avec les sources officielles Riot.
-Les intégrations tierces existantes restent du code historique à isoler ; aucune
+Le package `src/nexusmind/` implémente ce parcours sans importer les intégrations
+tierces. Celles-ci restent dans les dossiers historiques, hors package ; aucune
 disponibilité de scraping n'est présumée. CommunityDragon est communautaire et
 ne fait pas partie du périmètre Riot uniquement.
 
@@ -36,7 +37,11 @@ Chaque document et ses chunks conservent :
 | `embedding_model`, `embedding_revision` | Compatibilité du vecteur avec la requête |
 | `schema_version` | Version du format d'indexation |
 
-Ce tableau définit la cible, pas le payload déjà implémenté. Distinguer document
+Le payload courant contient `id`, `entity_type`, `entity_id`, `section`, `text`,
+`patch`, `locale`, `source_name`, `source_url`, `retrieved_at`, `content_hash`,
+`schema_version`, `embedding_model` et `embedding_revision`. L'identifiant `id`
+est celui du passage. Les noms plus détaillés du tableau restent la cible à
+adapter avec migration si nécessaire. Distinguer document
 brut, objet métier et passage indexable. Nettoyer le HTML et les placeholders
 sans interpréter une formule non résolue comme une valeur réelle. Découper par
 champion, sort ou section avant d'ajuster les tailles par mesure.
