@@ -1,59 +1,40 @@
-# NexusMind - Coach Multi-Agents pour LoL
+# NexusMind — Coach League of Legends
 
-NexusMind est un projet visant à développer un assistant multi-agents pour le jeu League of Legends (LoL). L'objectif est de créer une intelligence artificielle capable d'aider les joueurs dans divers aspects du jeu, en utilisant des techniques d'apprentissage automatique et de traitement du langage naturel.
+Projet personnel de Nathan BOURDERE ANDREOU pour apprendre le RAG,
+l'orchestration multi-agents et le déploiement à travers un coach LoL capable
+d'expliquer la macro et la micro du jeu.
 
-## Architecture du Projet
+## État actuel
 
-Le projet est divisé en plusieurs phases pour permettre un développement progressif et structuré :
+Le dépôt contient un Scout de collecte/indexation, des parsers, des modèles
+Pydantic et un agent de recherche Qdrant. `main.py` illustre une collecte d'Ahri
+puis une recherche. La réponse est aujourd'hui un assemblage textuel ; le Coach
+LLM, le graphe d'orchestration et le déploiement restent à réaliser.
 
-### Phase 1 : Fondations & Data (L'Agent "Scout")
+Le premier périmètre visé est un RAG fondé sur les données Riot, avec des
+réponses sourcées et une abstention lorsque le corpus ne suffit pas. Le code
+appelle encore des sources tierces : leur isolation est un chantier identifié.
+Les données Riot seules ne constituent pas un manuel exhaustif de coaching.
 
-- **Setup API Riot** : Créer un compte sur le Riot Developer Portal et récupérer une clé API temporaire.
-- **Script d'extraction** : Utiliser `requests` ou `RiotWatcher` pour récupérer le match_id de la dernière partie du joueur.
-- **Parsing JSON** : Extraire les stats clés (KDA, CS, Gold, Items, Vision Score) du fichier de match.
-- **Anonymisation** : Créer une fonction pour nettoyer ces données et les rendre lisibles par un LLM (transformer les IDs en noms de champions/items).
+## Démarrer
 
-### Phase 2 : Connaissance Métier (Le Rerieval Augmented Generation - RAG)
+Python 3.12, uv et Qdrant sont les bases actuelles. Le projet possède un
+`pyproject.toml` et un `uv.lock`, sans `requirements.txt`.
 
-- **Data Scraping** : Récupérer le texte du dernier "Patch Note" sur le site officiel de LoL.
-- **Vecteur Database** : Installer `chromadb` ou `faiss`.
-- **Chunking & Embedding** : Découper le patch note en petits morceaux et les transformer en vecteurs (via `sentence-transformers` ou l'API d'OpenAI).
-- **Test de recherche** : Faire une requête manuelle sur la base pour vérifier qu'elle renvoie bien les bons changements d'items quand on pose une question.
+Lire le [guide local](docs/development.md) avant de lancer la démo : il indique
+les prérequis manquants et les appels réseau/écritures effectués. L'installation
+et la démo ne sont pas annoncées comme validées en environnement propre.
 
-### Phase 3 : Intelligence & SMA (Orchestration CrewAI)
+## Contribuer et apprendre
 
-- **Configuration du LLM** : Installer `ollama` (pour un modèle local gratuit comme Llama 3) ou configurer une clé API Groq/OpenAI.
-- **Définition de l'Agent Analyste** : Lui donner le rôle d'expert stats et l'accès aux données de la Phase 1.
-- **Définition de l'Agent Meta** : Lui donner le rôle d'expert patch et l'accès à la Phase 2 (RAG).
-- **Définition de l'Agent Coach** : Lui donner le rôle de synthétiseur pédagogique.
-- **Protocole de communication** : Définir l'ordre des tâches (Séquentiel : Scout -> Meta -> Coach).
+- [AGENTS.md](AGENTS.md) : instructions pour les agents et liens vers toutes les règles.
+- [Documentation](docs/README.md) : index complet.
+- [Audit](docs/audit.md) : état vérifié et défauts à corriger.
+- [Architecture](docs/architecture.md) et [sources](docs/data-sources.md) : existant, cible et limites.
+- [Git/GitHub](docs/git-workflow.md) : branches, commits atomiques et PR.
+- [TDD et évaluation](docs/testing.md) : tests hors ligne et mesure du RAG.
+- [Déploiement](docs/deployment.md) et [roadmap](docs/roadmap.md) : progression jusqu'à une release reproductible.
 
-### Phase 4 : Interface & Démo
-
-- **Streamlit App** : Créer une page simple avec un champ pour entrer le pseudo (Summoner Name).
-- **Affichage des résultats** : Afficher les stats brutes d'un côté et le rapport final du SMA de l'autre.
-- **Sidebar** : Ajouter des options pour choisir le patch ou le type de conseil (aggressif, safe, macro).
-
-### Phase 5 : "Pro" & Déploiement
-
-- **GitHub Clean-up** : Créer un README.md avec un schéma d'architecture.
-- **Requirements** : Générer le fichier `requirements.txt`.
-- **Refactoring** : Vérifier que les clés API ne sont pas en clair dans le code (utiliser un `.env`).
-
-## Installation et Exécution
-
-Pour exécuter ce projet, suivez ces étapes :
-
-1. Clonez le dépôt sur votre machine.
-2. Installez les dépendances en exécutant `pip install -r requirements.txt`.
-3. Configurez les clés API nécessaires dans un fichier `.env` (voir la section "Phase 5").
-4. Exécutez le script principal avec `python main.py`.
-
-## Contribution
-
-N'hésitez pas à contribuer au projet en soumettant des pull requests ou en créant des issues sur le dépôt GitHub.
-
-## Auteur
-
-Ce projet a été développé par Nathan BOURDERE ANDREOU.
-
+La branche d'intégration `dev` est initialisée depuis l'historique committé de
+`scout`, qui contient celui de `develop`. Les branches historiques sont conservées ;
+les protections GitHub restent à configurer séparément.
