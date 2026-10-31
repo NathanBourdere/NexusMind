@@ -6,7 +6,7 @@ cumuler toutes les inconnues dans une seule PR.
 
 | Étape | Branche indicative | Résultat vérifiable |
 | --- | --- | --- |
-| 0. Organiser Git | `chore/git-workflow` | Inventaire des changements et branches ; migration `develop` vers `dev` revue ; protections après disponibilité des contrôles |
+| 0. Organiser Git | `chore/git-workflow` | `dev` initialisée depuis `scout` après comparaison avec `develop` ; finaliser les cibles de PR et protections après disponibilité des contrôles |
 | 1a. Installation | `fix/runtime-dependencies` | Dépendances directes et lock cohérents ; installation Python 3.12 propre ; casse des imports vérifiée sous Linux |
 | 1b. Socle TDD | `test/offline-foundation` | Pytest/asyncio, Ruff et fixtures ; premier test utile hors ligne et commandes documentées |
 | 1c. CI | `chore/offline-ci` | Workflow vert sur Linux, sans secret ou API Riot ; noms réels des contrôles documentés |

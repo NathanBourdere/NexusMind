@@ -21,10 +21,15 @@ Une branche correspond à une intention de PR. Aucun développement direct sur
 ## Migration des branches historiques
 
 L'audit a trouvé `develop`, pas `dev`, ainsi que `scout`, `parser` et `schema`.
-Ce document définit une cible, pas une migration exécutée. Cette contribution
-documentaire reste sur la branche courante qui contient du travail préexistant.
+Lors de la publication documentaire autorisée par le propriétaire, les références
+distantes ont été synchronisées : aucune `dev` distante n'existait. La comparaison
+`develop...scout` donnait 0 commit exclusif à `develop` et 17 à `scout`. `dev` a
+donc été initialisée sur `scout` (`f3ee372`), sans inclure le travail non committé.
+La contribution documentaire passe par `docs/project-foundations`, puis PR vers
+`dev`. Les branches historiques sont conservées ; aucune protection distante
+n'est créée implicitement par cette opération.
 
-Faire une opération dédiée :
+Pour poursuivre la migration des branches historiques, faire une opération dédiée :
 
 1. Inventorier branches locales/distantes, PR ouvertes et commits non intégrés.
 2. Depuis un arbre propre ou un worktree isolé, comparer `main`, `develop` et

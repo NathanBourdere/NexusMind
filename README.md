@@ -35,5 +35,6 @@ et la démo ne sont pas annoncées comme validées en environnement propre.
 - [TDD et évaluation](docs/testing.md) : tests hors ligne et mesure du RAG.
 - [Déploiement](docs/deployment.md) et [roadmap](docs/roadmap.md) : progression jusqu'à une release reproductible.
 
-La branche historique `develop` doit être migrée avec précaution ; la création
-de cette documentation ne renomme aucune branche et ne configure pas GitHub.
+La branche d'intégration `dev` est initialisée depuis l'historique committé de
+`scout`, qui contient celui de `develop`. Les branches historiques sont conservées ;
+les protections GitHub restent à configurer séparément.

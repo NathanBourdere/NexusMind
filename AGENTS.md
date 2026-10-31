@@ -36,8 +36,9 @@ ne jamais annoncer comme opérationnel un composant seulement documenté.
    le minimum puis refactorer. Pour la documentation seule, vérifier liens,
    commandes et cohérence ; pas de tests applicatifs artificiels.
 3. Suivre `main` / `dev` / `feat/*` / `fix/*` et les exceptions décrites dans le
-   workflow. La branche historique `develop` n'est pas encore migrée. Ne pas
-   renommer ou fusionner les branches existantes à l'occasion d'une autre tâche.
+   workflow. `dev` est initialisée depuis l'historique committé de `scout`, qui
+   contient celui de `develop`. Ne pas renommer ou supprimer les branches historiques
+   à l'occasion d'une autre tâche.
 4. Produire des commits Conventional Commits, chacun cohérent, vérifiable et
    réversible. Inclure ensemble le test et son implémentation. Avant un commit,
    sélectionner les chemins ou hunks, puis lire le diff indexé. Aucun `git add .`
