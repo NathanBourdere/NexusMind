@@ -1,53 +1,37 @@
-# NexusMind : Parsers Engine
+# Parsers NexusMind
 
-Ce module constitue le moteur **ETL (Extract, Transform, Load)** de l'écosystème NexusMind. Son rôle est de transformer des flux de données hétérogènes (API Riot, Scraping Wiki, Analytics) en objets Python typés via **Pydantic**, tout en garantissant la traçabilité des sources pour l'Agent LLM.
+Les parsers transforment des réponses externes en objets métier Pydantic.
+Ils ne doivent pas décider du conseil pédagogique ni écrire directement dans
+Qdrant : ces rôles appartiennent à Scout et au futur Coach.
 
----
-
-## Architecture du Dossier `parsers/`
-
-Le dossier est structuré par domaine de provenance pour faciliter la maintenance et le sourcing des données.
+## Arborescence actuelle
 
 ```text
-parsers/
-├── main_parser.py           # Chef d'orchestre : fusionne et source les données
-├── riot/
-│   ├── static_parser.py     # Data Dragon : Stats de base, Items, Runes
-│   └── live_parser.py       # Spectator v5 & Live Client : État de la game en temps réel
-├── community/
-│   ├── wiki_parser.py       # Fandom Wiki : Timers de jungle, interactions cachées
-│   └── cdragon_parser.py    # CommunityDragon : Données bas-niveau (binaires) et assets
-└── analytics/
-    ├── lolalytics_parser.py # Meta data : Winrates, Power spikes, Tier lists
-    └── opgg_parser.py       # Profiling : Historique et psychologie du joueur
+data/parsers/
+  main_parser.py
+  official/
+    riot_static_parser.py
+    riot_live_parser.py
+  community/
+    wiki_parser.py
+    cdragon_parser.py
+  analytics/
+    lolalytics_parser.py
+    leaguepedia_parser.py
 ```
 
-## 🛰️ Sources de Données & Traçabilité
+`MainParser` instancie et utilise Data Dragon, Riot live, Wiki, LoLalytics et
+Leaguepedia. La présence de `cdragon_parser.py` ne prouve pas son intégration
+dans ce parcours. Les requêtes HTTP actuelles sont synchrones, même lorsqu'elles
+sont appelées depuis une méthode `async`.
 
-Chaque donnée extraite est accompagnée d'un tag de provenance. Cela permet à l'Agent LLM de citer ses sources dans ses conseils (ex: *"D'après LoLalytics, ce build a un winrate de..."*).
+Le périmètre cible est Riot uniquement. Ce mode n'est pas encore implémenté.
+Spectator ne fournit pas à lui seul un état complet avec toutes les positions,
+PV et inventaires ; ne pas présenter les valeurs par défaut du modèle comme
+de la télémétrie observée.
 
-| Source | Type de Données | Utilisation |
-| :--- | :--- | :--- |
-| **Riot Data Dragon** | Statique | Base de référence pour les champions, sorts et items. |
-| **Riot Live API** | Dynamique | Positions (X,Y), PV, Golds, Inventaires et Événements de jeu. |
-| **WikiLoL (Fandom)** | Expertise | Frame data, priorités d'animations et mécaniques de niche. |
-| **CommunityDragon** | Raw Data | Tooltips complexes et données non-documentées par Riot. |
-| **LoLalytics** | Analytique | Probabilités de victoire par matchup et efficacité des builds. |
-| **Leaguepedia** | Pro-Meta | Tendances de la scène compétitive (LCK, LEC, LPL). |
-
-## 🚀 Flux de Travail (Pipeline)
-
-Le `main_parser` orchestre la récupération des données via un pipeline asynchrone :
-
-1.  **Extraction** : Le `main_parser` appelle les différents sous-parsers (Riot, Wiki, Analytics) de manière asynchrone pour minimiser la latence.
-2.  **Transformation** : Les données brutes sont nettoyées et mappées vers nos classes définies dans `core/schema/`.
-3.  **Enrichissement** : Les métadonnées analytiques et les mécaniques de niche sont injectées dans le champ `metadata` des objets (ex: `Champion.metadata`).
-4.  **Sourcing** : Un dictionnaire d'attribution est généré pour chaque `GameStateSnapshot`, liant chaque information à sa source d'origine.
-5.  **Chargement** : Les objets finaux enrichis sont envoyés à la base vectorielle (RAG/Qdrant) ou directement à l'Agent LLM pour analyse.
-
-## 🛠️ Installation & Usage
-
-### Pré-requis
-
-* **Python 3.12**
-* **Clé API Riot Games** (RGAPI) valide.
+Lire les [instructions du dépôt](../../AGENTS.md),
+l'[audit](../../docs/audit.md), les [sources et contrats](../../docs/data-sources.md)
+et les [tests](../../docs/testing.md) avant toute évolution de parser.
+Préserver la provenance réelle, le patch et la langue ; représenter les champs
+non disponibles explicitement et tester avec des fixtures sans réseau.
