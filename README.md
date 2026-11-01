@@ -3,6 +3,11 @@
 Projet personnel de Nathan BOURDERE ANDREOU pour apprendre le RAG,
 l'orchestration multi-agents et le déploiement, appliqués à un coach LoL.
 
+Le [tag `POC`](https://github.com/NathanBourdere/NexusMind/tree/POC) fige le premier
+parcours utilisable sur `dev`. L'[enrichissement du corpus](docs/knowledge-sources.md)
+ajoute ensuite CommunityDragon, le guide officiel Riot et un import attribué de
+documents locaux ; le Wiki et les sites statistiques restent hors collecte.
+
 ## Parcours disponible
 
 Le Scout maintenu collecte les données publiques Riot Data Dragon : champions,

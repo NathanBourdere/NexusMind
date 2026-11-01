@@ -11,6 +11,10 @@ Scout, RAG et Coach sont des composants du produit.
 - [Audit de l'existant](docs/audit.md) : faits observés, défauts et limites de vérification.
 - [Architecture](docs/architecture.md) : responsabilités, contrats et architecture cible.
 - [Sources et qualité des données](docs/data-sources.md) : périmètre Riot, provenance et limites du coaching.
+- [Enrichissement après le POC](docs/knowledge-sources.md) : connecteurs approuvés,
+  import attribué, révisions, routage et sources désactivées.
+- [Contrats des connecteurs](docs/source-connectors.md) et
+  [validation des sources](docs/validation/knowledge-2026-11-01.md) : API et preuves.
 - [Développement local](docs/development.md) : environnement, commandes et conventions Python.
 - [Ingestion Scout](docs/ingestion.md) : installation, collecte Riot et recherche de contrôle.
 - [Validation Scout](docs/validation/scout-2026-10-31.md) : résultats réels et limites de vérification.
@@ -33,7 +37,8 @@ Scout, RAG et Coach sont des composants du produit.
   [ADR-0005](docs/decisions/0005-free-tier-coach.md) et
   [ADR-0006](docs/decisions/0006-low-latency-coach.md) et
   [ADR-0007](docs/decisions/0007-local-coach-interface.md) et
-  [ADR-0008](docs/decisions/0008-postgame-analysis.md) : décisions structurantes.
+  [ADR-0008](docs/decisions/0008-postgame-analysis.md) et
+  [ADR-0009](docs/decisions/0009-knowledge-sources.md) : décisions structurantes.
 - [Modèle de PR](.github/pull_request_template.md),
   [demande de fonctionnalité](.github/ISSUE_TEMPLATE/feature.md) et
   [signalement de bug](.github/ISSUE_TEMPLATE/bug.md) : supports de contribution.
@@ -58,9 +63,11 @@ ne jamais annoncer comme opérationnel un composant seulement documenté.
    réversible. Inclure ensemble le test et son implémentation. Avant un commit,
    sélectionner les chemins ou hunks, puis lire le diff indexé. Aucun `git add .`
    aveugle. Ne pas créer de commit ou pousser pour une simple demande d'édition.
-5. Le premier périmètre est Riot uniquement. Ne pas ajouter de scraper tiers,
-   contourner un blocage ou acheter un abonnement. Le retrait des appels tiers
-   existants est un chantier explicite, pas un comportement déjà disponible.
+5. Le POC reste Riot uniquement. L'extension demandée après ce jalon autorise les
+   connecteurs décrits dans `docs/knowledge-sources.md` et l'ADR-0009, sans réactiver
+   les anciens parsers. Ne pas contourner un blocage, changer d'identité après un
+   refus ou acheter un abonnement. Vérifier l'accès et la provenance avant toute
+   source supplémentaire ; le Wiki et les sites statistiques restent désactivés.
 6. Une donnée absente reste absente : ne pas fabriquer un winrate, une position,
    un rayon de vision ou un vecteur de remplacement. Une panne de retrieval
    doit être distinguée d'une absence de résultats.

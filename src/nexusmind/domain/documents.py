@@ -26,6 +26,15 @@ class Document(BaseModel):
     content_hash: str
     source_name: str = "Riot Data Dragon"
     schema_version: int = 1
+    source_id: str | None = None
+    source_revision: str | None = None
+    source_key: str | None = None
+    title: str | None = None
+    content_kind: str = "static_fact"
+    license_name: str | None = None
+    license_url: str | None = None
+    attribution: str | None = None
+    topics: list[str] = Field(default_factory=list)
 
 
 def clean(value: str) -> str:

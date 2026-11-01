@@ -1,5 +1,9 @@
 # Développement local
 
+Pour collecter et indexer les sources supplémentaires après le POC, utiliser
+`nexusmind collect-knowledge` puis `nexusmind ingest-knowledge` ; les commandes,
+contrats et limites sont dans le [guide d'enrichissement](knowledge-sources.md).
+
 Python 3.12, uv et le lock du dépôt sont la référence. Le code maintenu est le
 package installé `src/nexusmind/` ; la séparation des couches est définie dans
 l'[architecture](architecture.md) et l'[ADR-0003](decisions/0003-python-package-layout.md).

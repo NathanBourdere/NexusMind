@@ -1,5 +1,12 @@
 # Coach sourcé avec un budget nul
 
+Après le jalon `POC`, le Coach accepte aussi les [références supplémentaires](knowledge-sources.md).
+`--corpus auto|static|reference` choisit le parcours de recherche. La version et
+l'attribution réelles traversent le contexte LLM et les citations, sans transformer
+un guide non versionné en preuve du patch courant. Le modèle et le budget restent
+inchangés. Les évaluations du POC ci-dessous ne constituent pas une évaluation
+pédagogique de ces nouvelles sources.
+
 ## État au 1er novembre 2026
 
 Le package maintenu expose `nexusmind coach` : recherche existante → génération

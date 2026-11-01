@@ -1,5 +1,12 @@
 # Architecture et responsabilités
 
+Après le jalon `POC`, les [références supplémentaires](knowledge-sources.md)
+étendent le pipeline : connecteurs ciblés → `SourceArticle` → archive → passages
+avec révision/attribution → embeddings/Qdrant et catalogue → retrieval → Coach.
+Le parcours Data Dragon reste disponible et prioritaire pour les faits déjà
+couverts. Les anciens parsers ne sont pas importés. Le choix et la compatibilité
+du corpus sont décrits dans l'[ADR-0009](decisions/0009-knowledge-sources.md).
+
 ## Organisation maintenue depuis le chantier Scout
 
 ```text

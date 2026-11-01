@@ -82,3 +82,15 @@ restent présents ; aucune modification utilisateur locale n'est embarquée.
 La [validation datée](validation/scout-2026-10-31.md) consigne le corpus réel
 ingéré (176 ressources, 2 551 passages), le rejeu sans doublons, la recherche de
 contrôle et les résultats des tests/CI, avec leurs limites.
+
+## Extension des sources après le POC — 1er novembre 2026
+
+Le tag `POC` pointe sur le commit `625b4fb` de `dev`. L'examen des anciens
+parsers confirme un CommunityDragon réduit à un commentaire, des URL Wiki
+Fandom historiques, des valeurs de camps écrites en dur et des statistiques
+Leaguepedia calculées sur des noms d'équipes. Ces fichiers ne sont pas réactivés.
+
+Le package maintenu reçoit des connecteurs ciblés CommunityDragon et guide Riot,
+un import attribué et un retrieval des références versionnées. Les accès refusés
+restent désactivés. Voir le [guide d'enrichissement](knowledge-sources.md) pour
+le périmètre effectif, les limites pédagogiques et les commandes.

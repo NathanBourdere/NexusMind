@@ -3,10 +3,12 @@
 import re
 import unicodedata
 from collections.abc import Iterable
+from datetime import datetime
 from time import perf_counter
 
 from nexusmind.application.ports import SearchIndex
 from nexusmind.domain.documents import Document
+from nexusmind.domain.knowledge import compatible_patch
 from nexusmind.domain.retrieval import Passage, RetrievalFilters, RetrievalRequest, RetrievalResult
 
 # This finite scope gate is intentionally visible and testable, not a semantic oracle.
@@ -91,6 +93,153 @@ class Retriever:
         self.documents = tuple(documents)
 
     def retrieve(self, request: RetrievalRequest) -> RetrievalResult:
+        if request.corpus == "static":
+            return self._static(request)
+        if request.corpus == "reference" or request.entity_type == "concept":
+            return self._reference(request)
+        static = self._static(request)
+        if (
+            request.corpus == "static"
+            or request.entity_type is not None
+            or request.entity_ids
+            or static.status in {"ok", "unavailable"}
+        ):
+            return static
+        # These data products are not supplied by descriptions or general guides.
+        if re.search(
+            r"\b(winrate|taux de victoire|build|combo optimal|meilleur|meilleure|"
+            r"matchup|derniere partie|mes parties|ma partie|mon match|replay|"
+            r"analyse|classement|patch notes|notes? de patch)\b",
+            folded(request.query),
+        ):
+            return static
+        reference = self._reference(request)
+        return reference if reference.status != "no_results" else static
+
+    def _reference(self, request: RetrievalRequest) -> RetrievalResult:
+        start = perf_counter()
+        filters = RetrievalFilters(entity_type="concept")
+        limits = [
+            "Références documentaires : leur pertinence pour la situation reste à vérifier.",
+            "Le score mesure la similarité, pas la probabilité de vérité.",
+        ]
+
+        def result(status, passages=None, error_type=None):
+            return RetrievalResult(
+                query=request.query,
+                patch=request.patch,
+                locale=request.locale,
+                status=status,
+                filters=filters,
+                passages=passages or [],
+                limitations=limits,
+                collection=self.store.collection,
+                elapsed_ms=round((perf_counter() - start) * 1000, 3),
+                error_type=error_type,
+            )
+
+        if request.entity_type not in {None, "concept"}:
+            return result("no_results")
+
+        docs = [
+            doc
+            for doc in self.documents
+            if doc.content_kind == "reference"
+            and doc.entity_type == "concept"
+            and doc.locale == request.locale
+            and compatible_patch(doc.patch, request.patch)
+        ]
+        # Retain old vectors for rollback, but only search the last completely indexed edition.
+        active = {}
+        for doc in docs:
+            key = (doc.source_id, doc.source_key, doc.patch, doc.locale)
+            stamp = (datetime.fromisoformat(doc.retrieved_at), doc.source_revision or "")
+            active[key] = max(active.get(key, stamp), stamp)
+        docs = [
+            doc
+            for doc in docs
+            if (datetime.fromisoformat(doc.retrieved_at), doc.source_revision or "")
+            == active[(doc.source_id, doc.source_key, doc.patch, doc.locale)]
+        ]
+        query = folded(request.query)
+        # A champion name alone must not reopen unsupported advanced mechanics.
+        advanced = re.findall(
+            r"\b(freeze|geler|wave|vagues?|rotation|gank|frames?|"
+            r"annuler une animation)\b",
+            query,
+        )
+        if request.entity_ids:
+            docs = [doc for doc in docs if doc.entity_id in request.entity_ids]
+            if set(request.entity_ids) != {doc.entity_id for doc in docs}:
+                return result("no_results")
+        else:
+            docs = [
+                doc
+                for doc in docs
+                if any(contains(query, folded(topic)) for topic in doc.topics)
+                and (
+                    not advanced
+                    or any(
+                        contains(folded(topic), term) for topic in doc.topics for term in advanced
+                    )
+                )
+            ]
+        if request.section:
+            docs = [
+                doc
+                for doc in docs
+                if doc.section == request.section
+                or doc.section.startswith(request.section + ":chunk:")
+            ]
+        else:
+            slots = re.findall(r"\b([qwer])\s+(?:de|d)\b", query)
+            if re.search(r"\b(ultime|ulti|ultimate)\b", query):
+                slots.append("r")
+            if re.search(r"\bpassifs?\b", query):
+                slots.append("passif")
+            if slots:
+                docs = [
+                    doc
+                    for doc in docs
+                    if doc.source_id != "communitydragon"
+                    or any(folded(doc.section).startswith(slot + " ") for slot in slots)
+                ]
+        if not docs:
+            return result("no_results")
+        filters.entity_ids = sorted({doc.entity_id for doc in docs})
+        filters.sections = sorted({doc.section for doc in docs})
+        allowed = {doc.id for doc in docs}
+        try:
+            hits = []
+            for patch in sorted({doc.patch for doc in docs}):
+                scoped = [doc for doc in docs if doc.patch == patch]
+                hits.extend(
+                    self.store.search(
+                        request.query,
+                        patch=patch,
+                        locale=request.locale,
+                        limit=request.limit,
+                        entity_type="concept",
+                        entity_ids=sorted({doc.entity_id for doc in scoped}),
+                        sections=sorted({doc.section for doc in scoped}),
+                    )
+                )
+            passages = [
+                Passage.model_validate({**hit["payload"], "score": hit["score"]})
+                for hit in sorted(hits, key=lambda hit: hit["score"], reverse=True)[: request.limit]
+            ]
+            if any(p.id not in allowed for p in passages):
+                raise ValueError("Reference index and catalogue disagree")
+        except Exception as exc:
+            limits.append("Recherche indisponible ; aucune absence de connaissance n'est déduite.")
+            return result("unavailable", error_type=type(exc).__name__)
+        if any(p.patch == "unversioned" for p in passages):
+            limits.append("Source non versionnée par patch : son actualité n'est pas garantie.")
+        if any(p.patch not in {request.patch, "unversioned"} for p in passages):
+            limits.append("Version fournisseur major.minor, distincte de la version Data Dragon.")
+        return result("ok" if passages else "no_results", passages)
+
+    def _static(self, request: RetrievalRequest) -> RetrievalResult:
         start = perf_counter()
         filters = RetrievalFilters(entity_type=request.entity_type, entity_ids=request.entity_ids)
 
@@ -121,6 +270,7 @@ class Retriever:
             doc
             for doc in self.documents
             if doc.patch == request.patch
+            and doc.content_kind == "static_fact"
             and doc.locale == request.locale
             and (request.entity_type is None or doc.entity_type == request.entity_type)
         ]

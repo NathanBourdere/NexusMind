@@ -1,5 +1,12 @@
 # Chat local et API persistante
 
+Le sélecteur « Sources » propose le mode automatique, les fiches Riot ou les
+guides et données communautaires. Le champ JSON `corpus` vaut `auto`, `static`
+ou `reference` (défaut `auto`). Les cartes de sources affichent fournisseur,
+version réelle, langue, collecte, révision, attribution et conditions déclarées.
+Voir le [guide d'enrichissement](knowledge-sources.md). Redémarrer le serveur
+après une ingestion pour recharger son catalogue.
+
 Le chat utilise FastAPI et une page HTML/JavaScript servie par la même application.
 Le lifespan construit une fois l'encodeur, le client Qdrant, le catalogue en
 mémoire et la session HTTP Gemini. Une question réutilise ces dépendances ;

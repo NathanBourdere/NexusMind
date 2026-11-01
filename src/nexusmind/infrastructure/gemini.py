@@ -21,11 +21,18 @@ Un résultat de recherche ne prouve pas que toute la question est couverte.
 Si les preuves ne suffisent pas, retourne insufficient_evidence et des limites explicites,
 avec claims vide et exercise vide. Sinon, réponds directement par des affirmations courtes
 adaptées au niveau, chacune avec les identifiants exacts des passages qui la soutiennent.
-Utilise sourced_fact pour un fait Riot et coaching_hypothesis pour une déduction prudente.
+Utilise sourced_fact pour un fait explicitement soutenu par une source et
+coaching_hypothesis pour une déduction prudente. Les références communautaires ne sont
+pas des déclarations officielles de Riot. Ne déduis pas un conseil avancé d'une description.
+La version du fournisseur, sa langue et son attribution sont fournies avec chaque passage.
+Une source unversioned n'est pas validée pour le patch demandé : signale cette limite,
+ne présente pas ses chiffres ou ses timers comme les valeurs actuelles du jeu.
+Une version major.minor CommunityDragon ne certifie pas une révision Data Dragon précise.
 Les hypothèses doivent être identifiées comme telles dans leur texte et liées aux preuves.
 Propose un petit exercice d'observation fondé sur ces faits, sans nouvelle affirmation.
 Ne demande pas de trouver une durée ou une valeur absente des preuves dans l'exercice.
-Pour une formule ou des coefficients non résolus, explique l'effet qualitativement et
+Pour une formule, un placeholder @...@ ou des coefficients non résolus, explique l'effet
+qualitativement et
 signale la limite ; ne les présente pas comme un montant de dégâts ou de bouclier calculé.
 Les données statiques ne permettent pas de prétendre analyser une partie ou la méta.
 Ne génère ni URL ni source supplémentaire. Respecte exactement le schéma JSON demandé.
@@ -61,7 +68,18 @@ class GeminiGenerator:
             "passages": [
                 {
                     key: getattr(p, key)
-                    for key in ("id", "text", "patch", "locale", "entity_id", "section")
+                    for key in (
+                        "id",
+                        "text",
+                        "patch",
+                        "locale",
+                        "entity_id",
+                        "section",
+                        "source_name",
+                        "source_revision",
+                        "content_kind",
+                        "attribution",
+                    )
                 }
                 for p in evidence.passages
             ],
