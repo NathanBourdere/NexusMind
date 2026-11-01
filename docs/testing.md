@@ -1,5 +1,11 @@
 # TDD et évaluation du RAG
 
+Les tests d'enrichissement utilisent des réponses HTTP et articles synthétiques.
+Ils couvrent collecte, refus, provenance, rejeu, échec partiel d'indexation,
+routage des concepts, filtres patch/langue et citations jusqu'à l'API.
+Ils ne prouvent pas la qualité pédagogique d'un guide ni la disponibilité durable
+d'un site. Voir le [guide des sources](knowledge-sources.md).
+
 ## Red / Green / Refactor
 
 1. Choisir un comportement observable : par exemple résolution de `champions`

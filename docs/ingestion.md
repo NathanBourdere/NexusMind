@@ -1,5 +1,10 @@
 # Exécuter l'ingestion Scout
 
+Ce guide décrit Data Dragon. L'extension CommunityDragon, guide Riot et import
+attribué utilise `collect-knowledge` puis `ingest-knowledge` : voir le
+[guide d'enrichissement](knowledge-sources.md). Elle ne réactive pas les anciens
+parsers et ne change pas les sources de `nexusmind ingest`.
+
 ## Installation
 
 Depuis la racine du checkout à utiliser, Python 3.12 et uv :

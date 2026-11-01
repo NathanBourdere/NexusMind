@@ -3,12 +3,14 @@
 import hashlib
 import json
 import uuid
+from collections.abc import Iterable
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 
 from nexusmind.application.ports import DocumentCatalog, Encoder, Index, Source
 from nexusmind.domain.documents import normalize
+from nexusmind.domain.knowledge import SourceArticle
 from nexusmind.domain.vectors import validate_vectors
 
 
@@ -27,9 +29,61 @@ class IngestionReport:
 
 
 class ScoutAgent:
+    def ingest_articles(self, articles: Iterable[SourceArticle]) -> IngestionReport:
+        report = IngestionReport(
+            str(uuid.uuid4()),
+            "running",
+            datetime.now(UTC).isoformat(),
+            None,
+            "multi",
+            self.store.collection,
+        )
+        self.catalog.start_run(report.run_id, asdict(report))
+        try:
+            for article in articles:
+                documents = article.documents()
+                existing = [
+                    doc
+                    for doc in self.catalog.documents()
+                    if doc.source_id == article.source_id
+                    and doc.source_key == article.source_key
+                    and doc.source_revision == article.source_revision
+                    and doc.locale == article.locale
+                    and doc.patch == article.patch
+                ]
+                if existing and {doc.id for doc in existing} != {doc.id for doc in documents}:
+                    raise ValueError("Source revision changed; use a new revision")
+                self._archive(
+                    {
+                        "source_url": article.source_url,
+                        "data": article.model_dump(exclude={"retrieved_at"}),
+                        "retrieved_at": article.retrieved_at,
+                    }
+                )
+                # Only activate the complete article in the catalogue after all upserts succeed.
+                for start in range(0, len(documents), self.batch_size):
+                    batch = documents[start : start + self.batch_size]
+                    vectors = self.encoder.encode([doc.text for doc in batch])
+                    validate_vectors(vectors, len(batch), self.encoder.dimension)
+                    self.store.upsert(batch, vectors)
+                self.catalog.save_documents(documents)
+                report.resources += 1
+                report.documents += len(documents)
+            if not report.resources:
+                raise ValueError("No articles collected")
+            report.status = "completed"
+        except Exception as exc:
+            report.status = "failed"
+            report.error = f"{type(exc).__name__}: {exc}"
+            raise
+        finally:
+            report.completed_at = datetime.now(UTC).isoformat()
+            self.catalog.finish_run(asdict(report))
+        return report
+
     def __init__(
         self,
-        source: Source,
+        source: Source | None,
         encoder: Encoder,
         store: Index,
         catalog: DocumentCatalog,
@@ -63,6 +117,8 @@ class ScoutAgent:
         )
         self.catalog.start_run(report.run_id, asdict(report))
         try:
+            if self.source is None:
+                raise ValueError("A Riot source is required for static ingestion")
             report.patch = self.source.resolve_patch(patch)
             for resource in self.source.collect(report.patch, locale, kinds, champions):
                 self._archive(resource)

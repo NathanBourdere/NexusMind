@@ -20,6 +20,9 @@ l'activation de protections sur GitHub.
 | [Après partie](postgame.md) | Pour analyser une partie Riot terminée | Calculs et collecte Match-v5 |
 | [Validation après partie](validation/postgame-2026-11-01.md) | Pour lire les tests et limites réels | Vérifications datées |
 | [Sources](data-sources.md) | Avant de collecter ou indexer | Politique et contrats cibles |
+| [Enrichissement après le POC](knowledge-sources.md) | Pour collecter et importer des références | Connecteurs, accès et limites |
+| [Connecteurs](source-connectors.md) | Pour modifier les adaptateurs et leurs contrats | API maintenue |
+| [Validation des sources](validation/knowledge-2026-11-01.md) | Pour consulter les contrôles réellement exécutés | Preuves et limites |
 | [Développement](development.md) | Pour préparer l'environnement | Commandes et limites actuelles |
 | [Git/GitHub](git-workflow.md) | Pour toute contribution | Convention et configuration à appliquer |
 | [Tests](testing.md) | Pour tout changement de comportement | Méthode et outillage à installer |

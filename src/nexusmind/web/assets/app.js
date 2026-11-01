@@ -2,9 +2,42 @@ const form=document.querySelector('#chat'),conversation=document.querySelector('
 let config;
 function node(tag,text,cls){const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(cls)el.className=cls;return el;}
 const messages={no_results:'Aucune donnée pour cette version ou cette langue.',needs_clarification:'Précise le champion, le sort ou l’identifiant de l’objet souhaité.',out_of_scope:'Les données disponibles ne suffisent pas pour cette question.',insufficient_evidence:'Les passages trouvés ne permettent pas une réponse fiable.',quota_exceeded:'Le quota de réponses est atteint.',unavailable:'Le coach est momentanément indisponible.',invalid_generation:'La réponse n’a pas passé la vérification des références.'};
-function show(result){const card=node('article');if(result.status==='answered'){for(const claim of result.claims){card.append(node('div',claim.kind==='sourced_fact'?'Fait sourcé':'Hypothèse de coaching',claim.kind==='sourced_fact'?'tag':'tag hypothesis'));card.append(node('p',claim.text));}if(result.exercise){card.append(node('h2','À essayer'),node('p',result.exercise));}}else{card.append(node('h2',messages[result.status]||'La demande n’a pas pu être traitée.'));}if(result.candidates?.length)card.append(node('p',result.candidates.map(x=>`${x.entity_type} : ${x.entity_id}`).join(' · ')));if(result.sources?.length){const sources=node('div',undefined,'sources');sources.append(node('h2','Sources'));for(const source of result.sources){const a=node('a',`${source.entity_id} · ${source.section} · patch ${source.patch}`);const url=new URL(source.source_url);if(url.protocol==='https:'){a.href=url.href;a.target='_blank';a.rel='noopener noreferrer';}sources.append(a,node('p',source.text,'muted'));}card.append(sources);}if(result.limitations?.length){const limits=node('details',undefined,'limits');limits.append(node('summary','Limites de cette réponse'));for(const text of result.limitations)limits.append(node('p',text));card.append(limits);}conversation.append(card);card.scrollIntoView({behavior:'smooth',block:'nearest'});}
+function show(result){
+  const card=node('article');
+  if(result.status==='answered'){
+    for(const claim of result.claims){
+      card.append(node('div',claim.kind==='sourced_fact'?'Fait sourcé':'Hypothèse de coaching',claim.kind==='sourced_fact'?'tag':'tag hypothesis'),node('p',claim.text));
+    }
+    if(result.exercise)card.append(node('h2','À essayer'),node('p',result.exercise));
+  }else card.append(node('h2',messages[result.status]||'La demande n’a pas pu être traitée.'));
+  if(result.candidates?.length)card.append(node('p',result.candidates.map(x=>`${x.entity_type} : ${x.entity_id}`).join(' · ')));
+  if(result.sources?.length){
+    const sources=node('div',undefined,'sources');sources.append(node('h2','Sources'));
+    for(const source of result.sources){
+      const a=node('a',`${source.source_name} · ${source.title||source.entity_id} · ${source.section}`);
+      const url=new URL(source.source_url);
+      if(url.protocol==='https:'){a.href=url.href;a.target='_blank';a.rel='noopener noreferrer';}
+      sources.append(a,node('p',`Version : ${source.patch==='unversioned'?'non liée à un patch':source.patch} · ${source.locale} · collecté le ${source.retrieved_at}`,'muted'));
+      if(source.source_revision)sources.append(node('p',`Révision : ${source.source_revision}`,'muted'));
+      if(source.attribution)sources.append(node('p',source.attribution,'muted'));
+      if(source.license_url){
+        const rights=node('a',source.license_name||'Conditions de réutilisation');
+        const rightsUrl=new URL(source.license_url);
+        if(rightsUrl.protocol==='https:'){rights.href=rightsUrl.href;rights.target='_blank';rights.rel='noopener noreferrer';}
+        sources.append(rights);
+      }
+      sources.append(node('p',source.text,'muted'));
+    }
+    card.append(sources);
+  }
+  if(result.limitations?.length){
+    const limits=node('details',undefined,'limits');limits.append(node('summary','Limites de cette réponse'));
+    for(const text of result.limitations)limits.append(node('p',text));card.append(limits);
+  }
+  conversation.append(card);card.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
 fetch('/api/config').then(r=>r.json()).then(data=>{config=data;document.querySelector('#patch').textContent=`Corpus ${data.patch} · ${data.locale}`;}).catch(()=>{statusLine.textContent='Impossible de joindre le coach.';send.disabled=true;});
-form.addEventListener('submit',async event=>{event.preventDefault();if(!config)return;const question=document.querySelector('#question').value.trim();if(!question)return;conversation.append(node('article',question,'question'));send.disabled=true;statusLine.textContent='Le coach prépare une réponse sourcée…';try{const response=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:question,patch:config.patch,locale:config.locale,level:document.querySelector('#level').value})});const result=await response.json();show(result);statusLine.textContent='';}catch{statusLine.textContent='Connexion interrompue. Tu peux réessayer.';}finally{send.disabled=false;}});
+form.addEventListener('submit',async event=>{event.preventDefault();if(!config)return;const question=document.querySelector('#question').value.trim();if(!question)return;conversation.append(node('article',question,'question'));send.disabled=true;statusLine.textContent='Le coach prépare une réponse sourcée…';try{const response=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:question,patch:config.patch,locale:config.locale,level:document.querySelector('#level').value,corpus:document.querySelector('#corpus').value})});const result=await response.json();show(result);statusLine.textContent='';}catch{statusLine.textContent='Connexion interrompue. Tu peux réessayer.';}finally{send.disabled=false;}});
 const matchForm=document.querySelector('#postgame'),matchButton=document.querySelector('#analyze'),matchStatus=document.querySelector('#match-status'),matchResult=document.querySelector('#match-result');
 const metricNames={duration:'Durée',kills:'Éliminations',deaths:'Morts',assists:'Assistances',cs:'Farm total',cs_per_minute:'Farm par minute',kda:'Ratio KDA',kill_participation_percent:'Participation aux éliminations',gold_earned:'Or gagné',vision_score:'Score de vision',champion_damage:'Dégâts aux champions',gold_difference_near_10m:'Écart d’or vers 10 min',cs_difference_near_10m:'Écart de farm vers 10 min',enemy_objectives_after_death:'Objectifs ennemis dans les 90 s après une mort'};
 const unitNames={seconds:'s',kills:'',deaths:'',assists:'',minions:'CS','minions/minute':'CS/min',ratio:'',percent:'%',gold:'or',score:'',damage:'',events:'événements'};

@@ -239,3 +239,27 @@ def test_match_analysis_requires_riot_key_without_loading_ml(monkeypatch, capsys
     monkeypatch.delenv("RIOT_API_KEY", raising=False)
     assert cli.main(["analyze-match", "Synthetic#TEST", "--region", "EUW"]) == 1
     assert "RIOT_API_KEY" in capsys.readouterr().err
+
+
+def test_knowledge_collection_refuses_overwrite_before_request(tmp_path, capsys):
+    target = tmp_path / "articles.json"
+    target.write_text("preserve", encoding="utf-8")
+    assert cli.main(["collect-knowledge", "--output", str(target)]) == 1
+    assert target.read_text(encoding="utf-8") == "preserve"
+    assert "exists" in capsys.readouterr().err
+
+
+def test_knowledge_import_is_validated_before_creating_runtime(tmp_path, capsys):
+    target = tmp_path / "bad.json"
+    target.write_text("[]", encoding="utf-8")
+    runtime = tmp_path / "unused"
+    assert cli.main(["ingest-knowledge", "--input", str(target), "--data-dir", str(runtime)]) == 1
+    assert not runtime.exists()
+    assert "1..200" in capsys.readouterr().err
+
+
+def test_reference_mode_can_be_selected_explicitly():
+    args = cli.parser().parse_args(
+        ["retrieve", "Ahri", "--patch", "16.21.1", "--corpus", "reference"]
+    )
+    assert args.corpus == "reference"

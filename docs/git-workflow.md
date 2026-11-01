@@ -122,6 +122,12 @@ Utiliser les modèles [feature](../.github/ISSUE_TEMPLATE/feature.md) et
 
 ## Releases et hotfix
 
+Jalon particulier demandé par le propriétaire le 1er novembre 2026 : le tag
+annoté `POC` fige `625b4fb0d49784b335d6215401ba34d9cb73d884`, déjà publié sur
+`dev`, sans promotion vers `main`. Il est conservé comme témoin du POC avant
+l'enrichissement des sources. Ne pas le déplacer quand `dev` avance. Les releases
+de production suivent le cycle et les tags SemVer ci-dessous.
+
 Préparer une PR `dev` vers `main` : version du projet et lock cohérents, notes de
 release, contrôles verts, état du corpus et procédure de retour arrière. Après
 merge, créer un tag `vMAJOR.MINOR.PATCH` sur le commit livré : PATCH pour correction

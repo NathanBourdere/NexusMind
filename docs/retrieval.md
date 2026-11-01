@@ -1,5 +1,10 @@
 # Retrieval structuré et baseline
 
+Les mesures de cette baseline portent sur le corpus statique du POC. L'extension
+[multi-source](knowledge-sources.md) ajoute le choix `--corpus auto|static|reference`,
+des concepts avec révision et attribution et un routage documentaire. Les scores
+de la baseline ne mesurent pas la qualité du corpus pédagogique supplémentaire.
+
 Le parcours maintenu ajoute deux commandes : `retrieve` retourne des passages
 structurés ou une abstention, `evaluate` compare ce parcours à la recherche
 vectorielle brute. Aucun LLM de génération n'intervient. Le Scout et l'index

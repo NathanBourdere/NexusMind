@@ -31,6 +31,19 @@ def parser() -> argparse.ArgumentParser:
         "--kind", action="append", choices=["champion", "item", "rune", "summoner_spell"]
     )
     ingest.add_argument("--batch-size", type=int, default=32)
+    collect = commands.add_parser("collect-knowledge", help="Collect approved public references")
+    collect.add_argument("--source", action="append", choices=["riot-guide", "communitydragon"])
+    collect.add_argument("--patch", help="Pinned CommunityDragon major.minor patch")
+    collect.add_argument("--locale", choices=["fr_FR", "en_US"], default="fr_FR")
+    collect.add_argument("--champion-id", type=int, action="append", dest="champion_ids")
+    collect.add_argument("--output", type=Path, required=True)
+    knowledge = commands.add_parser(
+        "ingest-knowledge",
+        parents=[common],
+        help="Index attributed source articles from a local JSON file",
+    )
+    knowledge.add_argument("--input", type=Path, required=True)
+    knowledge.add_argument("--batch-size", type=int, default=32)
     search = commands.add_parser("search", parents=[common], help="Verify indexed passages")
     search.add_argument("query")
     search.add_argument("--patch", required=True)
@@ -49,6 +62,7 @@ def parser() -> argparse.ArgumentParser:
     retrieve.add_argument("--entity-type", choices=["champion", "item", "rune", "summoner_spell"])
     retrieve.add_argument("--entity-id", action="append", dest="entity_ids")
     retrieve.add_argument("--section")
+    retrieve.add_argument("--corpus", choices=["auto", "static", "reference"], default="auto")
     coach = commands.add_parser("coach", parents=[common], help="Explain retrieved Riot evidence")
     coach.add_argument("query")
     coach.add_argument("--patch", required=True)
@@ -57,6 +71,7 @@ def parser() -> argparse.ArgumentParser:
     coach.add_argument("--entity-type", choices=["champion", "item", "rune", "summoner_spell"])
     coach.add_argument("--entity-id", action="append", dest="entity_ids")
     coach.add_argument("--section")
+    coach.add_argument("--corpus", choices=["auto", "static", "reference"], default="auto")
     coach.add_argument(
         "--level", choices=["beginner", "intermediate", "advanced"], default="beginner"
     )
@@ -110,6 +125,48 @@ def parser() -> argparse.ArgumentParser:
 
 def execute(args: argparse.Namespace) -> dict | list:
     from nexusmind.infrastructure.storage import Catalog
+
+    articles = None
+    if args.command == "collect-knowledge":
+        from nexusmind.infrastructure.knowledge_sources import (
+            CommunityDragonSource,
+            RiotGuideSource,
+        )
+
+        if args.output.exists():
+            raise ValueError("Collection output already exists; choose a new path")
+        sources = list(dict.fromkeys(args.source or ["riot-guide"]))
+        if "communitydragon" in sources and (not args.patch or not args.champion_ids):
+            raise ValueError("CommunityDragon requires --patch major.minor and --champion-id")
+        if "riot-guide" in sources and args.locale != "fr_FR":
+            raise ValueError("The Riot guide connector currently supports fr_FR only")
+        articles = []
+        with ExitStack() as stack:
+            for name in sources:
+                source = CommunityDragonSource() if name == "communitydragon" else RiotGuideSource()
+                stack.callback(source.close)
+                articles.extend(
+                    source.collect(
+                        patch=args.patch, locale=args.locale, champions=args.champion_ids
+                    )
+                    if name == "communitydragon"
+                    else source.collect()
+                )
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        with args.output.open("x", encoding="utf-8") as output:
+            json.dump([a.model_dump() for a in articles], output, ensure_ascii=False, indent=2)
+        return {
+            "status": "completed",
+            "articles": len(articles),
+            "sources": sources,
+            "output": str(args.output),
+        }
+    if args.command == "ingest-knowledge":
+        from nexusmind.infrastructure.knowledge_sources import import_articles
+
+        if args.batch_size < 1:
+            raise ValueError("batch-size must be positive")
+        articles = import_articles(args.input)
 
     if args.command == "analyze-match":
         from nexusmind.application.postgame import PostGameAnalyst
@@ -174,6 +231,7 @@ def execute(args: argparse.Namespace) -> dict | list:
             entity_type=args.entity_type,
             entity_ids=args.entity_ids or [],
             section=args.section,
+            corpus=args.corpus,
         )
     if args.command in {"evaluate", "evaluate-coach"}:
         from nexusmind.domain.evaluation import EvaluationSuite
@@ -239,6 +297,11 @@ def execute(args: argparse.Namespace) -> dict | list:
             )
         catalog = Catalog(args.data_dir / "catalog.sqlite")
         stack.callback(catalog.close)
+        if args.command == "ingest-knowledge":
+            scout = ScoutAgent(
+                None, encoder, store, catalog, args.data_dir / "raw", args.batch_size
+            )
+            return asdict(scout.ingest_articles(articles))
         if args.command == "retrieve":
             from nexusmind.application.retrieval import Retriever
 

@@ -89,3 +89,42 @@ def test_invalid_riot_key_is_an_explicit_service_error():
         response = client.post("/api/postgame", json={"riot_id": "Synthetic#TEST"})
         assert response.status_code == 503
         assert response.json()["status"] == "authentication_failed"
+
+
+def test_chat_reference_mode_preserves_citation_attribution_over_http():
+    from test_coach import draft
+    from test_knowledge_pipeline import article
+
+    from nexusmind.application.coach import Coach
+    from nexusmind.domain.retrieval import Passage, RetrievalResult
+
+    doc = article().documents()[0]
+    evidence = RetrievalResult(
+        query="freeze",
+        patch="16.21.1",
+        locale="fr_FR",
+        status="ok",
+        passages=[
+            Passage(
+                **doc.model_dump(), score=0.5, embedding_model="test", embedding_revision="test"
+            )
+        ],
+        collection="test",
+        elapsed_ms=0,
+    )
+    generator = Mock(model="test", generate=Mock(return_value=draft(doc.id)))
+    runtime = Mock()
+    runtime.answer.return_value = Coach(generator).respond(evidence)
+
+    @contextmanager
+    def factory():
+        yield runtime
+
+    with TestClient(create_app(factory, patch="16.21.1"), base_url="http://127.0.0.1") as client:
+        response = client.post(
+            "/api/chat", json={"query": "freeze", "patch": "16.21.1", "corpus": "reference"}
+        )
+        assert response.status_code == 200
+        assert response.json()["sources"][0]["attribution"] == doc.attribution
+        assert response.json()["sources"][0]["patch"] == "unversioned"
+        assert runtime.answer.call_args.args[0].corpus == "reference"

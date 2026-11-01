@@ -103,3 +103,26 @@ def test_unknown_model_fails_before_network():
     with pytest.raises(ValueError, match="Unsupported coach model"):
         GeminiGenerator("SECRET", session=transport, model="unknown-paid-model")
     transport.post.assert_not_called()
+
+
+def test_prompt_receives_reference_provenance_without_overriding_its_version():
+    from test_knowledge_pipeline import article
+
+    from nexusmind.domain.retrieval import Passage
+
+    context = evidence()
+    context.passages = [
+        Passage(
+            **article().documents()[0].model_dump(),
+            score=0.5,
+            embedding_model="test",
+            embedding_revision="test",
+        )
+    ]
+    transport = session()
+    GeminiGenerator("SECRET", session=transport).generate(context, "beginner")
+    body = transport.post.call_args.kwargs["json"]
+    sent = json.loads(body["contents"][0]["parts"][0]["text"])["passages"][0]
+    assert sent["patch"] == "unversioned"
+    assert sent["source_name"] == "Synthetic guide"
+    assert sent["source_revision"] == "r1" and sent["attribution"]

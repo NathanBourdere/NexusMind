@@ -6,7 +6,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from nexusmind.domain.documents import Document
 
-EntityType = Literal["champion", "item", "rune", "summoner_spell"]
+EntityType = Literal["champion", "item", "rune", "summoner_spell", "concept"]
 
 
 class RetrievalRequest(BaseModel):
@@ -18,6 +18,7 @@ class RetrievalRequest(BaseModel):
     entity_type: EntityType | None = None
     entity_ids: list[str] = Field(default_factory=list, max_length=10)
     section: str | None = None
+    corpus: Literal["auto", "static", "reference"] = "auto"
 
 
 class RetrievalFilters(BaseModel):

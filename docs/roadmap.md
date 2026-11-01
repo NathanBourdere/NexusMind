@@ -29,7 +29,8 @@ RAG, son reranking et ses schémas historiques ne sont pas corrigés par le nouv
 | 6. Après partie | `feat/post-game-analysis` | Implémenté, testé hors ligne et collecte réelle validée après renouvellement de la clé : Account/Match-v5, timeline, mesures et exercices sans LLM ; aucune causalité inventée |
 | 7. Orchestration | `feat/langgraph-pipeline` | Graphe typé, transitions et budgets bornés, traces ; comparaison au pipeline simple |
 | 8. Interface/staging | `feat/coach-interface` | Chat local, API persistante et smoke HTTP réels disponibles ; rendu navigateur manuel et staging cloud restent à vérifier |
-| 9. Release | `chore/release-pipeline` | Tag, notes, livraison traçable, restauration et rollback vérifiés |
+| 9. Release | `chore/release-pipeline` | Jalon `POC` publié sur `dev` (`625b4fb`) ; releases de production, restauration et rollback restent à construire |
+| 10. Enrichissement | `feat/knowledge-sources` | CommunityDragon, guide Riot et import attribué implémentés ; constituer ensuite un corpus pédagogique autorisé et évaluer 20 questions macro/micro |
 
 Le live et les sources tierces ne conditionnent pas le MVP. Réexaminer une source
 supplémentaire uniquement pour une lacune mesurée et un accès durable autorisé,

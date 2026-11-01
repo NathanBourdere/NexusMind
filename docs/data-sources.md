@@ -6,7 +6,11 @@ Le premier corpus doit pouvoir fonctionner avec les sources officielles Riot.
 Le package `src/nexusmind/` implémente ce parcours sans importer les intégrations
 tierces. Celles-ci restent dans les dossiers historiques, hors package ; aucune
 disponibilité de scraping n'est présumée. CommunityDragon est communautaire et
-ne fait pas partie du périmètre Riot uniquement.
+ne fait pas partie du périmètre Riot uniquement. Après le jalon `POC`, son
+connecteur explicite, le guide Riot et l'import attribué étendent ce premier
+périmètre : voir le [guide d'enrichissement](knowledge-sources.md) et
+l'[ADR-0009](decisions/0009-knowledge-sources.md). L'ingestion Data Dragon par
+défaut n'appelle toujours aucun fournisseur tiers.
 
 | Source | Usage prévu | Limite à respecter |
 | --- | --- | --- |
@@ -36,6 +40,11 @@ Chaque document et ses chunks conservent :
 | `text`, `content_hash` | Texte réellement encodé et contrôle de changement |
 | `embedding_model`, `embedding_revision` | Compatibilité du vecteur avec la requête |
 | `schema_version` | Version du format d'indexation |
+
+Les nouveaux passages de référence ajoutent notamment `source_id`, `source_key`,
+`source_revision`, `title`, `content_kind`, `license_name`, `license_url`,
+`attribution` et `topics`. Leur patch peut être `unversioned`, sans être réécrit
+en patch courant. Les anciens payloads restent lisibles.
 
 Le payload courant contient `id`, `entity_type`, `entity_id`, `section`, `text`,
 `patch`, `locale`, `source_name`, `source_url`, `retrieved_at`, `content_hash`,

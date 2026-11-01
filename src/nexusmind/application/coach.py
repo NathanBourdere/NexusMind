@@ -9,6 +9,7 @@ from nexusmind.domain.coaching import (
     ProviderUnavailable,
     QuotaExceeded,
 )
+from nexusmind.domain.knowledge import compatible_patch
 from nexusmind.domain.retrieval import RetrievalResult
 
 
@@ -44,7 +45,22 @@ class Coach:
             len(evidence.passages) > 5
             or sum(len(p.text) for p in evidence.passages) > 8000
             or any(
-                p.patch != evidence.patch or p.locale != evidence.locale for p in evidence.passages
+                p.locale != evidence.locale
+                or not (
+                    p.patch == evidence.patch
+                    or (
+                        p.content_kind == "reference"
+                        and p.entity_type == "concept"
+                        and p.source_revision
+                        and p.attribution
+                        and p.license_name
+                        and p.license_url
+                        and p.source_id
+                        and p.source_key
+                        and compatible_patch(p.patch, evidence.patch)
+                    )
+                )
+                for p in evidence.passages
             )
         ):
             return result.model_copy(
