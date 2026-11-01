@@ -13,6 +13,9 @@ l'activation de protections sur GitHub.
 | [Validation Scout](validation/scout-2026-10-31.md) | Pour consulter les résultats réels et leurs limites | Preuves datées |
 | [Retrieval](retrieval.md) | Pour récupérer des preuves ou évaluer la recherche | Parcours maintenu |
 | [Validation retrieval](validation/retrieval-2026-10-31.md) | Pour lire la baseline et ses limites | Mesures datées |
+| [Coach](coach.md) | Pour configurer Gemini gratuit et expliquer les preuves | Implémenté, première réponse réelle vérifiée |
+| [Validation Coach](validation/coach-2026-11-01.md) | Pour lire les vérifications réellement effectuées | Lot réel partiel et limites |
+| [Latence Coach](validation/coach-latency-2026-11-01.md) | Pour comparer Flash et Flash-Lite | Mesures réelles sur un petit échantillon |
 | [Sources](data-sources.md) | Avant de collecter ou indexer | Politique et contrats cibles |
 | [Développement](development.md) | Pour préparer l'environnement | Commandes et limites actuelles |
 | [Git/GitHub](git-workflow.md) | Pour toute contribution | Convention et configuration à appliquer |

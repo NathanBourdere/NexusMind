@@ -6,6 +6,36 @@ Le workflow [CI](../.github/workflows/ci.yml) existe désormais pour le package
 maintenu. Aucun Dockerfile, Compose ou déploiement de service n'est fourni.
 Les sections de livraison ci-dessous restent la cible ; la CI ne déploie rien.
 
+## Piste cloud avec un budget de zéro euro
+
+Recommandation au 1er novembre 2026 : conserver l'inférence du Coach sur l'API
+Gemini gratuite, puis conteneuriser l'application et Qdrant. Commencer localement
+avec Docker Compose ; pour apprendre Kubernetes, tester K3s en local puis sur
+une VM Oracle Always Free éligible. Aucun compte, cluster ou service cloud n'a
+été créé par ce chantier. Le [guide Coach](coach.md) détaille la condition de
+projet Gemini sans facturation.
+
+La documentation Oracle indique actuellement un total Ampere A1 équivalent à
+**2 OCPU et 12 Go de RAM**, avec 200 Go de volumes Always Free partagés avec les
+disques de démarrage. Les ressources doivent respecter l'éligibilité et la
+région d'origine. La capacité peut être indisponible ; les instances inactives
+peuvent être récupérées par Oracle. Ce n'est pas une garantie d'hébergement
+permanent. Source : [Oracle Always Free](https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm).
+
+K3s prend en charge ARM64 et demande au minimum 2 cœurs et 2 Go pour le serveur,
+en plus des ressources de l'application. Une VM unique constitue une piste à
+mesurer pour cette petite application ; ce n'est pas de la haute disponibilité.
+Source : [prérequis K3s](https://docs.k3s.io/installation/requirements).
+
+Avant ce déploiement : API/interface, évaluation réelle du Coach, images ARM64
+testées (notamment PyTorch), mémoire mesurée, Qdrant serveur validé, volumes
+persistants et restauration, authentification et limites de requêtes. Le Scout
+sera un traitement ponctuel/CronJob hors des requêtes joueur. Ne pas ouvrir
+publiquement Qdrant ; exposer l'application via un ingress HTTPS. Vérifier les
+coûts de chaque ressource réseau/stockage, sans supposer qu'un cluster managé
+ou un crédit d'essai soit gratuit durablement. Un quota LLM épuisé doit rendre
+le Coach indisponible jusqu'à son renouvellement, sans bascule payante.
+
 ## CI du package maintenu
 
 Job réel : `python-checks`, workflow `CI`, sur les PR vers `dev`/`main` et les

@@ -13,9 +13,16 @@ Le rejeu d'un lot identique évite les doublons ; les échecs sont explicites.
 
 Le retrieval retourne des preuves structurées, filtre les entités et demande
 des précisions lorsqu'un nom est ambigu. Une baseline versionnée compare ses
-résultats à la recherche brute sur 37 cas annotés. Le Coach LLM, Match-v5
-et l'orchestration LangGraph restent à développer. Les données Riot seules ne
+résultats à la recherche brute sur 37 cas annotés. Le Coach Gemini est implémenté
+avec citations et abstentions, testé hors ligne et sur un premier cas réel avec
+Gemini 3.8 Flash, puis sur 37 cas avec Flash-Lite ; la revue humaine indépendante
+reste à faire. Match-v5 et l'orchestration
+LangGraph restent à développer. Les données Riot seules ne
 constituent pas un corpus exhaustif de pédagogie macro/micro.
+
+Le Coach utilise désormais Flash-Lite par défaut : cinq appels réels mesurés
+entre 1,27 et 2,10 s, hors chargement initial et retrieval. Voir les
+[mesures et limites](docs/validation/coach-latency-2026-11-01.md).
 
 ## Démarrer
 
@@ -43,6 +50,10 @@ catégories, options de stockage, serveur Qdrant et limites du rejeu.
 Le [guide retrieval](docs/retrieval.md) décrit filtres, statuts, clarifications
 et commande `evaluate`. Les [mesures](docs/validation/retrieval-2026-10-31.md)
 portent sur un jeu limité de questions, sans valider le futur Coach.
+
+Le [guide Coach](docs/coach.md) explique `nexusmind coach`, la clé Gemini, le
+projet sans facturation et les limites. Le budget cible est zéro euro ; le code
+ne peut pas vérifier l'état de facturation du compte fournisseur.
 
 ## Structure
 

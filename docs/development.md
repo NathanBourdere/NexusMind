@@ -32,6 +32,10 @@ stockages locaux et la recherche de contrôle. `main.py` reste une démo histori
 non supportée ; les commandes maintenues sont `nexusmind` et `python -m nexusmind`.
 Ne pas lancer la démo historique pour tester le nouveau parcours.
 
+La commande `coach` utilise `GEMINI_API_KEY` injectée par environnement, sans
+charger `.env`. La confirmation du projet gratuit, les bornes et les exemples
+sont dans le [guide Coach](coach.md). Aucune clé n'est nécessaire aux tests.
+
 ## Organisation des changements
 
 - Domaine : modèles et transformations sans SDK HTTP/ML/base de données.

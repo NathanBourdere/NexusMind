@@ -9,6 +9,7 @@ from dataclasses import asdict
 from pathlib import Path
 
 from nexusmind.infrastructure.embeddings import DEFAULT_MODEL, DEFAULT_REVISION
+from nexusmind.infrastructure.gemini import COACH_MODELS, DEFAULT_COACH_MODEL
 
 
 def parser() -> argparse.ArgumentParser:
@@ -47,11 +48,45 @@ def parser() -> argparse.ArgumentParser:
     retrieve.add_argument("--entity-type", choices=["champion", "item", "rune", "summoner_spell"])
     retrieve.add_argument("--entity-id", action="append", dest="entity_ids")
     retrieve.add_argument("--section")
+    coach = commands.add_parser("coach", parents=[common], help="Explain retrieved Riot evidence")
+    coach.add_argument("query")
+    coach.add_argument("--patch", required=True)
+    coach.add_argument("--locale", default="fr_FR")
+    coach.add_argument("--limit", type=int, default=5)
+    coach.add_argument("--entity-type", choices=["champion", "item", "rune", "summoner_spell"])
+    coach.add_argument("--entity-id", action="append", dest="entity_ids")
+    coach.add_argument("--section")
+    coach.add_argument(
+        "--level", choices=["beginner", "intermediate", "advanced"], default="beginner"
+    )
+    coach.add_argument(
+        "--free-tier-confirmed",
+        action="store_true",
+        help="Confirm this key belongs to a project without billing enabled",
+    )
+    coach.add_argument("--prompt-api-key", action="store_true", help="Read a key without echo")
+    coach.add_argument("--coach-model", choices=COACH_MODELS, default=DEFAULT_COACH_MODEL)
     evaluation = commands.add_parser(
         "evaluate", parents=[common], help="Compare retrieval on an annotated suite"
     )
     evaluation.add_argument("--suite", type=Path, required=True)
     evaluation.add_argument("--output", type=Path, required=True)
+    coach_evaluation = commands.add_parser(
+        "evaluate-coach", parents=[common], help="Plan or run a bounded Coach evaluation"
+    )
+    coach_evaluation.add_argument("--suite", type=Path, required=True)
+    coach_evaluation.add_argument("--output", type=Path, required=True)
+    coach_evaluation.add_argument("--live", action="store_true")
+    coach_evaluation.add_argument("--free-tier-confirmed", action="store_true")
+    coach_evaluation.add_argument("--prompt-api-key", action="store_true")
+    coach_evaluation.add_argument(
+        "--coach-model", choices=COACH_MODELS, default=DEFAULT_COACH_MODEL
+    )
+    coach_evaluation.add_argument("--max-calls", type=int, default=3)
+    coach_evaluation.add_argument("--call-interval", type=float, default=5)
+    coach_evaluation.add_argument(
+        "--level", choices=["beginner", "intermediate", "advanced"], default="beginner"
+    )
     status = commands.add_parser("status", help="Read the last ingestion report without loading ML")
     status.add_argument("--data-dir", type=Path, default=Path(".runtime"))
     return root
@@ -62,7 +97,22 @@ def execute(args: argparse.Namespace) -> dict | list:
 
     suite = None
     request = None
-    if args.command == "retrieve":
+    api_key = None
+    if args.command == "coach" or (args.command == "evaluate-coach" and args.live):
+        if not args.free_tier_confirmed:
+            raise ValueError("Use --free-tier-confirmed only for a project without billing enabled")
+        api_key = os.environ.get("GEMINI_API_KEY", "").strip()
+        if not api_key and args.prompt_api_key:
+            import getpass
+
+            if not sys.stdin.isatty():
+                raise ValueError("--prompt-api-key requires an interactive terminal")
+            api_key = getpass.getpass("Clé Gemini (saisie masquée, non enregistrée) : ").strip()
+        if not api_key:
+            raise ValueError("GEMINI_API_KEY is required; never put it in a command argument")
+        if args.command == "coach" and not 1 <= args.limit <= 5:
+            raise ValueError("Coach limit must be between 1 and 5")
+    if args.command in {"retrieve", "coach"}:
         from nexusmind.domain.retrieval import RetrievalRequest
 
         request = RetrievalRequest(
@@ -74,13 +124,21 @@ def execute(args: argparse.Namespace) -> dict | list:
             entity_ids=args.entity_ids or [],
             section=args.section,
         )
-    if args.command == "evaluate":
+    if args.command in {"evaluate", "evaluate-coach"}:
         from nexusmind.domain.evaluation import EvaluationSuite
 
         suite = EvaluationSuite.model_validate_json(args.suite.read_text(encoding="utf-8"))
         if args.output.resolve() == args.suite.resolve():
             raise ValueError("Evaluation output cannot overwrite its question suite")
-    if args.command in {"retrieve", "evaluate"} and not (args.data_dir / "catalog.sqlite").exists():
+        if args.command == "evaluate-coach":
+            if not 1 <= args.max_calls <= 30:
+                raise ValueError("max-calls must be between 1 and 30")
+            if args.output.exists():
+                raise ValueError("Coach report already exists; choose a new output path")
+    if (
+        args.command in {"retrieve", "coach", "evaluate", "evaluate-coach"}
+        and not (args.data_dir / "catalog.sqlite").exists()
+    ):
         raise ValueError("No catalog; run ingestion first")
 
     if args.command == "status":
@@ -134,6 +192,53 @@ def execute(args: argparse.Namespace) -> dict | list:
             from nexusmind.application.retrieval import Retriever
 
             return Retriever(store, catalog.documents()).retrieve(request).model_dump()
+        if args.command == "coach":
+            import requests
+
+            from nexusmind.application.coach import Coach
+            from nexusmind.application.retrieval import Retriever
+            from nexusmind.infrastructure.gemini import GeminiGenerator
+
+            evidence = Retriever(store, catalog.documents()).retrieve(request)
+            with requests.Session() as session:
+                generator = GeminiGenerator(api_key, session=session, model=args.coach_model)
+                return Coach(generator).respond(evidence, level=args.level).model_dump()
+        if args.command == "evaluate-coach":
+            import requests
+
+            from nexusmind.application.coach_evaluation import evaluate_coach
+            from nexusmind.application.retrieval import Retriever
+            from nexusmind.infrastructure.gemini import GeminiGenerator
+
+            with requests.Session() as session:
+                generator = (
+                    GeminiGenerator(api_key, session=session, model=args.coach_model)
+                    if args.live
+                    else None
+                )
+                documents = catalog.documents()
+                report = evaluate_coach(
+                    suite,
+                    Retriever(store, documents),
+                    documents,
+                    generator,
+                    max_calls=args.max_calls,
+                    level=args.level,
+                    call_interval=args.call_interval,
+                )
+            report["embedding"] = {"name": encoder.model_name, "revision": encoder.revision}
+            report["collection"] = store.collection
+            # Exclusive creation preserves existing reports, suites and corpus files.
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            with args.output.open("x", encoding="utf-8") as output:
+                json.dump(report, output, ensure_ascii=False, indent=2)
+            return {
+                key: report[key]
+                for key in ("status", "stop_reason", "calls_attempted", "max_calls")
+            } | {
+                "report_path": str(args.output),
+                "cases": len(report["cases"]),
+            }
         if args.command == "evaluate":
             from importlib.metadata import version
 
@@ -190,6 +295,11 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 1
     print(json.dumps(result, indent=2, ensure_ascii=False))
-    if isinstance(result, dict) and result.get("status") == "unavailable":
+    if isinstance(result, dict) and result.get("status") in {
+        "unavailable",
+        "invalid_generation",
+        "quota_exceeded",
+        "stopped",
+    }:
         return 1
     return 0

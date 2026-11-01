@@ -25,7 +25,7 @@ RAG, son reranking et ses schémas historiques ne sont pas corrigés par le nouv
 | 3b. Documents | `feat/scout-ingestion` | Réalisé : JSON dédupliqués, passages/rapports SQLite, chunks traçables et identités stables ; suppression des anciens passages après changement de contenu à traiter |
 | 3c. Retrieval | `feat/retrieval-baseline` | Réalisé dans le package maintenu : preuves structurées, filtres d'entité/section, ambiguïtés et pannes distinctes ; ancien RAG inchangé |
 | 4. Baseline | `feat/retrieval-baseline` | 37 cas annotés et rapport avant/après publiés ; suite réduite non indépendante, aucun seuil général de qualité imposé |
-| 5. Coach LLM | `feat/grounded-coach` | Fournisseur injecté, contexte borné, citations, abstention et exercice ; comparaison à la baseline |
+| 5. Coach LLM | `feat/grounded-coach` | Implémenté, 37 cas exécutés sur Flash-Lite, citations vérifiées et relecture par l'agent ; latence médiane 1,68 s sur 24 réponses ; revue humaine indépendante à faire |
 | 6. Après partie | `feat/post-game-analysis` | Riot ID/PUUID, routage correct, Match-v5/timeline, mesures sourcées sans causalité inventée ; conservation définie |
 | 7. Orchestration | `feat/langgraph-pipeline` | Graphe typé, transitions et budgets bornés, traces ; comparaison au pipeline simple |
 | 8. Interface/staging | `feat/coach-interface` | Question et contexte joueur, sources/patch visibles, erreurs explicites, artefact et smoke test |
