@@ -28,7 +28,7 @@ RAG, son reranking et ses schémas historiques ne sont pas corrigés par le nouv
 | 5. Coach LLM | `feat/grounded-coach` | Implémenté, 37 cas exécutés sur Flash-Lite, citations vérifiées et relecture par l'agent ; latence médiane 1,68 s sur 24 réponses ; revue humaine indépendante à faire |
 | 6. Après partie | `feat/post-game-analysis` | Riot ID/PUUID, routage correct, Match-v5/timeline, mesures sourcées sans causalité inventée ; conservation définie |
 | 7. Orchestration | `feat/langgraph-pipeline` | Graphe typé, transitions et budgets bornés, traces ; comparaison au pipeline simple |
-| 8. Interface/staging | `feat/coach-interface` | Question et contexte joueur, sources/patch visibles, erreurs explicites, artefact et smoke test |
+| 8. Interface/staging | `feat/coach-interface` | Chat local, API persistante et smoke HTTP réels disponibles ; rendu navigateur manuel et staging cloud restent à vérifier |
 | 9. Release | `chore/release-pipeline` | Tag, notes, livraison traçable, restauration et rollback vérifiés |
 
 Le live et les sources tierces ne conditionnent pas le MVP. Réexaminer une source

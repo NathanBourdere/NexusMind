@@ -228,3 +228,8 @@ def test_coach_and_evaluation_select_the_same_fast_default():
         ]
     )
     assert explicit.coach_model == "gemini-3.8-flash"
+
+
+def test_serve_requires_free_tier_and_no_runtime_is_loaded(capsys):
+    assert cli.main(["serve", "--patch", "16.21.1"]) == 1
+    assert "free-tier-confirmed" in capsys.readouterr().err

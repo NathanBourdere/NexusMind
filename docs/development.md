@@ -35,6 +35,7 @@ Ne pas lancer la démo historique pour tester le nouveau parcours.
 La commande `coach` utilise `GEMINI_API_KEY` injectée par environnement, sans
 charger `.env`. La confirmation du projet gratuit, les bornes et les exemples
 sont dans le [guide Coach](coach.md). Aucune clé n'est nécessaire aux tests.
+Pour le serveur local, installer l'extra `web` et suivre le [guide](web.md).
 
 ## Organisation des changements
 

@@ -89,6 +89,16 @@ def parser() -> argparse.ArgumentParser:
     )
     status = commands.add_parser("status", help="Read the last ingestion report without loading ML")
     status.add_argument("--data-dir", type=Path, default=Path(".runtime"))
+    serve = commands.add_parser(
+        "serve", parents=[common], help="Start the local coaching interface"
+    )
+    serve.add_argument("--patch", required=True)
+    serve.add_argument("--locale", default="fr_FR")
+    serve.add_argument("--port", type=int, default=8000)
+    serve.add_argument("--free-tier-confirmed", action="store_true")
+    serve.add_argument("--prompt-api-key", action="store_true")
+    serve.add_argument("--coach-model", choices=COACH_MODELS, default=DEFAULT_COACH_MODEL)
+    serve.add_argument("--max-calls", type=int, default=30)
     return root
 
 
@@ -98,7 +108,7 @@ def execute(args: argparse.Namespace) -> dict | list:
     suite = None
     request = None
     api_key = None
-    if args.command == "coach" or (args.command == "evaluate-coach" and args.live):
+    if args.command in {"coach", "serve"} or (args.command == "evaluate-coach" and args.live):
         if not args.free_tier_confirmed:
             raise ValueError("Use --free-tier-confirmed only for a project without billing enabled")
         api_key = os.environ.get("GEMINI_API_KEY", "").strip()
@@ -112,6 +122,19 @@ def execute(args: argparse.Namespace) -> dict | list:
             raise ValueError("GEMINI_API_KEY is required; never put it in a command argument")
         if args.command == "coach" and not 1 <= args.limit <= 5:
             raise ValueError("Coach limit must be between 1 and 5")
+    if args.command == "serve":
+        if not 1 <= args.port <= 65535 or not 1 <= args.max_calls <= 100:
+            raise ValueError("Invalid port or generation budget")
+        try:
+            import uvicorn
+
+            from nexusmind.web.app import create_app
+            from nexusmind.web.runtime import open_runtime
+        except ImportError:
+            raise ValueError("Install the web extra: uv sync --extra web") from None
+        app = create_app(lambda: open_runtime(args, api_key), patch=args.patch, locale=args.locale)
+        uvicorn.run(app, host="127.0.0.1", port=args.port, access_log=False)
+        return {"status": "stopped_normally"}
     if args.command in {"retrieve", "coach"}:
         from nexusmind.domain.retrieval import RetrievalRequest
 
