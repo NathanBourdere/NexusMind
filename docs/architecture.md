@@ -173,7 +173,8 @@ flowchart TD
     B -->|Insuffisant| A
 ```
 
-Le branchement Analyste reste désactivé tant que Match-v5 n'est pas implémenté.
+L'Analyste Match-v5 est disponible hors graphe, via CLI et API locale ; sa
+collecte réelle exige une clé Riot valide. Le graphe ci-dessus reste à implémenter.
 Chaque nœud reçoit les champs nécessaires et retourne un résultat typé. État
 partagé cible : `question`, `player_context`, `intent`, `entities`,
 `requested_patch`, `retrieved_evidence`, `match_metrics`, `draft_answer`,
@@ -194,6 +195,11 @@ explication adaptée, les limites et hypothèses, un exercice concret et les
 sources avec patch. Les citations doivent pointer vers les preuves récupérées.
 
 ## Extensions d'agents
+
+L'[Analyste après partie](postgame.md) collecte un match et sa timeline avec
+des dépendances injectées, puis calcule ses observations sans LLM. Les données
+restent en mémoire, hors corpus statique et Qdrant. L'[ADR-0008](decisions/0008-postgame-analysis.md)
+définit les règles de provenance, d'absence et de confidentialité.
 
 - **Planificateur de progression** : après l'Analyste, transformer les observations
   répétées en objectifs acceptés par le joueur, exercices et suivi sur ses prochaines parties.

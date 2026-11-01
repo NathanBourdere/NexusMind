@@ -16,8 +16,9 @@ des précisions lorsqu'un nom est ambigu. Une baseline versionnée compare ses
 résultats à la recherche brute sur 37 cas annotés. Le Coach Gemini est implémenté
 avec citations et abstentions, testé hors ligne et sur un premier cas réel avec
 Gemini 3.8 Flash, puis sur 37 cas avec Flash-Lite ; la revue humaine indépendante
-reste à faire. Match-v5 et l'orchestration
-LangGraph restent à développer. Les données Riot seules ne
+reste à faire. L'Analyste Match-v5 est implémenté avec des mesures déterministes,
+une CLI et un formulaire local ; la collecte exige une clé Riot valide.
+L'orchestration LangGraph reste à développer. Les données Riot seules ne
 constituent pas un corpus exhaustif de pédagogie macro/micro.
 
 Le Coach utilise désormais Flash-Lite par défaut : cinq appels réels mesurés
@@ -58,6 +59,8 @@ ne peut pas vérifier l'état de facturation du compte fournisseur.
 Pour utiliser le chat local, installer l'extra `web` puis lancer `nexusmind serve`.
 Le [guide web](docs/web.md) donne la commande complète. L'encodeur reste chargé
 pendant la session, avec réponses, sources et patch visibles dans le navigateur.
+Le [guide après partie](docs/postgame.md) décrit `analyze-match`, le formulaire
+Riot ID et les limites des mesures sans causalité inventée.
 
 ## Structure
 

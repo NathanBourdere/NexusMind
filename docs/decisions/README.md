@@ -11,6 +11,7 @@ Les changements mineurs restent dans la PR.
 - [0005 — Coach injectable avec Gemini gratuit](0005-free-tier-coach.md)
 - [0006 — Profil Coach rapide avec Flash-Lite](0006-low-latency-coach.md)
 - [0007 — Interface locale et runtime persistant](0007-local-coach-interface.md)
+- [0008 — Analyse après partie déterministe](0008-postgame-analysis.md)
 
 Nommage : `NNNN-sujet-en-kebab-case.md`. Statuts : proposé, accepté, remplacé.
 Une décision acceptée peut définir une cible encore non implémentée. Pour la

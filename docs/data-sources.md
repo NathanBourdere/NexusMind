@@ -12,7 +12,7 @@ ne fait pas partie du périmètre Riot uniquement.
 | --- | --- | --- |
 | Data Dragon | Champions, sorts, objets, runes et textes descriptifs | Référence statique versionnée, pas un manuel exhaustif de coaching |
 | Notes de patch officielles | Changements et contexte de version | Extension ultérieure via accès autorisé et extracteur dédié, pas un flux déjà implémenté |
-| API Account / Match-v5 | Identifier le joueur, analyser ses parties terminées et timelines | Extension après le RAG statique ; nécessite authentification, routage et minimisation des données |
+| API Account / Match-v5 | Identifier le joueur, analyser une partie terminée et sa timeline | Parcours implémenté dans le package maintenu ; clé valide requise, collecte bornée et données minimisées |
 | Spectator / Live Client | Expérimentations ciblées, ultérieures | Ne pas confondre liste des participants et télémétrie complète ; Live Client est local au joueur |
 
 La documentation Riot décrit le contenu et le versionnement de
@@ -82,3 +82,8 @@ Les sujets non couverts restent dans le jeu d'évaluation comme cas d'abstention
 Minimiser les identifiants joueur, pseudonymiser les fixtures, exclure les clés
 et données personnelles des logs et du dépôt. Définir durée de conservation et
 suppression avant de stocker durablement un historique de joueurs.
+
+Le [guide après partie](postgame.md) définit le parcours livré : quatre appels
+maximum, mesures calculées, données en mémoire, endpoints expurgés et sauvegarde
+locale uniquement sur demande. Les tests synthétiques ne prouvent pas qu'une
+clé personnelle donnée est valide ; voir la [validation](validation/postgame-2026-11-01.md).

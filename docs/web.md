@@ -40,6 +40,8 @@ persistant. Cette version traite chaque question indépendamment.
 - `GET /health/ready` : dépendances chargées par le lifespan, sans appel Gemini.
 - `GET /api/config` : patch et langue proposés dans l'interface.
 - `POST /api/chat` : requête de retrieval plus `level`, avec cinq passages au plus.
+- `POST /api/postgame` : analyse déterministe d'une partie, sans LLM. Le
+  formulaire nécessite la clé Riot du serveur ; voir le [guide](postgame.md).
 
 Une génération à la fois protège les ressources partagées ; une requête
 concurrente reçoit HTTP 429. Les erreurs techniques sont explicites : quota

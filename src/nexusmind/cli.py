@@ -8,6 +8,7 @@ from contextlib import ExitStack
 from dataclasses import asdict
 from pathlib import Path
 
+from nexusmind.domain.postgame import REGIONS
 from nexusmind.infrastructure.embeddings import DEFAULT_MODEL, DEFAULT_REVISION
 from nexusmind.infrastructure.gemini import COACH_MODELS, DEFAULT_COACH_MODEL
 
@@ -99,11 +100,38 @@ def parser() -> argparse.ArgumentParser:
     serve.add_argument("--prompt-api-key", action="store_true")
     serve.add_argument("--coach-model", choices=COACH_MODELS, default=DEFAULT_COACH_MODEL)
     serve.add_argument("--max-calls", type=int, default=30)
+    postgame = commands.add_parser("analyze-match", help="Analyze one completed Riot match")
+    postgame.add_argument("riot_id")
+    postgame.add_argument("--region", choices=REGIONS, default="EUW")
+    postgame.add_argument("--match-id")
+    postgame.add_argument("--output", type=Path)
     return root
 
 
 def execute(args: argparse.Namespace) -> dict | list:
     from nexusmind.infrastructure.storage import Catalog
+
+    if args.command == "analyze-match":
+        from nexusmind.application.postgame import PostGameAnalyst
+        from nexusmind.domain.postgame import PostGameRequest
+        from nexusmind.infrastructure.riot_live import RiotMatchSource
+
+        request = PostGameRequest(riot_id=args.riot_id, region=args.region, match_id=args.match_id)
+        key = os.environ.get("RIOT_API_KEY", "").strip()
+        if not key:
+            raise ValueError("RIOT_API_KEY is required")
+        if args.output and args.output.exists():
+            raise ValueError("Analysis output already exists; choose a new path")
+        source = RiotMatchSource(key)
+        try:
+            result = PostGameAnalyst(source).analyze(request).model_dump()
+        finally:
+            source.close()
+        if args.output:
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            with args.output.open("x", encoding="utf-8") as output:
+                json.dump(result, output, ensure_ascii=False, indent=2)
+        return result
 
     suite = None
     request = None
@@ -323,6 +351,8 @@ def main(argv: list[str] | None = None) -> int:
         "invalid_generation",
         "quota_exceeded",
         "stopped",
+        "authentication_failed",
+        "rate_limited",
     }:
         return 1
     return 0

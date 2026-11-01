@@ -9,11 +9,11 @@ l'[architecture](architecture.md) et l'[ADR-0003](decisions/0003-python-package-
 Depuis la racine du checkout :
 
 ```powershell
-rtk proxy uv sync --frozen
+rtk proxy uv sync --frozen --extra web
 rtk proxy uv run --frozen nexusmind --help
-rtk proxy uv run --frozen pytest -q
-rtk proxy uv run --frozen ruff check src tests
-rtk proxy uv run --frozen ruff format --check src tests
+rtk proxy uv run --frozen --extra web pytest -q
+rtk proxy uv run --frozen --extra web ruff check src tests
+rtk proxy uv run --frozen --extra web ruff format --check src tests
 rtk proxy uv build
 ```
 

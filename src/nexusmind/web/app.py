@@ -7,11 +7,12 @@ from typing import Literal
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import Field
-from starlette.middleware.trustedhost import TrustedHostMiddleware
 
+from nexusmind.domain.postgame import PostGameRequest
 from nexusmind.domain.retrieval import RetrievalRequest
 
 
@@ -64,7 +65,11 @@ def create_app(runtime_factory, *, patch: str, locale: str = "fr_FR"):
 
     @app.get("/api/config")
     def config():
-        return {"patch": patch, "locale": locale}
+        return {
+            "patch": patch,
+            "locale": locale,
+            "postgame_available": bool(getattr(app.state.runtime, "analyst", None)),
+        }
 
     @app.post("/api/chat")
     def chat(payload: ChatRequest):
@@ -74,6 +79,21 @@ def create_app(runtime_factory, *, patch: str, locale: str = "fr_FR"):
             request = RetrievalRequest(**payload.model_dump(exclude={"level"}))
             result = app.state.runtime.answer(request, payload.level)
             code = {"quota_exceeded": 429, "unavailable": 503, "invalid_generation": 502}.get(
+                result.status, 200
+            )
+            return JSONResponse(result.model_dump(), status_code=code)
+        except Exception:
+            return JSONResponse({"status": "unavailable"}, status_code=503)
+        finally:
+            gate.release()
+
+    @app.post("/api/postgame")
+    def postgame(payload: PostGameRequest):
+        if not gate.acquire(blocking=False):
+            raise HTTPException(429, "Une analyse est déjà en cours.")
+        try:
+            result = app.state.runtime.analyze(payload)
+            code = {"authentication_failed": 503, "rate_limited": 429, "unavailable": 503}.get(
                 result.status, 200
             )
             return JSONResponse(result.model_dump(), status_code=code)
