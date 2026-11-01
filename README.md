@@ -55,6 +55,10 @@ Le [guide Coach](docs/coach.md) explique `nexusmind coach`, la clé Gemini, le
 projet sans facturation et les limites. Le budget cible est zéro euro ; le code
 ne peut pas vérifier l'état de facturation du compte fournisseur.
 
+Pour utiliser le chat local, installer l'extra `web` puis lancer `nexusmind serve`.
+Le [guide web](docs/web.md) donne la commande complète. L'encodeur reste chargé
+pendant la session, avec réponses, sources et patch visibles dans le navigateur.
+
 ## Structure
 
 ```text

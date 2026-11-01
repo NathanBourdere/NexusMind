@@ -19,6 +19,7 @@ Scout, RAG et Coach sont des composants du produit.
 - [Coach](docs/coach.md) : Gemini gratuit, commandes, bornes et limites de validation.
 - [Validation Coach](docs/validation/coach-2026-11-01.md) : premier lot réel partiel, latence et limites.
 - [Latence Coach](docs/validation/coach-latency-2026-11-01.md) : comparaison des profils et mesures réelles.
+- [Chat et API locale](docs/web.md) : runtime persistant, commandes et portée.
 - [Git et GitHub](docs/git-workflow.md) : branches, commits atomiques, PR et versions.
 - [TDD et évaluation RAG](docs/testing.md) : Red/Green/Refactor et critères de qualité.
 - [Déploiement](docs/deployment.md) : CI/CD cible, secrets, exploitation et rollback.
@@ -29,7 +30,8 @@ Scout, RAG et Coach sont des composants du produit.
   [ADR-0003](docs/decisions/0003-python-package-layout.md) et
   [ADR-0004](docs/decisions/0004-retrieval-baseline.md) et
   [ADR-0005](docs/decisions/0005-free-tier-coach.md) et
-  [ADR-0006](docs/decisions/0006-low-latency-coach.md) : décisions structurantes.
+  [ADR-0006](docs/decisions/0006-low-latency-coach.md) et
+  [ADR-0007](docs/decisions/0007-local-coach-interface.md) : décisions structurantes.
 - [Modèle de PR](.github/pull_request_template.md),
   [demande de fonctionnalité](.github/ISSUE_TEMPLATE/feature.md) et
   [signalement de bug](.github/ISSUE_TEMPLATE/bug.md) : supports de contribution.

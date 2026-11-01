@@ -3,7 +3,8 @@
 ## Statut
 
 Le workflow [CI](../.github/workflows/ci.yml) existe désormais pour le package
-maintenu. Aucun Dockerfile, Compose ou déploiement de service n'est fourni.
+maintenu. Une API locale et un chat existent via l'extra `web` ; aucun
+Dockerfile, Compose ou déploiement cloud n'est fourni.
 Les sections de livraison ci-dessous restent la cible ; la CI ne déploie rien.
 
 ## Piste cloud avec un budget de zéro euro
@@ -73,8 +74,8 @@ badge vert ou annonce de CI avant son exécution.
 5. Quand le service HTTP existera, liveness sans dépendance externe et readiness
    vérifiant modèle, configuration et schéma Qdrant sans écriture.
 
-Le frontend et l'API de service restent à définir. Ne pas inventer de routes
-ou commandes de production dans le README.
+Le [chat et l'API locale](web.md) sont disponibles, avec lifespan et routes
+de santé. L'authentification publique et les quotas distribués restent à définir.
 
 ## Secrets et données
 

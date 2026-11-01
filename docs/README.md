@@ -16,6 +16,7 @@ l'activation de protections sur GitHub.
 | [Coach](coach.md) | Pour configurer Gemini gratuit et expliquer les preuves | Implémenté, première réponse réelle vérifiée |
 | [Validation Coach](validation/coach-2026-11-01.md) | Pour lire les vérifications réellement effectuées | Lot réel partiel et limites |
 | [Latence Coach](validation/coach-latency-2026-11-01.md) | Pour comparer Flash et Flash-Lite | Mesures réelles sur un petit échantillon |
+| [Chat et API](web.md) | Pour utiliser le Coach sans recharger l'encodeur | Interface locale |
 | [Sources](data-sources.md) | Avant de collecter ou indexer | Politique et contrats cibles |
 | [Développement](development.md) | Pour préparer l'environnement | Commandes et limites actuelles |
 | [Git/GitHub](git-workflow.md) | Pour toute contribution | Convention et configuration à appliquer |
