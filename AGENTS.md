@@ -14,6 +14,8 @@ Scout, RAG et Coach sont des composants du produit.
 - [Développement local](docs/development.md) : environnement, commandes et conventions Python.
 - [Ingestion Scout](docs/ingestion.md) : installation, collecte Riot et recherche de contrôle.
 - [Validation Scout](docs/validation/scout-2026-10-31.md) : résultats réels et limites de vérification.
+- [Retrieval et évaluation](docs/retrieval.md) : commandes, contrats et protocole.
+- [Validation retrieval](docs/validation/retrieval-2026-10-31.md) : mesures avant/après et limites.
 - [Git et GitHub](docs/git-workflow.md) : branches, commits atomiques, PR et versions.
 - [TDD et évaluation RAG](docs/testing.md) : Red/Green/Refactor et critères de qualité.
 - [Déploiement](docs/deployment.md) : CI/CD cible, secrets, exploitation et rollback.
@@ -21,7 +23,8 @@ Scout, RAG et Coach sont des composants du produit.
 - [Décisions d'architecture](docs/decisions/README.md) et
   [ADR-0001](docs/decisions/0001-riot-first.md) et
   [ADR-0002](docs/decisions/0002-rag-orchestration.md) et
-  [ADR-0003](docs/decisions/0003-python-package-layout.md) : décisions structurantes.
+  [ADR-0003](docs/decisions/0003-python-package-layout.md) et
+  [ADR-0004](docs/decisions/0004-retrieval-baseline.md) : décisions structurantes.
 - [Modèle de PR](.github/pull_request_template.md),
   [demande de fonctionnalité](.github/ISSUE_TEMPLATE/feature.md) et
   [signalement de bug](.github/ISSUE_TEMPLATE/bug.md) : supports de contribution.

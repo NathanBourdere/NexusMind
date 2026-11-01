@@ -23,6 +23,13 @@ utilisateur ; aucun import du package maintenu ne dépend d'eux.
 
 ## Flux actuel
 
+Le flux ci-dessous est historique. Le package maintenu expose désormais
+`Retriever` via le port `SearchIndex`. Il lit le catalogue, détermine entité et
+section, filtre Qdrant et retourne `RetrievalResult` avec statuts, preuves et
+limites. `retrieve` prépare le Coach ; `search` reste la primitive brute.
+`evaluate` compare les deux sur une suite versionnée sans LLM. Voir le
+[guide](retrieval.md) et l'[ADR-0004](decisions/0004-retrieval-baseline.md).
+
 ```mermaid
 flowchart LR
     M[main.py] --> S[ScoutAgent]

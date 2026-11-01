@@ -90,6 +90,8 @@ et locale et contiennent texte, source et score. Un score de similarité n'est
 pas une confiance de vérité. Une collection absente est une erreur ; une
 recherche sans passage renvoie une liste vide. Ce contrôle ne mesure pas encore
 la qualité globale du RAG et ne génère pas de réponse de coaching.
+Pour des preuves structurées avec filtrage d'entité, clarification et évaluation,
+utiliser désormais le [parcours retrieval](retrieval.md) via `nexusmind retrieve`.
 
 ## Tests et contrôles
 

@@ -33,7 +33,7 @@ class VectorStore:
             )
         # Payload indexes improve server filtering; local Qdrant scans small corpora.
         if self.create_indexes:
-            for field in ("patch", "locale", "entity_type", "entity_id"):
+            for field in ("patch", "locale", "entity_type", "entity_id", "section"):
                 self.client.create_payload_index(
                     self.collection, field, models.PayloadSchemaType.KEYWORD, wait=True
                 )
@@ -69,7 +69,19 @@ class VectorStore:
             return 0
         return self.client.count(self.collection, exact=True).count
 
-    def search(self, query: str, *, patch: str, locale: str, limit: int = 5) -> list[dict]:
+    def search(
+        self,
+        query: str,
+        *,
+        patch: str,
+        locale: str,
+        limit: int = 5,
+        entity_type: str | None = None,
+        entity_ids: list[str] | None = None,
+        sections: list[str] | None = None,
+    ) -> list[dict]:
+        if limit < 1 or entity_ids == [] or sections == []:
+            raise ValueError("Invalid search limit or empty explicit filter")
         if not self.client.collection_exists(self.collection):
             raise ValueError("Knowledge collection does not exist; run ingestion first")
         self.initialize()
@@ -81,6 +93,15 @@ class VectorStore:
                 for key, value in (("patch", patch), ("locale", locale))
             ]
         )
+        if entity_type is not None:
+            condition.must.append(
+                models.FieldCondition(key="entity_type", match=models.MatchValue(value=entity_type))
+            )
+        for key, values in (("entity_id", entity_ids), ("section", sections)):
+            if values is not None:
+                condition.must.append(
+                    models.FieldCondition(key=key, match=models.MatchAny(any=values))
+                )
         hits = self.client.query_points(
             self.collection,
             query=vectors[0],

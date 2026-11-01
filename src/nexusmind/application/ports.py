@@ -32,3 +32,19 @@ class DocumentCatalog(Protocol):
     def start_run(self, run_id: str, metadata: dict) -> None: ...
     def save_documents(self, documents: list[Document]) -> None: ...
     def finish_run(self, report: dict) -> None: ...
+
+
+class SearchIndex(Protocol):
+    collection: str
+
+    def search(
+        self,
+        query: str,
+        *,
+        patch: str,
+        locale: str,
+        limit: int = 5,
+        entity_type: str | None = None,
+        entity_ids: list[str] | None = None,
+        sections: list[str] | None = None,
+    ) -> list[dict]: ...

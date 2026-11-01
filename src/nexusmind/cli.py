@@ -34,6 +34,24 @@ def parser() -> argparse.ArgumentParser:
     search.add_argument("--patch", required=True)
     search.add_argument("--locale", default="fr_FR")
     search.add_argument("--limit", type=int, default=5)
+    search.add_argument("--entity-type", choices=["champion", "item", "rune", "summoner_spell"])
+    search.add_argument("--entity-id", action="append", dest="entity_ids")
+    search.add_argument("--section", action="append", dest="sections")
+    retrieve = commands.add_parser(
+        "retrieve", parents=[common], help="Retrieve structured evidence or abstain"
+    )
+    retrieve.add_argument("query")
+    retrieve.add_argument("--patch", required=True)
+    retrieve.add_argument("--locale", default="fr_FR")
+    retrieve.add_argument("--limit", type=int, default=5)
+    retrieve.add_argument("--entity-type", choices=["champion", "item", "rune", "summoner_spell"])
+    retrieve.add_argument("--entity-id", action="append", dest="entity_ids")
+    retrieve.add_argument("--section")
+    evaluation = commands.add_parser(
+        "evaluate", parents=[common], help="Compare retrieval on an annotated suite"
+    )
+    evaluation.add_argument("--suite", type=Path, required=True)
+    evaluation.add_argument("--output", type=Path, required=True)
     status = commands.add_parser("status", help="Read the last ingestion report without loading ML")
     status.add_argument("--data-dir", type=Path, default=Path(".runtime"))
     return root
@@ -41,6 +59,29 @@ def parser() -> argparse.ArgumentParser:
 
 def execute(args: argparse.Namespace) -> dict | list:
     from nexusmind.infrastructure.storage import Catalog
+
+    suite = None
+    request = None
+    if args.command == "retrieve":
+        from nexusmind.domain.retrieval import RetrievalRequest
+
+        request = RetrievalRequest(
+            query=args.query,
+            patch=args.patch,
+            locale=args.locale,
+            limit=args.limit,
+            entity_type=args.entity_type,
+            entity_ids=args.entity_ids or [],
+            section=args.section,
+        )
+    if args.command == "evaluate":
+        from nexusmind.domain.evaluation import EvaluationSuite
+
+        suite = EvaluationSuite.model_validate_json(args.suite.read_text(encoding="utf-8"))
+        if args.output.resolve() == args.suite.resolve():
+            raise ValueError("Evaluation output cannot overwrite its question suite")
+    if args.command in {"retrieve", "evaluate"} and not (args.data_dir / "catalog.sqlite").exists():
+        raise ValueError("No catalog; run ingestion first")
 
     if args.command == "status":
         path = args.data_dir / "catalog.sqlite"
@@ -78,9 +119,51 @@ def execute(args: argparse.Namespace) -> dict | list:
         stack.callback(client.close)
         store = VectorStore(client, encoder, create_indexes=bool(args.qdrant_url))
         if args.command == "search":
-            return store.search(args.query, patch=args.patch, locale=args.locale, limit=args.limit)
+            return store.search(
+                args.query,
+                patch=args.patch,
+                locale=args.locale,
+                limit=args.limit,
+                entity_type=args.entity_type,
+                entity_ids=args.entity_ids,
+                sections=args.sections,
+            )
         catalog = Catalog(args.data_dir / "catalog.sqlite")
         stack.callback(catalog.close)
+        if args.command == "retrieve":
+            from nexusmind.application.retrieval import Retriever
+
+            return Retriever(store, catalog.documents()).retrieve(request).model_dump()
+        if args.command == "evaluate":
+            from importlib.metadata import version
+
+            from nexusmind.application.evaluation import evaluate
+
+            report = evaluate(
+                suite,
+                store,
+                catalog.documents(),
+                {
+                    "name": encoder.model_name,
+                    "revision": encoder.revision,
+                    "dimension": encoder.dimension,
+                    "runtime_versions": {
+                        name: version(name)
+                        for name in ("qdrant-client", "sentence-transformers", "torch", "pydantic")
+                    },
+                    "python": sys.version.split()[0],
+                },
+            )
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            temporary = args.output.with_suffix(".tmp")
+            temporary.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+            temporary.replace(args.output)
+            return {
+                "report_path": str(args.output),
+                "suite": report["suite"],
+                "corpus": report["corpus"],
+                "summaries": report["summaries"],
+            }
         source = RiotSource()
         stack.callback(source.close)
         scout = ScoutAgent(source, encoder, store, catalog, args.data_dir / "raw", args.batch_size)
@@ -107,4 +190,6 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 1
     print(json.dumps(result, indent=2, ensure_ascii=False))
+    if isinstance(result, dict) and result.get("status") == "unavailable":
+        return 1
     return 0

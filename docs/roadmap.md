@@ -23,8 +23,8 @@ RAG, son reranking et ses schémas historiques ne sont pas corrigés par le nouv
 | 2. Riot uniquement | `feat/scout-ingestion` | Réalisé sur le parcours maintenu : quatre catégories statiques, version/langue explicites, délais et retries bornés |
 | 3a. Embeddings | `feat/scout-ingestion` | Réalisé : modèle/révision fixés, vecteurs invalides rejetés, dimension et absence de troncature contrôlées |
 | 3b. Documents | `feat/scout-ingestion` | Réalisé : JSON dédupliqués, passages/rapports SQLite, chunks traçables et identités stables ; suppression des anciens passages après changement de contenu à traiter |
-| 3c. Retrieval | `fix/rag-contracts` | Alias et filtres corrigés ; vide distinct de panne ; roundtrip Qdrant isolé |
-| 4. Baseline | `test/rag-evaluation` | Au moins 20 questions annotées, mesures reproductibles, cas d'abstention et seuils décidés |
+| 3c. Retrieval | `feat/retrieval-baseline` | Réalisé dans le package maintenu : preuves structurées, filtres d'entité/section, ambiguïtés et pannes distinctes ; ancien RAG inchangé |
+| 4. Baseline | `feat/retrieval-baseline` | 37 cas annotés et rapport avant/après publiés ; suite réduite non indépendante, aucun seuil général de qualité imposé |
 | 5. Coach LLM | `feat/grounded-coach` | Fournisseur injecté, contexte borné, citations, abstention et exercice ; comparaison à la baseline |
 | 6. Après partie | `feat/post-game-analysis` | Riot ID/PUUID, routage correct, Match-v5/timeline, mesures sourcées sans causalité inventée ; conservation définie |
 | 7. Orchestration | `feat/langgraph-pipeline` | Graphe typé, transitions et budgets bornés, traces ; comparaison au pipeline simple |

@@ -1,0 +1,442 @@
+{
+  "name": "riot-static-fr-v1",
+  "patch": "16.21.1",
+  "locale": "fr_FR",
+  "cases": [
+    {
+      "id": "dev-ahri-q",
+      "split": "development",
+      "query": "Comment fonctionne Orbe d'illusion chez Ahri ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "champion",
+          "entity_id": "Ahri",
+          "section": "spell:AhriQ"
+        }
+      ]
+    },
+    {
+      "id": "dev-ahri-e",
+      "split": "development",
+      "query": "Ahri peut-elle interrompre un déplacement avec son baiser ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "champion",
+          "entity_id": "Ahri",
+          "section": "spell:AhriE"
+        }
+      ]
+    },
+    {
+      "id": "dev-garen-passive",
+      "split": "development",
+      "query": "Décris le passif de Garen.",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "champion",
+          "entity_id": "Garen",
+          "section": "passive"
+        }
+      ]
+    },
+    {
+      "id": "dev-lux-q",
+      "split": "development",
+      "query": "Que fait Entrave de lumière de Lux ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "champion",
+          "entity_id": "Lux",
+          "section": "spell:LuxLightBinding"
+        }
+      ]
+    },
+    {
+      "id": "dev-yasuo-w",
+      "split": "development",
+      "query": "Que bloque le Mur de vent de Yasuo ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "champion",
+          "entity_id": "Yasuo",
+          "section": "spell:YasuoW"
+        }
+      ]
+    },
+    {
+      "id": "dev-teemo-passive",
+      "split": "development",
+      "query": "Comment fonctionne le passif de Teemo ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "champion",
+          "entity_id": "Teemo",
+          "section": "passive"
+        }
+      ]
+    },
+    {
+      "id": "dev-jinx-q",
+      "split": "development",
+      "query": "Comment Jinx change-t-elle d'arme ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "champion",
+          "entity_id": "Jinx",
+          "section": "spell:JinxQ"
+        }
+      ]
+    },
+    {
+      "id": "dev-boots",
+      "split": "development",
+      "query": "Quels bonus donnent les Bottes ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "item",
+          "entity_id": "1001",
+          "section": "description"
+        }
+      ]
+    },
+    {
+      "id": "dev-long-sword",
+      "split": "development",
+      "query": "Quel est le prix de l'Épée longue ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "item",
+          "entity_id": "1036",
+          "section": "description"
+        }
+      ],
+      "entity_type": "item",
+      "entity_ids": [
+        "1036"
+      ],
+      "rationale": "Name shared by multiple Riot item IDs; caller specifies the intended item."
+    },
+    {
+      "id": "dev-press-attack",
+      "split": "development",
+      "query": "Comment se déclenche Attaque soutenue ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "rune",
+          "entity_id": "8005",
+          "section": "description"
+        }
+      ]
+    },
+    {
+      "id": "dev-flash",
+      "split": "development",
+      "query": "Décris le sort d'invocateur Saut éclair.",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "summoner_spell",
+          "entity_id": "SummonerFlash",
+          "section": "description"
+        }
+      ],
+      "entity_type": "summoner_spell",
+      "entity_ids": [
+        "SummonerFlash"
+      ],
+      "rationale": "Multiple summoner-spell variants share this name; caller provides the intended ID."
+    },
+    {
+      "id": "dev-ashe-r",
+      "split": "development",
+      "query": "Que fait la Flèche de cristal enchantée d'Ashe ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "champion",
+          "entity_id": "Ashe",
+          "section": "spell:EnchantedCrystalArrow"
+        }
+      ]
+    },
+    {
+      "id": "dev-wave",
+      "split": "development",
+      "query": "Comment freeze une vague avec Ahri ?",
+      "expected_status": "out_of_scope",
+      "expected": []
+    },
+    {
+      "id": "dev-winrate",
+      "split": "development",
+      "query": "Quel est le winrate actuel de Lux ?",
+      "expected_status": "out_of_scope",
+      "expected": []
+    },
+    {
+      "id": "dev-ambiguous",
+      "split": "development",
+      "query": "Compare les sorts de Ahri et Lux.",
+      "expected_status": "needs_clarification",
+      "expected": []
+    },
+    {
+      "id": "dev-patch-missing",
+      "split": "development",
+      "query": "Quel est le passif de Ahri ?",
+      "patch": "0.0.0",
+      "expected_status": "no_results",
+      "expected": []
+    },
+    {
+      "id": "val-ahri-w",
+      "split": "validation",
+      "query": "Quels effets produit Lucioles d'Ahri ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "champion",
+          "entity_id": "Ahri",
+          "section": "spell:AhriW"
+        }
+      ]
+    },
+    {
+      "id": "val-ahri-r",
+      "split": "validation",
+      "query": "Décris l'ultime de Ahri.",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "champion",
+          "entity_id": "Ahri",
+          "section": "spell:AhriR"
+        }
+      ]
+    },
+    {
+      "id": "val-garen-q",
+      "split": "validation",
+      "query": "Que fait Coup décisif de Garen ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "champion",
+          "entity_id": "Garen",
+          "section": "spell:GarenQ"
+        }
+      ]
+    },
+    {
+      "id": "val-garen-r",
+      "split": "validation",
+      "query": "Décris Justice de Demacia de Garen.",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "champion",
+          "entity_id": "Garen",
+          "section": "spell:GarenR"
+        }
+      ]
+    },
+    {
+      "id": "val-morgana-e",
+      "split": "validation",
+      "query": "Que protège le Bouclier noir de Morgana ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "champion",
+          "entity_id": "Morgana",
+          "section": "spell:MorganaE"
+        }
+      ]
+    },
+    {
+      "id": "val-ezreal-q",
+      "split": "validation",
+      "query": "Quel effet a le Tir mystique d'Ezreal lorsqu'il touche une cible ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "champion",
+          "entity_id": "Ezreal",
+          "section": "spell:EzrealQ"
+        }
+      ]
+    },
+    {
+      "id": "val-sion-passive",
+      "split": "validation",
+      "query": "Qu'arrive-t-il à Sion après sa mort selon son passif ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "champion",
+          "entity_id": "Sion",
+          "section": "passive"
+        }
+      ]
+    },
+    {
+      "id": "val-lux-r",
+      "split": "validation",
+      "query": "Comment fonctionne Éclat final de Lux ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "champion",
+          "entity_id": "Lux",
+          "section": "spell:LuxR"
+        }
+      ]
+    },
+    {
+      "id": "val-doran",
+      "split": "validation",
+      "query": "Quelles statistiques apporte la Lame de Doran ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "item",
+          "entity_id": "1055",
+          "section": "description"
+        }
+      ],
+      "entity_type": "item",
+      "entity_ids": [
+        "1055"
+      ],
+      "rationale": "Name shared by multiple Riot item IDs; caller specifies the intended item."
+    },
+    {
+      "id": "val-zhonya",
+      "split": "validation",
+      "query": "Décris l'effet du Sablier de Zhonya.",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "item",
+          "entity_id": "3157",
+          "section": "description"
+        }
+      ],
+      "entity_type": "item",
+      "entity_ids": [
+        "3157"
+      ],
+      "rationale": "Name shared by multiple Riot item IDs; caller specifies the intended item."
+    },
+    {
+      "id": "val-aery",
+      "split": "validation",
+      "query": "Quels sont les effets de Invocation d'Aery ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "rune",
+          "entity_id": "8214",
+          "section": "description"
+        }
+      ]
+    },
+    {
+      "id": "val-teleport",
+      "split": "validation",
+      "query": "Que fait le sort d'invocateur Téléportation ?",
+      "expected_status": "ok",
+      "expected": [
+        {
+          "entity_type": "summoner_spell",
+          "entity_id": "SummonerTeleport",
+          "section": "description"
+        }
+      ],
+      "entity_type": "summoner_spell",
+      "entity_ids": [
+        "SummonerTeleport"
+      ],
+      "rationale": "Multiple summoner-spell variants share this name; caller provides the intended ID."
+    },
+    {
+      "id": "val-build",
+      "split": "validation",
+      "query": "Quel est le meilleur build de Garen pour gagner ?",
+      "expected_status": "out_of_scope",
+      "expected": []
+    },
+    {
+      "id": "val-match",
+      "split": "validation",
+      "query": "Analyse ma dernière partie avec Morgana.",
+      "expected_status": "out_of_scope",
+      "expected": []
+    },
+    {
+      "id": "val-unknown",
+      "split": "validation",
+      "query": "Explique une compétence.",
+      "expected_status": "needs_clarification",
+      "expected": []
+    },
+    {
+      "id": "val-locale-missing",
+      "split": "validation",
+      "query": "Describe Ahri's passive.",
+      "locale": "en_US",
+      "expected_status": "no_results",
+      "expected": []
+    },
+    {
+      "id": "dev-long-sword-ambiguous",
+      "split": "development",
+      "query": "Quel est le prix de l'Épée longue ?",
+      "expected_status": "needs_clarification",
+      "expected": [],
+      "rationale": "IDs 1036 and 771036 share this name in the snapshot."
+    },
+    {
+      "id": "val-doran-ambiguous",
+      "split": "validation",
+      "query": "Quelles statistiques apporte la Lame de Doran ?",
+      "expected_status": "needs_clarification",
+      "expected": [],
+      "rationale": "IDs 1055 and 771055 share this name in the snapshot."
+    },
+    {
+      "id": "val-zhonya-ambiguous",
+      "split": "validation",
+      "query": "Décris l'effet du Sablier de Zhonya.",
+      "expected_status": "needs_clarification",
+      "expected": [],
+      "rationale": "IDs 3157, 223157 and 773157 share this name in the snapshot."
+    },
+    {
+      "id": "dev-flash-ambiguous",
+      "split": "development",
+      "query": "Décris le sort d'invocateur Saut éclair.",
+      "expected_status": "needs_clarification",
+      "expected": [],
+      "rationale": "Multiple spell IDs share this name in the snapshot."
+    },
+    {
+      "id": "val-teleport-ambiguous",
+      "split": "validation",
+      "query": "Que fait le sort d'invocateur Téléportation ?",
+      "expected_status": "needs_clarification",
+      "expected": [],
+      "rationale": "Multiple spell IDs share this name in the snapshot."
+    }
+  ]
+}
