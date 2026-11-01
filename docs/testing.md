@@ -24,10 +24,10 @@ nécessaire. Les tests sont dans `tests/`, avec marqueur `integration` pour le
 roundtrip Qdrant en mémoire. Les commandes exécutables sont :
 
 ```powershell
-rtk proxy uv run --frozen pytest -q
-rtk proxy uv run --frozen ruff check src tests
-rtk proxy uv run --frozen ruff format --check src tests
-rtk proxy uv run --frozen pytest -m integration
+rtk proxy uv run --frozen --extra web pytest -q
+rtk proxy uv run --frozen --extra web ruff check src tests
+rtk proxy uv run --frozen --extra web ruff format --check src tests
+rtk proxy uv run --frozen --extra web pytest -m integration
 ```
 
 La mesure de retrieval existe via `nexusmind evaluate` : voir le

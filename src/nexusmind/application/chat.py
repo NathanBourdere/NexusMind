@@ -3,6 +3,7 @@
 from nexusmind.application.coach import Coach, Generator
 from nexusmind.application.retrieval import Retriever
 from nexusmind.domain.coaching import QuotaExceeded
+from nexusmind.domain.postgame import PostGameReport
 from nexusmind.domain.retrieval import RetrievalRequest
 
 
@@ -23,9 +24,18 @@ class BudgetedGenerator:
 
 
 class ChatService:
-    def __init__(self, retriever: Retriever, coach: Coach):
+    def __init__(self, retriever: Retriever, coach: Coach, analyst=None):
         self.retriever = retriever
         self.coach = coach
+        self.analyst = analyst
 
     def answer(self, request: RetrievalRequest, level: str):
         return self.coach.respond(self.retriever.retrieve(request), level=level)
+
+    def analyze(self, request):
+        if self.analyst is None:
+            return PostGameReport(
+                status="unavailable",
+                limitations=["La clé Riot n'est pas configurée sur le serveur."],
+            )
+        return self.analyst.analyze(request)

@@ -1,5 +1,6 @@
 """Own one encoder, index and HTTP session for the server lifespan."""
 
+import os
 from contextlib import ExitStack, contextmanager
 
 import requests
@@ -7,9 +8,11 @@ from qdrant_client import QdrantClient
 
 from nexusmind.application.chat import BudgetedGenerator, ChatService
 from nexusmind.application.coach import Coach
+from nexusmind.application.postgame import PostGameAnalyst
 from nexusmind.application.retrieval import Retriever
 from nexusmind.infrastructure.embeddings import SentenceEncoder
 from nexusmind.infrastructure.gemini import GeminiGenerator
+from nexusmind.infrastructure.riot_live import RiotMatchSource
 from nexusmind.infrastructure.storage import Catalog
 from nexusmind.infrastructure.vector_store import VectorStore
 
@@ -40,4 +43,6 @@ def open_runtime(args, api_key):
             GeminiGenerator(api_key, session=session, model=args.coach_model), args.max_calls
         )
         store = VectorStore(client, encoder, create_indexes=bool(args.qdrant_url))
-        yield ChatService(Retriever(store, documents), Coach(generator))
+        riot_key = os.environ.get("RIOT_API_KEY", "").strip()
+        analyst = PostGameAnalyst(RiotMatchSource(riot_key, session=session)) if riot_key else None
+        yield ChatService(Retriever(store, documents), Coach(generator), analyst)

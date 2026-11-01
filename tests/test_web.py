@@ -49,3 +49,43 @@ def test_invalid_request_and_foreign_origin_do_not_call_runtime():
             == 403
         )
         runtime.answer.assert_not_called()
+
+
+def test_postgame_endpoint_runs_synthetic_analysis_without_llm_or_player_ids():
+    from test_postgame import match_fixture, timeline_fixture
+
+    from nexusmind.application.postgame import PostGameAnalyst
+
+    source = Mock()
+    source.account.return_value = {"puuid": "synthetic-player-1"}
+    source.matches.return_value = ["EUW1_123"]
+    source.match.return_value = match_fixture()
+    source.timeline.return_value = timeline_fixture()
+    runtime = Mock(analyze=PostGameAnalyst(source).analyze)
+
+    @contextmanager
+    def factory():
+        yield runtime
+
+    with TestClient(create_app(factory, patch="16.21.1"), base_url="http://127.0.0.1") as client:
+        response = client.post("/api/postgame", json={"riot_id": "Synthetic#TEST", "region": "EUW"})
+        assert response.status_code == 200
+        assert response.json()["metrics"]["cs_per_minute"]["value"] == 6
+        assert "synthetic-player" not in response.text
+        runtime.answer.assert_not_called()
+        assert client.post("/api/postgame", json={"riot_id": "bad-id"}).status_code == 422
+
+
+def test_invalid_riot_key_is_an_explicit_service_error():
+    from nexusmind.domain.postgame import PostGameReport
+
+    runtime = Mock(analyze=Mock(return_value=PostGameReport(status="authentication_failed")))
+
+    @contextmanager
+    def factory():
+        yield runtime
+
+    with TestClient(create_app(factory, patch="16.21.1"), base_url="http://127.0.0.1") as client:
+        response = client.post("/api/postgame", json={"riot_id": "Synthetic#TEST"})
+        assert response.status_code == 503
+        assert response.json()["status"] == "authentication_failed"

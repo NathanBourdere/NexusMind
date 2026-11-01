@@ -233,3 +233,9 @@ def test_coach_and_evaluation_select_the_same_fast_default():
 def test_serve_requires_free_tier_and_no_runtime_is_loaded(capsys):
     assert cli.main(["serve", "--patch", "16.21.1"]) == 1
     assert "free-tier-confirmed" in capsys.readouterr().err
+
+
+def test_match_analysis_requires_riot_key_without_loading_ml(monkeypatch, capsys):
+    monkeypatch.delenv("RIOT_API_KEY", raising=False)
+    assert cli.main(["analyze-match", "Synthetic#TEST", "--region", "EUW"]) == 1
+    assert "RIOT_API_KEY" in capsys.readouterr().err
