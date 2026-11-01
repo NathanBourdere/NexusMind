@@ -31,7 +31,7 @@ packages = ["src/nexusmind"]
 
 [tool.hatch.build.targets.sdist]
 # Never walk local Qdrant volumes, model caches or historical work in an sdist.
-only-include = ["src/nexusmind", "tests", "docs", ".github", "README.md", "AGENTS.md", "pyproject.toml", "uv.lock", ".python-version"]
+only-include = ["src/nexusmind", "tests", "evaluation", "docs", ".github", "README.md", "AGENTS.md", "pyproject.toml", "uv.lock", ".python-version"]
 
 [tool.uv]
 # Older protobuf enum wrappers break the Qdrant generated client's type annotations.

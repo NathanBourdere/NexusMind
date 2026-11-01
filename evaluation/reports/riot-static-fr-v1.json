@@ -1,0 +1,1993 @@
+{
+  "suite": "riot-static-fr-v1",
+  "suite_fingerprint": "7eaf1a8e665826a2c68329cdef10e3174e34e6f83b48e970898408c54f127c27",
+  "evaluated_at": "2026-10-31T13:21:04.701871+00:00",
+  "corpus": {
+    "documents": 2551,
+    "fingerprint": "cc7ba1bc754d167d6151263a0d06ba6beb8b73f0cfac1bb0c2399919fe57c336",
+    "collection": "nexusmind_knowledge_v1_02fcabe7c6f7cead",
+    "patch": "16.21.1",
+    "locale": "fr_FR"
+  },
+  "model": {
+    "name": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "revision": "86741b4e3f5cb7765a600d3a3d55a0f6a6cb443d",
+    "dimension": 384,
+    "runtime_versions": {
+      "qdrant-client": "1.20.0",
+      "sentence-transformers": "5.7.0",
+      "torch": "2.15.0",
+      "pydantic": "2.12.5"
+    },
+    "python": "3.12.7"
+  },
+  "summaries": {
+    "all": {
+      "baseline": {
+        "positive_cases": 24,
+        "negative_cases": 13,
+        "recall_at_5": 0.125,
+        "mrr_at_5": 0.06597222222222222,
+        "abstention_accuracy": 0.15384615384615385,
+        "false_evidence_rate": 0.8461538461538461,
+        "false_abstention_rate": 0,
+        "wrong_entity_hits": 110,
+        "patch_locale_errors": 0,
+        "latency_p50_ms": 168.058,
+        "latency_p95_ms": 652.838
+      },
+      "filtered": {
+        "positive_cases": 24,
+        "negative_cases": 13,
+        "recall_at_5": 1.0,
+        "mrr_at_5": 0.9722222222222222,
+        "abstention_accuracy": 1,
+        "false_evidence_rate": 0,
+        "false_abstention_rate": 0,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0,
+        "latency_p50_ms": 359.454,
+        "latency_p95_ms": 470.621
+      }
+    },
+    "development": {
+      "baseline": {
+        "positive_cases": 12,
+        "negative_cases": 6,
+        "recall_at_5": 0.16666666666666666,
+        "mrr_at_5": 0.1111111111111111,
+        "abstention_accuracy": 0.16666666666666666,
+        "false_evidence_rate": 0.8333333333333334,
+        "false_abstention_rate": 0,
+        "wrong_entity_hits": 55,
+        "patch_locale_errors": 0,
+        "latency_p50_ms": 162.335,
+        "latency_p95_ms": 443.88
+      },
+      "filtered": {
+        "positive_cases": 12,
+        "negative_cases": 6,
+        "recall_at_5": 1.0,
+        "mrr_at_5": 0.9444444444444444,
+        "abstention_accuracy": 1,
+        "false_evidence_rate": 0,
+        "false_abstention_rate": 0,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0,
+        "latency_p50_ms": 356.16549999999995,
+        "latency_p95_ms": 420.761
+      }
+    },
+    "validation": {
+      "baseline": {
+        "positive_cases": 12,
+        "negative_cases": 7,
+        "recall_at_5": 0.08333333333333333,
+        "mrr_at_5": 0.020833333333333332,
+        "abstention_accuracy": 0.14285714285714285,
+        "false_evidence_rate": 0.8571428571428571,
+        "false_abstention_rate": 0,
+        "wrong_entity_hits": 55,
+        "patch_locale_errors": 0,
+        "latency_p50_ms": 193.976,
+        "latency_p95_ms": 668.3
+      },
+      "filtered": {
+        "positive_cases": 12,
+        "negative_cases": 7,
+        "recall_at_5": 1.0,
+        "mrr_at_5": 1.0,
+        "abstention_accuracy": 1,
+        "false_evidence_rate": 0,
+        "false_abstention_rate": 0,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0,
+        "latency_p50_ms": 373.695,
+        "latency_p95_ms": 480.26
+      }
+    },
+    "automatic": {
+      "baseline": {
+        "positive_cases": 19,
+        "negative_cases": 13,
+        "recall_at_5": 0.15789473684210525,
+        "mrr_at_5": 0.08333333333333333,
+        "abstention_accuracy": 0.15384615384615385,
+        "false_evidence_rate": 0.8461538461538461,
+        "false_abstention_rate": 0,
+        "wrong_entity_hits": 85,
+        "patch_locale_errors": 0,
+        "latency_p50_ms": 168.8715,
+        "latency_p95_ms": 652.838
+      },
+      "filtered": {
+        "positive_cases": 19,
+        "negative_cases": 13,
+        "recall_at_5": 1.0,
+        "mrr_at_5": 0.9649122807017544,
+        "abstention_accuracy": 1,
+        "false_evidence_rate": 0,
+        "false_abstention_rate": 0,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0,
+        "latency_p50_ms": 363.276,
+        "latency_p95_ms": 470.621
+      }
+    },
+    "explicit_filters": {
+      "baseline": {
+        "positive_cases": 5,
+        "negative_cases": 0,
+        "recall_at_5": 0.0,
+        "mrr_at_5": 0,
+        "abstention_accuracy": null,
+        "false_evidence_rate": null,
+        "false_abstention_rate": 0,
+        "wrong_entity_hits": 25,
+        "patch_locale_errors": 0,
+        "latency_p50_ms": 162.008,
+        "latency_p95_ms": 193.976
+      },
+      "filtered": {
+        "positive_cases": 5,
+        "negative_cases": 0,
+        "recall_at_5": 1.0,
+        "mrr_at_5": 1.0,
+        "abstention_accuracy": null,
+        "false_evidence_rate": null,
+        "false_abstention_rate": 0,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0,
+        "latency_p50_ms": 298.889,
+        "latency_p95_ms": 441.966
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "dev-ahri-q",
+      "split": "development",
+      "query": "Comment fonctionne Orbe d'illusion chez Ahri ?",
+      "request": {
+        "query": "Comment fonctionne Orbe d'illusion chez Ahri ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "29512b8e-3725-5421-9b40-7a063720d55a"
+        ],
+        "ids": [
+          "29512b8e-3725-5421-9b40-7a063720d55a",
+          "fbec6e1d-9c9b-596e-9870-b6e9869be96b",
+          "6b8f9c40-d781-5133-970f-47b6837173f6",
+          "d029789e-dd40-517e-9bc2-69ad076b0ded",
+          "c4cd639b-6dbe-5239-8533-8a7b2069e123"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 332.766,
+        "wrong_entity_hits": 4,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "29512b8e-3725-5421-9b40-7a063720d55a"
+        ],
+        "ids": [
+          "29512b8e-3725-5421-9b40-7a063720d55a"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 390.608,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "champion",
+        "entity_ids": [
+          "Ahri"
+        ],
+        "sections": [
+          "spell:AhriQ"
+        ]
+      }
+    },
+    {
+      "id": "dev-ahri-e",
+      "split": "development",
+      "query": "Ahri peut-elle interrompre un déplacement avec son baiser ?",
+      "request": {
+        "query": "Ahri peut-elle interrompre un déplacement avec son baiser ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "69d137f0-1c55-59b0-bb95-7d5661e754a1"
+        ],
+        "ids": [
+          "22318cd2-5718-5770-837c-16cbd9d6b598",
+          "7d72772e-a754-54cb-8036-920a74a82f56",
+          "9be23616-b088-5f92-bf38-d8f76c2d312a",
+          "81903a00-b2d3-5370-bb3b-6b6dd8e8b99d",
+          "b9c54bc1-073b-5588-9ede-bb42259c4524"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 147.27,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "69d137f0-1c55-59b0-bb95-7d5661e754a1"
+        ],
+        "ids": [
+          "e4b66ef5-a919-5d0b-bb7a-1be9806c94db",
+          "b48adb80-315f-5a49-9c61-cb0610d3b467",
+          "69d137f0-1c55-59b0-bb95-7d5661e754a1",
+          "66993d07-4b8c-5307-8970-ef6ced3015e9",
+          "1142a04f-6cb6-5e1e-81b9-345a6377dac8"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 358.95,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "champion",
+        "entity_ids": [
+          "Ahri"
+        ],
+        "sections": []
+      }
+    },
+    {
+      "id": "dev-garen-passive",
+      "split": "development",
+      "query": "Décris le passif de Garen.",
+      "request": {
+        "query": "Décris le passif de Garen.",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "ade3b018-f0cd-52c7-9af0-6abdc0fe6e1b"
+        ],
+        "ids": [
+          "628be743-0fa9-5fd5-ab1e-696fad6bd422",
+          "14d9d036-93ab-5e75-8836-66aa528d3179",
+          "16d4f498-b18c-5e71-a6e8-6af6216571f8",
+          "5899f5a0-cedb-5136-b9bb-545b636ff928",
+          "b4e6850b-163b-577d-8a64-fe216e471210"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 162.038,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "ade3b018-f0cd-52c7-9af0-6abdc0fe6e1b"
+        ],
+        "ids": [
+          "ade3b018-f0cd-52c7-9af0-6abdc0fe6e1b"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 363.981,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "champion",
+        "entity_ids": [
+          "Garen"
+        ],
+        "sections": [
+          "passive"
+        ]
+      }
+    },
+    {
+      "id": "dev-lux-q",
+      "split": "development",
+      "query": "Que fait Entrave de lumière de Lux ?",
+      "request": {
+        "query": "Que fait Entrave de lumière de Lux ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "eaa9e127-5c97-56ea-a776-bbab6dd42caa"
+        ],
+        "ids": [
+          "d7eb826b-9e5f-5098-b8f9-604292c0b398",
+          "01c4b343-9a86-5914-aa62-8be4e88a43a4",
+          "eaa9e127-5c97-56ea-a776-bbab6dd42caa",
+          "28afd0da-3dd0-5409-b218-2b945ee927aa",
+          "cd3e0225-195d-5cec-b5d1-ace9743ee336"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 116.638,
+        "wrong_entity_hits": 1,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "eaa9e127-5c97-56ea-a776-bbab6dd42caa"
+        ],
+        "ids": [
+          "eaa9e127-5c97-56ea-a776-bbab6dd42caa"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 347.908,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "champion",
+        "entity_ids": [
+          "Lux"
+        ],
+        "sections": [
+          "spell:LuxLightBinding"
+        ]
+      }
+    },
+    {
+      "id": "dev-yasuo-w",
+      "split": "development",
+      "query": "Que bloque le Mur de vent de Yasuo ?",
+      "request": {
+        "query": "Que bloque le Mur de vent de Yasuo ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "c594b4c1-db0b-5d44-a43a-1e7a0203d830"
+        ],
+        "ids": [
+          "cec3be07-15ff-5ad9-ad4e-d65d764f869c",
+          "889cffaf-0b99-5b29-a7f1-39da88729d9b",
+          "c3d08332-692e-50c1-9e20-d2e06255eeb2",
+          "ac5fd6f6-cb6d-5307-8ed7-5ca9b9defa3c",
+          "1cafc940-625f-533e-ac3b-2b9e322b9430"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 155.855,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "c594b4c1-db0b-5d44-a43a-1e7a0203d830"
+        ],
+        "ids": [
+          "c594b4c1-db0b-5d44-a43a-1e7a0203d830"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 377.673,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "champion",
+        "entity_ids": [
+          "Yasuo"
+        ],
+        "sections": [
+          "spell:YasuoW"
+        ]
+      }
+    },
+    {
+      "id": "dev-teemo-passive",
+      "split": "development",
+      "query": "Comment fonctionne le passif de Teemo ?",
+      "request": {
+        "query": "Comment fonctionne le passif de Teemo ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "9da754ef-e93a-5fc8-958d-34f5caebc076"
+        ],
+        "ids": [
+          "628be743-0fa9-5fd5-ab1e-696fad6bd422",
+          "baabcdc7-5e30-5651-a65f-87754d6a26de",
+          "e5512ea5-43d1-51a2-8dc9-fbf18e6a2d26",
+          "14d9d036-93ab-5e75-8836-66aa528d3179",
+          "16d4f498-b18c-5e71-a6e8-6af6216571f8"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 200.246,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "9da754ef-e93a-5fc8-958d-34f5caebc076"
+        ],
+        "ids": [
+          "9da754ef-e93a-5fc8-958d-34f5caebc076"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 362.571,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "champion",
+        "entity_ids": [
+          "Teemo"
+        ],
+        "sections": [
+          "passive"
+        ]
+      }
+    },
+    {
+      "id": "dev-jinx-q",
+      "split": "development",
+      "query": "Comment Jinx change-t-elle d'arme ?",
+      "request": {
+        "query": "Comment Jinx change-t-elle d'arme ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "dca6e092-4cb7-5bb4-a4af-f34f8297903f"
+        ],
+        "ids": [
+          "2b60d1c8-cd9b-5db9-b0c5-22c4f513c1ef",
+          "44a8b1b2-4c33-5752-ba30-65695074084f",
+          "d353f7fc-1b36-55ee-8be7-3beacaff09fd",
+          "39481d15-9e48-534a-a0c5-b649cc55362b",
+          "99529d63-09cd-5212-b8a6-f40d62f7534f"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 154.264,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "dca6e092-4cb7-5bb4-a4af-f34f8297903f"
+        ],
+        "ids": [
+          "dca6e092-4cb7-5bb4-a4af-f34f8297903f",
+          "43ff773a-2781-5bcc-b1ed-f6e98e68bf5c",
+          "1d8a79a7-a3ba-5113-aeee-c18b5369ef1b",
+          "ce686210-9296-5252-b454-af5c4cd5a823",
+          "cd9aead2-30fd-5198-9497-b731c2393b22"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 353.381,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "champion",
+        "entity_ids": [
+          "Jinx"
+        ],
+        "sections": []
+      }
+    },
+    {
+      "id": "dev-boots",
+      "split": "development",
+      "query": "Quels bonus donnent les Bottes ?",
+      "request": {
+        "query": "Quels bonus donnent les Bottes ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "9701a90c-1726-5a5f-a9cb-5e204359de9f"
+        ],
+        "ids": [
+          "b64b0f92-abe7-5fd3-9495-c49fa97f0a84",
+          "33e549e7-f024-5393-92e6-b09bd0b9b6cb",
+          "f091bef0-53cb-522c-9d03-8946953d9c73",
+          "20203f1a-81b0-5fcc-98a4-5f5a6ccdcce3",
+          "7c10d418-93f6-52a2-8c0b-d3685c150ece"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 164.505,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "9701a90c-1726-5a5f-a9cb-5e204359de9f"
+        ],
+        "ids": [
+          "9701a90c-1726-5a5f-a9cb-5e204359de9f"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 420.761,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "item",
+        "entity_ids": [
+          "1001"
+        ],
+        "sections": []
+      }
+    },
+    {
+      "id": "dev-long-sword",
+      "split": "development",
+      "query": "Quel est le prix de l'Épée longue ?",
+      "request": {
+        "query": "Quel est le prix de l'Épée longue ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": "item",
+        "entity_ids": [
+          "1036"
+        ],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "e290ec4d-f531-5142-98bf-709e758bb47f"
+        ],
+        "ids": [
+          "1fed50ab-bf84-54fe-b29f-bda30cf32a3c",
+          "18e238c5-4aa9-5ceb-b1da-2743670859f5",
+          "b09396f3-d1df-5782-9a63-88d5b3d3079b",
+          "baabcdc7-5e30-5651-a65f-87754d6a26de",
+          "e5512ea5-43d1-51a2-8dc9-fbf18e6a2d26"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 160.15,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "e290ec4d-f531-5142-98bf-709e758bb47f"
+        ],
+        "ids": [
+          "e290ec4d-f531-5142-98bf-709e758bb47f"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 328.576,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "item",
+        "entity_ids": [
+          "1036"
+        ],
+        "sections": []
+      }
+    },
+    {
+      "id": "dev-press-attack",
+      "split": "development",
+      "query": "Comment se déclenche Attaque soutenue ?",
+      "request": {
+        "query": "Comment se déclenche Attaque soutenue ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "c20743da-c934-5a56-b7e5-f47079371bd7"
+        ],
+        "ids": [
+          "9ddfd1b1-9976-5077-85d0-e1907695e5f8",
+          "20365355-54c5-563a-b37b-5d1b96c80441",
+          "f091bef0-53cb-522c-9d03-8946953d9c73",
+          "45df9ba5-f1cb-571d-a39f-61003b8d111e",
+          "03911e53-6010-5d30-b145-102c372c0eb4"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 156.163,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "c20743da-c934-5a56-b7e5-f47079371bd7"
+        ],
+        "ids": [
+          "c20743da-c934-5a56-b7e5-f47079371bd7"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 417.382,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "rune",
+        "entity_ids": [
+          "8005"
+        ],
+        "sections": []
+      }
+    },
+    {
+      "id": "dev-flash",
+      "split": "development",
+      "query": "Décris le sort d'invocateur Saut éclair.",
+      "request": {
+        "query": "Décris le sort d'invocateur Saut éclair.",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": "summoner_spell",
+        "entity_ids": [
+          "SummonerFlash"
+        ],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "058a7109-a342-5883-a6db-5431af6783e6"
+        ],
+        "ids": [
+          "c19e4e08-5b0b-5355-953e-412049bab2ec",
+          "628be743-0fa9-5fd5-ab1e-696fad6bd422",
+          "03be1e8d-046f-5181-9766-2a14f7e1485c",
+          "b4e6850b-163b-577d-8a64-fe216e471210",
+          "204b995e-cf63-55e4-a39b-21c536262768"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 170.843,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "058a7109-a342-5883-a6db-5431af6783e6"
+        ],
+        "ids": [
+          "058a7109-a342-5883-a6db-5431af6783e6"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 212.963,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "summoner_spell",
+        "entity_ids": [
+          "SummonerFlash"
+        ],
+        "sections": []
+      }
+    },
+    {
+      "id": "dev-ashe-r",
+      "split": "development",
+      "query": "Que fait la Flèche de cristal enchantée d'Ashe ?",
+      "request": {
+        "query": "Que fait la Flèche de cristal enchantée d'Ashe ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "ecb9f814-750f-5f85-aa8c-463b1fac5d43"
+        ],
+        "ids": [
+          "628be743-0fa9-5fd5-ab1e-696fad6bd422",
+          "81903a00-b2d3-5370-bb3b-6b6dd8e8b99d",
+          "22318cd2-5718-5770-837c-16cbd9d6b598",
+          "1fed50ab-bf84-54fe-b29f-bda30cf32a3c",
+          "e31a5512-8685-5fe0-8865-5e9f14af9009"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 162.632,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "ecb9f814-750f-5f85-aa8c-463b1fac5d43"
+        ],
+        "ids": [
+          "ecb9f814-750f-5f85-aa8c-463b1fac5d43"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 369.76,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "champion",
+        "entity_ids": [
+          "Ashe"
+        ],
+        "sections": [
+          "spell:EnchantedCrystalArrow"
+        ]
+      }
+    },
+    {
+      "id": "dev-wave",
+      "split": "development",
+      "query": "Comment freeze une vague avec Ahri ?",
+      "request": {
+        "query": "Comment freeze une vague avec Ahri ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [],
+        "ids": [
+          "b9c54bc1-073b-5588-9ede-bb42259c4524",
+          "7d72772e-a754-54cb-8036-920a74a82f56",
+          "22318cd2-5718-5770-837c-16cbd9d6b598",
+          "628be743-0fa9-5fd5-ab1e-696fad6bd422",
+          "1f8e8629-2bbf-5a8a-9abd-7a7e5038f432"
+        ],
+        "status": "ok",
+        "expected_status": "out_of_scope",
+        "elapsed_ms": 158.735,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [],
+        "ids": [],
+        "status": "out_of_scope",
+        "expected_status": "out_of_scope",
+        "elapsed_ms": 0.086,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": null,
+        "entity_ids": [],
+        "sections": []
+      }
+    },
+    {
+      "id": "dev-winrate",
+      "split": "development",
+      "query": "Quel est le winrate actuel de Lux ?",
+      "request": {
+        "query": "Quel est le winrate actuel de Lux ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [],
+        "ids": [
+          "01c4b343-9a86-5914-aa62-8be4e88a43a4",
+          "eaa9e127-5c97-56ea-a776-bbab6dd42caa",
+          "d7eb826b-9e5f-5098-b8f9-604292c0b398",
+          "28afd0da-3dd0-5409-b218-2b945ee927aa",
+          "c79057c0-07d5-51f2-8244-056787c7f0d1"
+        ],
+        "status": "ok",
+        "expected_status": "out_of_scope",
+        "elapsed_ms": 230.447,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [],
+        "ids": [],
+        "status": "out_of_scope",
+        "expected_status": "out_of_scope",
+        "elapsed_ms": 0.071,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": null,
+        "entity_ids": [],
+        "sections": []
+      }
+    },
+    {
+      "id": "dev-ambiguous",
+      "split": "development",
+      "query": "Compare les sorts de Ahri et Lux.",
+      "request": {
+        "query": "Compare les sorts de Ahri et Lux.",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [],
+        "ids": [
+          "01c4b343-9a86-5914-aa62-8be4e88a43a4",
+          "eaa9e127-5c97-56ea-a776-bbab6dd42caa",
+          "d7eb826b-9e5f-5098-b8f9-604292c0b398",
+          "8f70df44-632a-53ae-8e78-866aca78b4ff",
+          "28afd0da-3dd0-5409-b218-2b945ee927aa"
+        ],
+        "status": "ok",
+        "expected_status": "needs_clarification",
+        "elapsed_ms": 170.106,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [],
+        "ids": [],
+        "status": "needs_clarification",
+        "expected_status": "needs_clarification",
+        "elapsed_ms": 136.867,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": null,
+        "entity_ids": [],
+        "sections": []
+      }
+    },
+    {
+      "id": "dev-patch-missing",
+      "split": "development",
+      "query": "Quel est le passif de Ahri ?",
+      "request": {
+        "query": "Quel est le passif de Ahri ?",
+        "patch": "0.0.0",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [],
+        "ids": [],
+        "status": "no_results",
+        "expected_status": "no_results",
+        "elapsed_ms": 117.642,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [],
+        "ids": [],
+        "status": "no_results",
+        "expected_status": "no_results",
+        "elapsed_ms": 0.618,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": null,
+        "entity_ids": [],
+        "sections": []
+      }
+    },
+    {
+      "id": "val-ahri-w",
+      "split": "validation",
+      "query": "Quels effets produit Lucioles d'Ahri ?",
+      "request": {
+        "query": "Quels effets produit Lucioles d'Ahri ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "e4b66ef5-a919-5d0b-bb7a-1be9806c94db"
+        ],
+        "ids": [
+          "628be743-0fa9-5fd5-ab1e-696fad6bd422",
+          "1fed50ab-bf84-54fe-b29f-bda30cf32a3c",
+          "5899f5a0-cedb-5136-b9bb-545b636ff928",
+          "14d9d036-93ab-5e75-8836-66aa528d3179",
+          "16d4f498-b18c-5e71-a6e8-6af6216571f8"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 158.284,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "e4b66ef5-a919-5d0b-bb7a-1be9806c94db"
+        ],
+        "ids": [
+          "e4b66ef5-a919-5d0b-bb7a-1be9806c94db"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 359.454,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "champion",
+        "entity_ids": [
+          "Ahri"
+        ],
+        "sections": [
+          "spell:AhriW"
+        ]
+      }
+    },
+    {
+      "id": "val-ahri-r",
+      "split": "validation",
+      "query": "Décris l'ultime de Ahri.",
+      "request": {
+        "query": "Décris l'ultime de Ahri.",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "1142a04f-6cb6-5e1e-81b9-345a6377dac8"
+        ],
+        "ids": [
+          "628be743-0fa9-5fd5-ab1e-696fad6bd422",
+          "16d4f498-b18c-5e71-a6e8-6af6216571f8",
+          "14d9d036-93ab-5e75-8836-66aa528d3179",
+          "5899f5a0-cedb-5136-b9bb-545b636ff928",
+          "03be1e8d-046f-5181-9766-2a14f7e1485c"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 169.685,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "1142a04f-6cb6-5e1e-81b9-345a6377dac8"
+        ],
+        "ids": [
+          "1142a04f-6cb6-5e1e-81b9-345a6377dac8"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 436.038,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "champion",
+        "entity_ids": [
+          "Ahri"
+        ],
+        "sections": [
+          "spell:AhriR"
+        ]
+      }
+    },
+    {
+      "id": "val-garen-q",
+      "split": "validation",
+      "query": "Que fait Coup décisif de Garen ?",
+      "request": {
+        "query": "Que fait Coup décisif de Garen ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "caf1153f-f942-5a5c-9bb6-aed2b1720795"
+        ],
+        "ids": [
+          "628be743-0fa9-5fd5-ab1e-696fad6bd422",
+          "20365355-54c5-563a-b37b-5d1b96c80441",
+          "1f8e8629-2bbf-5a8a-9abd-7a7e5038f432",
+          "b64b0f92-abe7-5fd3-9495-c49fa97f0a84",
+          "e31a5512-8685-5fe0-8865-5e9f14af9009"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 161.859,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "caf1153f-f942-5a5c-9bb6-aed2b1720795"
+        ],
+        "ids": [
+          "caf1153f-f942-5a5c-9bb6-aed2b1720795"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 373.695,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "champion",
+        "entity_ids": [
+          "Garen"
+        ],
+        "sections": [
+          "spell:GarenQ"
+        ]
+      }
+    },
+    {
+      "id": "val-garen-r",
+      "split": "validation",
+      "query": "Décris Justice de Demacia de Garen.",
+      "request": {
+        "query": "Décris Justice de Demacia de Garen.",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "031e9e1c-a3d3-537e-92ee-181acaacd01d"
+        ],
+        "ids": [
+          "628be743-0fa9-5fd5-ab1e-696fad6bd422",
+          "5899f5a0-cedb-5136-b9bb-545b636ff928",
+          "14d9d036-93ab-5e75-8836-66aa528d3179",
+          "16d4f498-b18c-5e71-a6e8-6af6216571f8",
+          "b4e6850b-163b-577d-8a64-fe216e471210"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 157.698,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "031e9e1c-a3d3-537e-92ee-181acaacd01d"
+        ],
+        "ids": [
+          "031e9e1c-a3d3-537e-92ee-181acaacd01d"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 480.26,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "champion",
+        "entity_ids": [
+          "Garen"
+        ],
+        "sections": [
+          "spell:GarenR"
+        ]
+      }
+    },
+    {
+      "id": "val-morgana-e",
+      "split": "validation",
+      "query": "Que protège le Bouclier noir de Morgana ?",
+      "request": {
+        "query": "Que protège le Bouclier noir de Morgana ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "7a6cc239-e47f-5adb-9283-bc0948de85c8"
+        ],
+        "ids": [
+          "628be743-0fa9-5fd5-ab1e-696fad6bd422",
+          "22318cd2-5718-5770-837c-16cbd9d6b598",
+          "45df9ba5-f1cb-571d-a39f-61003b8d111e",
+          "1f8e8629-2bbf-5a8a-9abd-7a7e5038f432",
+          "b64b0f92-abe7-5fd3-9495-c49fa97f0a84"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 223.848,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "7a6cc239-e47f-5adb-9283-bc0948de85c8"
+        ],
+        "ids": [
+          "7a6cc239-e47f-5adb-9283-bc0948de85c8"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 454.648,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "champion",
+        "entity_ids": [
+          "Morgana"
+        ],
+        "sections": [
+          "spell:MorganaE"
+        ]
+      }
+    },
+    {
+      "id": "val-ezreal-q",
+      "split": "validation",
+      "query": "Quel effet a le Tir mystique d'Ezreal lorsqu'il touche une cible ?",
+      "request": {
+        "query": "Quel effet a le Tir mystique d'Ezreal lorsqu'il touche une cible ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "8d3280f6-84ef-5d3f-ba63-7f9219619cb3"
+        ],
+        "ids": [
+          "889cffaf-0b99-5b29-a7f1-39da88729d9b",
+          "5bb9ea0e-2977-52ae-926e-b6bfbc20ee23",
+          "2a9c0366-a767-5f46-91b4-4f0c4a5cb49b",
+          "3832e960-144a-547f-869f-086192f5e048",
+          "c4d2a63f-a6ec-5728-a5ab-e6886c62ec67"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 203.307,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "8d3280f6-84ef-5d3f-ba63-7f9219619cb3"
+        ],
+        "ids": [
+          "8d3280f6-84ef-5d3f-ba63-7f9219619cb3"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 470.621,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "champion",
+        "entity_ids": [
+          "Ezreal"
+        ],
+        "sections": [
+          "spell:EzrealQ"
+        ]
+      }
+    },
+    {
+      "id": "val-sion-passive",
+      "split": "validation",
+      "query": "Qu'arrive-t-il à Sion après sa mort selon son passif ?",
+      "request": {
+        "query": "Qu'arrive-t-il à Sion après sa mort selon son passif ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "a303c8aa-a6ad-5bc5-898e-7749c9d0e071"
+        ],
+        "ids": [
+          "b09396f3-d1df-5782-9a63-88d5b3d3079b",
+          "c23a7a1c-9cc3-530b-9360-5ed845a6306d",
+          "1fb4081c-3530-5e58-8acd-cec601ec7b12",
+          "81903a00-b2d3-5370-bb3b-6b6dd8e8b99d",
+          "17a2d9e0-cea6-59e9-8e25-8d6d0159b532"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 167.054,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "a303c8aa-a6ad-5bc5-898e-7749c9d0e071"
+        ],
+        "ids": [
+          "a303c8aa-a6ad-5bc5-898e-7749c9d0e071"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 386.379,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "champion",
+        "entity_ids": [
+          "Sion"
+        ],
+        "sections": [
+          "passive"
+        ]
+      }
+    },
+    {
+      "id": "val-lux-r",
+      "split": "validation",
+      "query": "Comment fonctionne Éclat final de Lux ?",
+      "request": {
+        "query": "Comment fonctionne Éclat final de Lux ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "c79057c0-07d5-51f2-8244-056787c7f0d1"
+        ],
+        "ids": [
+          "01c4b343-9a86-5914-aa62-8be4e88a43a4",
+          "eaa9e127-5c97-56ea-a776-bbab6dd42caa",
+          "d7eb826b-9e5f-5098-b8f9-604292c0b398",
+          "c79057c0-07d5-51f2-8244-056787c7f0d1",
+          "54cdf96b-e33f-57ef-b987-1f4213291892"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 168.058,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "c79057c0-07d5-51f2-8244-056787c7f0d1"
+        ],
+        "ids": [
+          "c79057c0-07d5-51f2-8244-056787c7f0d1"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 436.1,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "champion",
+        "entity_ids": [
+          "Lux"
+        ],
+        "sections": [
+          "spell:LuxR"
+        ]
+      }
+    },
+    {
+      "id": "val-doran",
+      "split": "validation",
+      "query": "Quelles statistiques apporte la Lame de Doran ?",
+      "request": {
+        "query": "Quelles statistiques apporte la Lame de Doran ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": "item",
+        "entity_ids": [
+          "1055"
+        ],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "22d983fa-9a34-5156-954e-3d4867d91b80"
+        ],
+        "ids": [
+          "628be743-0fa9-5fd5-ab1e-696fad6bd422",
+          "baabcdc7-5e30-5651-a65f-87754d6a26de",
+          "e5512ea5-43d1-51a2-8dc9-fbf18e6a2d26",
+          "33e549e7-f024-5393-92e6-b09bd0b9b6cb",
+          "b64b0f92-abe7-5fd3-9495-c49fa97f0a84"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 193.976,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "22d983fa-9a34-5156-954e-3d4867d91b80"
+        ],
+        "ids": [
+          "22d983fa-9a34-5156-954e-3d4867d91b80"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 298.889,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "item",
+        "entity_ids": [
+          "1055"
+        ],
+        "sections": []
+      }
+    },
+    {
+      "id": "val-zhonya",
+      "split": "validation",
+      "query": "Décris l'effet du Sablier de Zhonya.",
+      "request": {
+        "query": "Décris l'effet du Sablier de Zhonya.",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": "item",
+        "entity_ids": [
+          "3157"
+        ],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "93a15e00-0280-552b-ad3d-c547e33c3e43"
+        ],
+        "ids": [
+          "606da571-2de5-5df6-8d6e-32d34c7d08a0",
+          "17a2d9e0-cea6-59e9-8e25-8d6d0159b532",
+          "1bbc2529-065c-56db-aa56-c4fb09cae780",
+          "628be743-0fa9-5fd5-ab1e-696fad6bd422",
+          "80c44910-cad8-5478-8572-e63ab2f9f367"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 162.008,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "93a15e00-0280-552b-ad3d-c547e33c3e43"
+        ],
+        "ids": [
+          "93a15e00-0280-552b-ad3d-c547e33c3e43"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 297.152,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "item",
+        "entity_ids": [
+          "3157"
+        ],
+        "sections": []
+      }
+    },
+    {
+      "id": "val-aery",
+      "split": "validation",
+      "query": "Quels sont les effets de Invocation d'Aery ?",
+      "request": {
+        "query": "Quels sont les effets de Invocation d'Aery ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "00c232ed-9733-5012-8c83-ab84206af4f7",
+          "224aa494-d11e-533a-b886-89008cef606a"
+        ],
+        "ids": [
+          "628be743-0fa9-5fd5-ab1e-696fad6bd422",
+          "1fed50ab-bf84-54fe-b29f-bda30cf32a3c",
+          "baabcdc7-5e30-5651-a65f-87754d6a26de",
+          "5899f5a0-cedb-5136-b9bb-545b636ff928",
+          "16d4f498-b18c-5e71-a6e8-6af6216571f8"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 119.857,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "00c232ed-9733-5012-8c83-ab84206af4f7",
+          "224aa494-d11e-533a-b886-89008cef606a"
+        ],
+        "ids": [
+          "224aa494-d11e-533a-b886-89008cef606a",
+          "00c232ed-9733-5012-8c83-ab84206af4f7"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 375.085,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "rune",
+        "entity_ids": [
+          "8214"
+        ],
+        "sections": []
+      }
+    },
+    {
+      "id": "val-teleport",
+      "split": "validation",
+      "query": "Que fait le sort d'invocateur Téléportation ?",
+      "request": {
+        "query": "Que fait le sort d'invocateur Téléportation ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": "summoner_spell",
+        "entity_ids": [
+          "SummonerTeleport"
+        ],
+        "section": null
+      },
+      "baseline": {
+        "gold": [
+          "1c492f3a-ac46-57a4-8f6f-953181c27f42"
+        ],
+        "ids": [
+          "1fed50ab-bf84-54fe-b29f-bda30cf32a3c",
+          "628be743-0fa9-5fd5-ab1e-696fad6bd422",
+          "baabcdc7-5e30-5651-a65f-87754d6a26de",
+          "e5512ea5-43d1-51a2-8dc9-fbf18e6a2d26",
+          "43acce03-17dc-505f-97fc-e582fad2d16f"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 145.916,
+        "wrong_entity_hits": 5,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [
+          "1c492f3a-ac46-57a4-8f6f-953181c27f42"
+        ],
+        "ids": [
+          "1c492f3a-ac46-57a4-8f6f-953181c27f42"
+        ],
+        "status": "ok",
+        "expected_status": "ok",
+        "elapsed_ms": 441.966,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": "summoner_spell",
+        "entity_ids": [
+          "SummonerTeleport"
+        ],
+        "sections": []
+      }
+    },
+    {
+      "id": "val-build",
+      "split": "validation",
+      "query": "Quel est le meilleur build de Garen pour gagner ?",
+      "request": {
+        "query": "Quel est le meilleur build de Garen pour gagner ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [],
+        "ids": [
+          "d7451e6c-3b84-5108-afe5-7a9e652a8ecc",
+          "889cffaf-0b99-5b29-a7f1-39da88729d9b",
+          "b09396f3-d1df-5782-9a63-88d5b3d3079b",
+          "dcb262ba-96c1-56db-b719-ab8fca0a8047",
+          "f775f547-e3fb-5abf-b6ee-fa3f2ade83ab"
+        ],
+        "status": "ok",
+        "expected_status": "out_of_scope",
+        "elapsed_ms": 340.953,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [],
+        "ids": [],
+        "status": "out_of_scope",
+        "expected_status": "out_of_scope",
+        "elapsed_ms": 0.08,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": null,
+        "entity_ids": [],
+        "sections": []
+      }
+    },
+    {
+      "id": "val-match",
+      "split": "validation",
+      "query": "Analyse ma dernière partie avec Morgana.",
+      "request": {
+        "query": "Analyse ma dernière partie avec Morgana.",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [],
+        "ids": [
+          "0375e752-2828-5630-936f-31fbf9adfb21",
+          "fe42316d-610b-59db-a741-111d855d6057",
+          "d07c34b2-964a-5709-bc22-9ace8b03744e",
+          "c68a76f9-07b9-54fc-b847-41fc5fe14443",
+          "ac5fd6f6-cb6d-5307-8ed7-5ca9b9defa3c"
+        ],
+        "status": "ok",
+        "expected_status": "out_of_scope",
+        "elapsed_ms": 668.3,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [],
+        "ids": [],
+        "status": "out_of_scope",
+        "expected_status": "out_of_scope",
+        "elapsed_ms": 0.112,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": null,
+        "entity_ids": [],
+        "sections": []
+      }
+    },
+    {
+      "id": "val-unknown",
+      "split": "validation",
+      "query": "Explique une compétence.",
+      "request": {
+        "query": "Explique une compétence.",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [],
+        "ids": [
+          "ff32d7fd-6182-536d-b806-87cdf88790ca",
+          "9b007936-47a4-580c-9a40-efdda6762425",
+          "b4e6850b-163b-577d-8a64-fe216e471210",
+          "03be1e8d-046f-5181-9766-2a14f7e1485c",
+          "204b995e-cf63-55e4-a39b-21c536262768"
+        ],
+        "status": "ok",
+        "expected_status": "needs_clarification",
+        "elapsed_ms": 652.838,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [],
+        "ids": [],
+        "status": "needs_clarification",
+        "expected_status": "needs_clarification",
+        "elapsed_ms": 416.253,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": null,
+        "entity_ids": [],
+        "sections": []
+      }
+    },
+    {
+      "id": "val-locale-missing",
+      "split": "validation",
+      "query": "Describe Ahri's passive.",
+      "request": {
+        "query": "Describe Ahri's passive.",
+        "patch": "16.21.1",
+        "locale": "en_US",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [],
+        "ids": [],
+        "status": "no_results",
+        "expected_status": "no_results",
+        "elapsed_ms": 471.39,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [],
+        "ids": [],
+        "status": "no_results",
+        "expected_status": "no_results",
+        "elapsed_ms": 3.464,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": null,
+        "entity_ids": [],
+        "sections": []
+      }
+    },
+    {
+      "id": "dev-long-sword-ambiguous",
+      "split": "development",
+      "query": "Quel est le prix de l'Épée longue ?",
+      "request": {
+        "query": "Quel est le prix de l'Épée longue ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [],
+        "ids": [
+          "1fed50ab-bf84-54fe-b29f-bda30cf32a3c",
+          "18e238c5-4aa9-5ceb-b1da-2743670859f5",
+          "b09396f3-d1df-5782-9a63-88d5b3d3079b",
+          "baabcdc7-5e30-5651-a65f-87754d6a26de",
+          "e5512ea5-43d1-51a2-8dc9-fbf18e6a2d26"
+        ],
+        "status": "ok",
+        "expected_status": "needs_clarification",
+        "elapsed_ms": 443.88,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [],
+        "ids": [],
+        "status": "needs_clarification",
+        "expected_status": "needs_clarification",
+        "elapsed_ms": 236.251,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": null,
+        "entity_ids": [],
+        "sections": []
+      }
+    },
+    {
+      "id": "val-doran-ambiguous",
+      "split": "validation",
+      "query": "Quelles statistiques apporte la Lame de Doran ?",
+      "request": {
+        "query": "Quelles statistiques apporte la Lame de Doran ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [],
+        "ids": [
+          "628be743-0fa9-5fd5-ab1e-696fad6bd422",
+          "baabcdc7-5e30-5651-a65f-87754d6a26de",
+          "e5512ea5-43d1-51a2-8dc9-fbf18e6a2d26",
+          "33e549e7-f024-5393-92e6-b09bd0b9b6cb",
+          "b64b0f92-abe7-5fd3-9495-c49fa97f0a84"
+        ],
+        "status": "ok",
+        "expected_status": "needs_clarification",
+        "elapsed_ms": 636.32,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [],
+        "ids": [],
+        "status": "needs_clarification",
+        "expected_status": "needs_clarification",
+        "elapsed_ms": 325.023,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": null,
+        "entity_ids": [],
+        "sections": []
+      }
+    },
+    {
+      "id": "val-zhonya-ambiguous",
+      "split": "validation",
+      "query": "Décris l'effet du Sablier de Zhonya.",
+      "request": {
+        "query": "Décris l'effet du Sablier de Zhonya.",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [],
+        "ids": [
+          "606da571-2de5-5df6-8d6e-32d34c7d08a0",
+          "17a2d9e0-cea6-59e9-8e25-8d6d0159b532",
+          "1bbc2529-065c-56db-aa56-c4fb09cae780",
+          "628be743-0fa9-5fd5-ab1e-696fad6bd422",
+          "80c44910-cad8-5478-8572-e63ab2f9f367"
+        ],
+        "status": "ok",
+        "expected_status": "needs_clarification",
+        "elapsed_ms": 381.598,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [],
+        "ids": [],
+        "status": "needs_clarification",
+        "expected_status": "needs_clarification",
+        "elapsed_ms": 172.083,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": null,
+        "entity_ids": [],
+        "sections": []
+      }
+    },
+    {
+      "id": "dev-flash-ambiguous",
+      "split": "development",
+      "query": "Décris le sort d'invocateur Saut éclair.",
+      "request": {
+        "query": "Décris le sort d'invocateur Saut éclair.",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [],
+        "ids": [
+          "c19e4e08-5b0b-5355-953e-412049bab2ec",
+          "628be743-0fa9-5fd5-ab1e-696fad6bd422",
+          "03be1e8d-046f-5181-9766-2a14f7e1485c",
+          "b4e6850b-163b-577d-8a64-fe216e471210",
+          "204b995e-cf63-55e4-a39b-21c536262768"
+        ],
+        "status": "ok",
+        "expected_status": "needs_clarification",
+        "elapsed_ms": 204.533,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [],
+        "ids": [],
+        "status": "needs_clarification",
+        "expected_status": "needs_clarification",
+        "elapsed_ms": 389.262,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": null,
+        "entity_ids": [],
+        "sections": []
+      }
+    },
+    {
+      "id": "val-teleport-ambiguous",
+      "split": "validation",
+      "query": "Que fait le sort d'invocateur Téléportation ?",
+      "request": {
+        "query": "Que fait le sort d'invocateur Téléportation ?",
+        "patch": "16.21.1",
+        "locale": "fr_FR",
+        "limit": 5,
+        "entity_type": null,
+        "entity_ids": [],
+        "section": null
+      },
+      "baseline": {
+        "gold": [],
+        "ids": [
+          "1fed50ab-bf84-54fe-b29f-bda30cf32a3c",
+          "628be743-0fa9-5fd5-ab1e-696fad6bd422",
+          "baabcdc7-5e30-5651-a65f-87754d6a26de",
+          "e5512ea5-43d1-51a2-8dc9-fbf18e6a2d26",
+          "43acce03-17dc-505f-97fc-e582fad2d16f"
+        ],
+        "status": "ok",
+        "expected_status": "needs_clarification",
+        "elapsed_ms": 276.612,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filtered": {
+        "gold": [],
+        "ids": [],
+        "status": "needs_clarification",
+        "expected_status": "needs_clarification",
+        "elapsed_ms": 169.436,
+        "wrong_entity_hits": 0,
+        "patch_locale_errors": 0
+      },
+      "filters": {
+        "entity_type": null,
+        "entity_ids": [],
+        "sections": []
+      }
+    }
+  ],
+  "limitations": [
+    "Manually authored small suite; not an independent benchmark.",
+    "Scores measure passage retrieval, not factual or pedagogical correctness.",
+    "Latency excludes model loading; baseline executes first for every case."
+  ]
+}

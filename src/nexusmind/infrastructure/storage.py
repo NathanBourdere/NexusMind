@@ -60,3 +60,9 @@ class Catalog:
 
     def document_count(self) -> int:
         return self.connection.execute("SELECT COUNT(*) FROM documents").fetchone()[0]
+
+    def documents(self) -> list[Document]:
+        return [
+            Document.model_validate_json(row[0])
+            for row in self.connection.execute("SELECT payload FROM documents ORDER BY id")
+        ]
