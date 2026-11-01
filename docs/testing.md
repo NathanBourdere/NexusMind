@@ -36,6 +36,16 @@ métriques sur exemples manuels, les contrats et l'intégrité suite/rapport.
 Les tests live restent à créer. Documenter les variables et fixtures réellement
 nécessaires aux intégrations. Aucun appel live dans le contrôle obligatoire d'une PR.
 
+Les tests Coach utilisent un générateur et un transport HTTP simulés ; ils
+couvrent la CLI avec Qdrant en mémoire. Le scénario Red/Green de l'adaptateur
+et de la commande a été observé avant leur implémentation. Le protocole de
+validation réelle et les limites sémantiques sont dans le [guide Coach](coach.md).
+
+`nexusmind evaluate-coach` prépare par défaut un rapport sans appel LLM. Son
+mode `--live` est volontaire, avec confirmation du projet gratuit et un budget
+d'appels. Les tests hors ligne vérifient le comptage des tentatives, l'arrêt au
+quota, les cas non exécutés et la validation du corpus avant génération.
+
 | Niveau / emplacement cible | Ce qu'il prouve | Ressources |
 | --- | --- | --- |
 | `tests/unit/` | Normalisation, schémas, contexte, mapping et erreurs | Fixtures et doubles, aucune connexion |

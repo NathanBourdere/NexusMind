@@ -1,0 +1,181 @@
+{
+  "measured_at": "2026-11-01T13:22:43.206835+00:00",
+  "corpus_fingerprint": "cc7ba1bc754d167d6151263a0d06ba6beb8b73f0cfac1bb0c2399919fe57c336",
+  "suite_fingerprint": "7eaf1a8e665826a2c68329cdef10e3174e34e6f83b48e970898408c54f127c27",
+  "historical_baseline": {
+    "case_id": "dev-ahri-q",
+    "model": "gemini-3.8-flash",
+    "elapsed_ms": 69325.971
+  },
+  "profiles": {
+    "gemini-3.5-flash-lite": "MINIMAL",
+    "gemini-3.8-flash": "LOW"
+  },
+  "protocol": {
+    "max_output_tokens": 2048,
+    "connect_timeout_seconds": 5,
+    "read_timeout_seconds": 90,
+    "same_prompt_and_schema": true,
+    "retrieval_and_model_loading_excluded": true,
+    "response_cache": false,
+    "automatic_retry": false
+  },
+  "fast_summary": {
+    "successful_calls": 5,
+    "unique_questions": 4,
+    "min_ms": 1266.001,
+    "median_ms": 1852.74,
+    "max_ms": 2101.953
+  },
+  "samples": [
+    {
+      "stage": "exploration",
+      "case_id": "dev-ahri-q",
+      "model": "gemini-3.5-flash-lite",
+      "elapsed_ms": 2086.951,
+      "status": "answered",
+      "provider_status": null,
+      "provider_error": null,
+      "citation_ids": [
+        "29512b8e-3725-5421-9b40-7a063720d55a"
+      ],
+      "usage": {
+        "promptTokenCount": 420,
+        "candidatesTokenCount": 361,
+        "totalTokenCount": 781,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 420
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "model_version": null
+    },
+    {
+      "stage": "exploration",
+      "case_id": "dev-garen-passive",
+      "model": "gemini-3.5-flash-lite",
+      "elapsed_ms": 2101.953,
+      "status": "answered",
+      "provider_status": null,
+      "provider_error": null,
+      "citation_ids": [
+        "ade3b018-f0cd-52c7-9af0-6abdc0fe6e1b"
+      ],
+      "usage": {
+        "promptTokenCount": 403,
+        "candidatesTokenCount": 295,
+        "totalTokenCount": 698,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 403
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "model_version": null
+    },
+    {
+      "stage": "implemented_profile",
+      "case_id": "dev-ahri-q",
+      "model": "gemini-3.5-flash-lite",
+      "elapsed_ms": 1852.74,
+      "status": "answered",
+      "provider_status": null,
+      "provider_error": null,
+      "citation_ids": [
+        "29512b8e-3725-5421-9b40-7a063720d55a"
+      ],
+      "usage": {
+        "promptTokenCount": 420,
+        "candidatesTokenCount": 274,
+        "totalTokenCount": 694,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 420
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "model_version": "gemini-3.5-flash-lite"
+    },
+    {
+      "stage": "implemented_profile",
+      "case_id": "dev-yasuo-w",
+      "model": "gemini-3.5-flash-lite",
+      "elapsed_ms": 1402.02,
+      "status": "answered",
+      "provider_status": null,
+      "provider_error": null,
+      "citation_ids": [
+        "c594b4c1-db0b-5d44-a43a-1e7a0203d830"
+      ],
+      "usage": {
+        "promptTokenCount": 398,
+        "candidatesTokenCount": 179,
+        "totalTokenCount": 577,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 398
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "model_version": "gemini-3.5-flash-lite"
+    },
+    {
+      "stage": "implemented_profile",
+      "case_id": "dev-long-sword",
+      "model": "gemini-3.5-flash-lite",
+      "elapsed_ms": 1266.001,
+      "status": "answered",
+      "provider_status": null,
+      "provider_error": null,
+      "citation_ids": [
+        "e290ec4d-f531-5142-98bf-709e758bb47f"
+      ],
+      "usage": {
+        "promptTokenCount": 467,
+        "candidatesTokenCount": 170,
+        "totalTokenCount": 637,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 467
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "model_version": "gemini-3.5-flash-lite"
+    },
+    {
+      "stage": "fresh_baseline",
+      "case_id": "dev-ahri-q",
+      "model": "gemini-3.8-flash",
+      "elapsed_ms": 90263.224,
+      "status": "unavailable",
+      "provider_status": null,
+      "provider_error": "timeout",
+      "citation_ids": [],
+      "usage": {},
+      "model_version": null
+    }
+  ],
+  "agent_review": {
+    "sourced_facts_checked_against_returned_passages": true,
+    "invented_citation_ids": 0,
+    "notes": "Ahri aller/retour, Garen regeneration, Yasuo 4 seconds, item 350 gold match cited Riot text. Exercises present. Not independent human review."
+  },
+  "limitations": [
+    "Five fast calls, four unique questions, development examples only.",
+    "One historical successful baseline and one fresh timeout; no paired median or p95 claim.",
+    "Model and thinking profile change together; no causal attribution to thinking alone.",
+    "No guarantee of Free tier latency or broad pedagogical quality.",
+    "CLI cold start and retrieval are outside measured intervals."
+  ]
+}

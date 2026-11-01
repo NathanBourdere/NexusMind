@@ -8,6 +8,8 @@ Les changements mineurs restent dans la PR.
 - [0002 — Stockage, retrieval et orchestration pédagogique](0002-rag-orchestration.md)
 - [0003 — Package Python installé et adaptateurs explicites](0003-python-package-layout.md)
 - [0004 — Retrieval explicite et évaluation versionnée](0004-retrieval-baseline.md)
+- [0005 — Coach injectable avec Gemini gratuit](0005-free-tier-coach.md)
+- [0006 — Profil Coach rapide avec Flash-Lite](0006-low-latency-coach.md)
 
 Nommage : `NNNN-sujet-en-kebab-case.md`. Statuts : proposé, accepté, remplacé.
 Une décision acceptée peut définir une cible encore non implémentée. Pour la

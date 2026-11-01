@@ -50,6 +50,16 @@ reste incomplète. Les cinq collections déclarées sont `nexusmind_champions`,
 
 ## Cible progressive
 
+Depuis le chantier Coach du 1er novembre 2026, `nexusmind coach` enchaîne le
+Retriever et un générateur injecté. L'adaptateur Gemini effectue un appel borné,
+le Coach vérifie les références et conserve les passages originaux. Un lot réel
+de 37 cas a été exécuté et relu par l'agent ; la revue indépendante reste à faire.
+Voir le [guide Coach](coach.md) et
+l'[ADR-0005](decisions/0005-free-tier-coach.md). Le graphe LangGraph ci-dessous
+reste une cible ; le parcours livré est séquentiel et sans correction LLM.
+Le profil par défaut est désormais Flash-Lite avec raisonnement minimal, selon
+l'[ADR-0006](decisions/0006-low-latency-coach.md), sans changer le contrat des preuves.
+
 Deux parcours séparés : ingestion hors requête et réponse au joueur. Une
 question ne doit pas déclencher implicitement la réindexation du corpus.
 

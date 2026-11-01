@@ -1,0 +1,1465 @@
+{
+  "schema_version": 1,
+  "status": "completed",
+  "evaluated_at": "2026-11-01T14:10:35.826839+00:00",
+  "suite": "riot-static-fr-v1",
+  "suite_fingerprint": "7eaf1a8e665826a2c68329cdef10e3174e34e6f83b48e970898408c54f127c27",
+  "corpus_fingerprint": "cc7ba1bc754d167d6151263a0d06ba6beb8b73f0cfac1bb0c2399919fe57c336",
+  "model": "gemini-3.5-flash-lite",
+  "calls_attempted": 24,
+  "max_calls": 24,
+  "call_interval_seconds": 5.0,
+  "summary": {
+    "cases": 37,
+    "answered": 24,
+    "negative_cases": 13,
+    "status_matches": 37,
+    "invalid_citations": 0,
+    "generation_median_ms": 1676.2635,
+    "generation_p95_ms": 2156.173
+  },
+  "cases": [
+    {
+      "id": "dev-ahri-q",
+      "split": "development",
+      "query": "Comment fonctionne Orbe d'illusion chez Ahri ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 2156.173,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Ahri lance son orbe et le ramène vers elle.",
+          "evidence_ids": [
+            "29512b8e-3725-5421-9b40-7a063720d55a"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "L'orbe d'Ahri inflige des dégâts magiques à l'aller et des dégâts bruts au retour.",
+          "evidence_ids": [
+            "29512b8e-3725-5421-9b40-7a063720d55a"
+          ]
+        }
+      ],
+      "exercise": "Observe ton positionnement pour toucher une cible à la fois à l'aller avec les dégâts magiques et au retour avec les dégâts bruts lors du lancement de l'Orbe d'illusion.",
+      "citation_ids": [
+        "29512b8e-3725-5421-9b40-7a063720d55a"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les informations fournies se limitent à la description textuelle de la compétence sans détails chiffrés ni analyse de méta.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "dev-ahri-e",
+      "split": "development",
+      "query": "Ahri peut-elle interrompre un déplacement avec son baiser ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1738.446,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Le sort Charme d'Ahri envoie un baiser qui blesse et charme le premier ennemi touché, interrompant immédiatement ses compétences de déplacement.",
+          "evidence_ids": [
+            "69d137f0-1c55-59b0-bb95-7d5661e754a1"
+          ]
+        },
+        {
+          "kind": "coaching_hypothesis",
+          "text": "Hypothèse de coaching : Puisque le baiser interrompt immédiatement les compétences de déplacement du premier ennemi touché, tu peux utiliser Charme pour stopper un adversaire en train de foncer vers toi.",
+          "evidence_ids": [
+            "69d137f0-1c55-59b0-bb95-7d5661e754a1"
+          ]
+        }
+      ],
+      "exercise": "Observe la description du sort Charme d'Ahri et identifie quel effet précis permet d'interrompre un déplacement ennemi.",
+      "citation_ids": [
+        "69d137f0-1c55-59b0-bb95-7d5661e754a1"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les informations se limitent au kit de sorts d'Ahri sur le patch 16.21.1 sans analyse de partie globale.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "dev-garen-passive",
+      "split": "development",
+      "query": "Décris le passif de Garen.",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1293.301,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Le passif de Garen se nomme Persévérance.",
+          "evidence_ids": [
+            "ade3b018-f0cd-52c7-9af0-6abdc0fe6e1b"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Si Garen n'a pas subi de dégâts ou de compétences ennemies récemment, il régénère un pourcentage de ses PV totaux chaque seconde.",
+          "evidence_ids": [
+            "ade3b018-f0cd-52c7-9af0-6abdc0fe6e1b"
+          ]
+        }
+      ],
+      "exercise": "Observe ton indicateur de PV lorsque tu t'éloignes des combats pour voir quand la régénération de Persévérance s'active.",
+      "citation_ids": [
+        "ade3b018-f0cd-52c7-9af0-6abdc0fe6e1b"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les informations proviennent uniquement du passage fourni pour le patch 16.21.1.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "dev-lux-q",
+      "split": "development",
+      "query": "Que fait Entrave de lumière de Lux ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1272.773,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Lux projette une sphère de lumière qui immobilise et blesse jusqu'à deux unités ennemies.",
+          "evidence_ids": [
+            "eaa9e127-5c97-56ea-a776-bbab6dd42caa"
+          ]
+        }
+      ],
+      "exercise": "Observe bien le moment où Lux lance Entrave de lumière pour identifier si elle touche un ou deux ennemis.",
+      "citation_ids": [
+        "eaa9e127-5c97-56ea-a776-bbab6dd42caa"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les informations proviennent uniquement du passage fourni pour ce patch.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "dev-yasuo-w",
+      "split": "development",
+      "query": "Que bloque le Mur de vent de Yasuo ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1506.121,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Le Mur de vent de Yasuo crée un mur mobile qui bloque tous les projectiles ennemis pendant 4 secondes.",
+          "evidence_ids": [
+            "c594b4c1-db0b-5d44-a43a-1e7a0203d830"
+          ]
+        }
+      ],
+      "exercise": "Observe une partie ou une vidéo de Yasuo et identifie au moins un projectile ennemi bloqué par le Mur de vent.",
+      "citation_ids": [
+        "c594b4c1-db0b-5d44-a43a-1e7a0203d830"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les informations fournies se limitent à la description de la compétence sur le patch 16.21.1.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "dev-teemo-passive",
+      "split": "development",
+      "query": "Comment fonctionne le passif de Teemo ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1937.281,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Le passif de Teemo s'appelle Guérilla.",
+          "evidence_ids": [
+            "9da754ef-e93a-5fc8-958d-34f5caebc076"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Si Teemo reste immobile et sans agir pendant un court instant, il devient invisible indéfiniment.",
+          "evidence_ids": [
+            "9da754ef-e93a-5fc8-958d-34f5caebc076"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Dans les herbes hautes, Teemo peut activer et maintenir son invisibilité tout en se déplaçant.",
+          "evidence_ids": [
+            "9da754ef-e93a-5fc8-958d-34f5caebc076"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Quand il quitte son invisibilité, Teemo profite de l'Effet de surprise, ce qui augmente sa vitesse d'attaque pendant quelques secondes.",
+          "evidence_ids": [
+            "9da754ef-e93a-5fc8-958d-34f5caebc076"
+          ]
+        }
+      ],
+      "exercise": "Observe ton personnage dans les herbes hautes : vérifie comment tu maintiens ton invisibilité en te déplaçant, et observe l'augmentation de ta vitesse d'attaque juste après avoir quitté cette invisibilité.",
+      "citation_ids": [
+        "9da754ef-e93a-5fc8-958d-34f5caebc076"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les informations proviennent uniquement du passage fourni pour le patch 16.21.1.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "dev-jinx-q",
+      "split": "development",
+      "query": "Comment Jinx change-t-elle d'arme ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1576.817,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Jinx change d'arme en utilisant sa compétence 'Flip flap !' pour basculer entre Bang-Bang (le minigun) et Poiscaille (le lance-roquettes).",
+          "evidence_ids": [
+            "dca6e092-4cb7-5bb4-a4af-f34f8297903f"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Les attaques avec Bang-Bang augmentent la vitesse d'attaque de Jinx.",
+          "evidence_ids": [
+            "dca6e092-4cb7-5bb4-a4af-f34f8297903f"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Les attaques avec Poiscaille infligent des dégâts de zone, offrent une plus grande portée, mais coûtent du mana et sont plus lentes.",
+          "evidence_ids": [
+            "dca6e092-4cb7-5bb4-a4af-f34f8297903f"
+          ]
+        }
+      ],
+      "exercise": "Exerce-toi en jeu à observer le changement d'arme de Jinx : remarque comment ses attaques de base changent d'apparence et de portée lorsque tu passes de Bang-Bang à Poiscaille grâce à sa compétence.",
+      "citation_ids": [
+        "dca6e092-4cb7-5bb4-a4af-f34f8297903f"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les passages fournis ne détaillent pas la touche exacte du clavier utilisée pour activer la compétence 'Flip flap !'.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "dev-boots",
+      "split": "development",
+      "query": "Quels bonus donnent les Bottes ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1540.831,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Les Bottes donnent un bonus de +25 en vitesse de déplacement.",
+          "evidence_ids": [
+            "9701a90c-1726-5a5f-a9cb-5e204359de9f"
+          ]
+        }
+      ],
+      "exercise": "Observe ton inventaire en partie et vérifie l'augmentation de ta vitesse de déplacement lorsque tu achètes les Bottes pour 300 or.",
+      "citation_ids": [
+        "9701a90c-1726-5a5f-a9cb-5e204359de9f"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les données fournies se limitent uniquement aux statistiques des Bottes de base sur le patch 16.21.1.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "dev-long-sword",
+      "split": "development",
+      "query": "Quel est le prix de l'Épée longue ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1254.771,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "L'Épée longue coûte 350 pièces d'or à l'achat.",
+          "evidence_ids": [
+            "e290ec4d-f531-5142-98bf-709e758bb47f"
+          ]
+        }
+      ],
+      "exercise": "Regarde dans ta boutique en jeu lors de ta prochaine partie et observe le prix de l'Épée longue pour vérifier qu'il correspond bien à 350 ors.",
+      "citation_ids": [
+        "e290ec4d-f531-5142-98bf-709e758bb47f"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les informations proviennent uniquement du passage fourni pour le patch 16.21.1.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "dev-press-attack",
+      "split": "development",
+      "query": "Comment se déclenche Attaque soutenue ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1129.597,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Attaque soutenue se déclenche en touchant un champion ennemi avec 3 attaques de base consécutives.",
+          "evidence_ids": [
+            "c20743da-c934-5a56-b7e5-f47079371bd7"
+          ]
+        }
+      ],
+      "exercise": "Observe ton nombre d'attaques de base consécutives sur un champion ennemi pour voir quand l'effet se déclenche.",
+      "citation_ids": [
+        "c20743da-c934-5a56-b7e5-f47079371bd7"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les informations proviennent uniquement du passage fourni.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "dev-flash",
+      "split": "development",
+      "query": "Décris le sort d'invocateur Saut éclair.",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1335.446,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Le Saut éclair vous téléporte sur une courte distance vers l'emplacement de votre curseur.",
+          "evidence_ids": [
+            "058a7109-a342-5883-a6db-5431af6783e6"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Le délai de récupération du Saut éclair est de 300.",
+          "evidence_ids": [
+            "058a7109-a342-5883-a6db-5431af6783e6"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Le Saut éclair a une portée de 425 et ne coûte 0.",
+          "evidence_ids": [
+            "058a7109-a342-5883-a6db-5431af6783e6"
+          ]
+        }
+      ],
+      "exercise": "Observe la description du sort Saut éclair et note sa portée exacte ainsi que son délai de récupération.",
+      "citation_ids": [
+        "058a7109-a342-5883-a6db-5431af6783e6"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les informations proviennent uniquement du passage fourni pour le patch 16.21.1.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "dev-ashe-r",
+      "split": "development",
+      "query": "Que fait la Flèche de cristal enchantée d'Ashe ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1692.906,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Ashe tire un trait de glace en ligne droite avec sa Flèche de cristal enchantée.",
+          "evidence_ids": [
+            "ecb9f814-750f-5f85-aa8c-463b1fac5d43"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Si la flèche touche un champion ennemi, elle le blesse et l'étourdit.",
+          "evidence_ids": [
+            "ecb9f814-750f-5f85-aa8c-463b1fac5d43"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "La durée de l'étourdissement augmente avec la distance parcourue par la flèche.",
+          "evidence_ids": [
+            "ecb9f814-750f-5f85-aa8c-463b1fac5d43"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Les unités ennemies proches subissent des dégâts et sont ralenties.",
+          "evidence_ids": [
+            "ecb9f814-750f-5f85-aa8c-463b1fac5d43"
+          ]
+        }
+      ],
+      "exercise": "Observe comment la durée de l'étourdissement de la Flèche de cristal enchantée change lorsque Ashe la lance de très loin par rapport à une distance courte.",
+      "citation_ids": [
+        "ecb9f814-750f-5f85-aa8c-463b1fac5d43"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les informations proviennent uniquement du passage fourni pour le patch 16.21.1.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "dev-wave",
+      "split": "development",
+      "query": "Comment freeze une vague avec Ahri ?",
+      "expected_status": "out_of_scope",
+      "execution": "completed",
+      "elapsed_ms": 0.034,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "out_of_scope",
+      "claims": [],
+      "exercise": "",
+      "citation_ids": [],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Cette demande dépasse les descriptions statiques disponibles."
+      ]
+    },
+    {
+      "id": "dev-winrate",
+      "split": "development",
+      "query": "Quel est le winrate actuel de Lux ?",
+      "expected_status": "out_of_scope",
+      "execution": "completed",
+      "elapsed_ms": 0.012,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "out_of_scope",
+      "claims": [],
+      "exercise": "",
+      "citation_ids": [],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Cette demande dépasse les descriptions statiques disponibles."
+      ]
+    },
+    {
+      "id": "dev-ambiguous",
+      "split": "development",
+      "query": "Compare les sorts de Ahri et Lux.",
+      "expected_status": "needs_clarification",
+      "execution": "completed",
+      "elapsed_ms": 0.016,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "needs_clarification",
+      "claims": [],
+      "exercise": "",
+      "citation_ids": [],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Plusieurs entités détectées : fournir des filtres explicites."
+      ]
+    },
+    {
+      "id": "dev-patch-missing",
+      "split": "development",
+      "query": "Quel est le passif de Ahri ?",
+      "expected_status": "no_results",
+      "execution": "completed",
+      "elapsed_ms": 0.011,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "no_results",
+      "claims": [],
+      "exercise": "",
+      "citation_ids": [],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Aucun document pour ce patch, cette langue et ce type."
+      ]
+    },
+    {
+      "id": "val-ahri-w",
+      "split": "validation",
+      "query": "Quels effets produit Lucioles d'Ahri ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1822.168,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Ahri gagne un bref bonus en vitesse de déplacement.",
+          "evidence_ids": [
+            "e4b66ef5-a919-5d0b-bb7a-1be9806c94db"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Ahri libère trois lucioles qui verrouillent et attaquent les ennemis proches.",
+          "evidence_ids": [
+            "e4b66ef5-a919-5d0b-bb7a-1be9806c94db"
+          ]
+        }
+      ],
+      "exercise": "Observe bien le moment où tu actives les Lucioles pour voir comment elles choisissent et verrouillent les ennemis proches.",
+      "citation_ids": [
+        "e4b66ef5-a919-5d0b-bb7a-1be9806c94db"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les données fournies ne précisent pas la durée exacte du bonus en vitesse de déplacement.",
+        "Les dégâts infligés par les lucioles ne sont pas mentionnés dans les sources.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "val-ahri-r",
+      "split": "validation",
+      "query": "Décris l'ultime de Ahri.",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1726.339,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "L'ultime d'Ahri s'appelle Assaut spirituel.",
+          "evidence_ids": [
+            "1142a04f-6cb6-5e1e-81b9-345a6377dac8"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Ahri se rue vers l'avant et tire des traits spirituels qui infligent des dégâts aux ennemis proches.",
+          "evidence_ids": [
+            "1142a04f-6cb6-5e1e-81b9-345a6377dac8"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Assaut spirituel peut être lancé jusqu'à trois fois avant d'entrer en phase de récupération.",
+          "evidence_ids": [
+            "1142a04f-6cb6-5e1e-81b9-345a6377dac8"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Ahri gagne des réactivations en participant à l'élimination de champions ennemis.",
+          "evidence_ids": [
+            "1142a04f-6cb6-5e1e-81b9-345a6377dac8"
+          ]
+        }
+      ],
+      "exercise": "Observe ton écran pour compter combien de charges d'Assaut spirituel il te reste pendant les combats.",
+      "citation_ids": [
+        "1142a04f-6cb6-5e1e-81b9-345a6377dac8"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les informations proviennent uniquement du passage fourni sur le patch 16.21.1.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "val-garen-q",
+      "split": "validation",
+      "query": "Que fait Coup décisif de Garen ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1795.746,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Avec Coup décisif, Garen reçoit un bonus en vitesse de déplacement et purge tous les ralentissements qui l'affectent.",
+          "evidence_ids": [
+            "caf1153f-f942-5a5c-9bb6-aed2b1720795"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "La prochaine attaque de Garen frappe un point vital de son adversaire, infligeant des dégâts supplémentaires et le réduisant au silence.",
+          "evidence_ids": [
+            "caf1153f-f942-5a5c-9bb6-aed2b1720795"
+          ]
+        }
+      ],
+      "exercise": "Observe ton écran pour identifier quand tu es ralenti, puis déclenche Coup décisif pour purger le ralentissement et frapper l'adversaire afin de le réduire au silence.",
+      "citation_ids": [
+        "caf1153f-f942-5a5c-9bb6-aed2b1720795"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les informations se limitent à la description textuelle de la compétence Coup décisif pour le patch 16.21.1.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "val-garen-r",
+      "split": "validation",
+      "query": "Décris Justice de Demacia de Garen.",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1864.078,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Justice de Demacia est une compétence de Garen où celui-ci en appelle à la puissance de Demacia pour tenter d'exécuter un champion ennemi.",
+          "evidence_ids": [
+            "031e9e1c-a3d3-537e-92ee-181acaacd01d"
+          ]
+        }
+      ],
+      "exercise": "Observe le texte de la compétence Justice de Demacia et identifie le type de cible visé par Garen.",
+      "citation_ids": [
+        "031e9e1c-a3d3-537e-92ee-181acaacd01d"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les informations fournies ne précisent ni les dégâts, ni le délai de récupération, ni le coût en ressources de la compétence.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "val-morgana-e",
+      "split": "validation",
+      "query": "Que protège le Bouclier noir de Morgana ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1659.621,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Le Bouclier noir de Morgana offre à un allié une barrière qui absorbe les dégâts magiques.",
+          "evidence_ids": [
+            "7a6cc239-e47f-5adb-9283-bc0948de85c8"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Le Bouclier noir protège également contre les entraves jusqu'à ce qu'il soit brisé.",
+          "evidence_ids": [
+            "7a6cc239-e47f-5adb-9283-bc0948de85c8"
+          ]
+        }
+      ],
+      "exercise": "Observe une partie et regarde attentivement quel type de dégâts (magiques ou physiques) ou quel sort d'entrave est bloqué par le Bouclier noir de Morgana.",
+      "citation_ids": [
+        "7a6cc239-e47f-5adb-9283-bc0948de85c8"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les informations se limitent au patch 16.21.1 pour le sort Bouclier noir de Morgana.",
+        "Aucun détail chiffré sur la valeur d'absorption du bouclier n'est fourni.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "val-ezreal-q",
+      "split": "validation",
+      "query": "Quel effet a le Tir mystique d'Ezreal lorsqu'il touche une cible ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1228.886,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Le Tir mystique d'Ezreal tire un trait d'énergie blessant qui réduit légèrement tous les délais de récupération d'Ezreal s'il touche un ennemi.",
+          "evidence_ids": [
+            "8d3280f6-84ef-5d3f-ba63-7f9219619cb3"
+          ]
+        }
+      ],
+      "exercise": "Observe tes lancers de Tir mystique lors de ta prochaine partie et vérifie l'impact de chaque touche sur la réduction de tes délais de récupération.",
+      "citation_ids": [
+        "8d3280f6-84ef-5d3f-ba63-7f9219619cb3"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les informations proviennent uniquement du passage fourni sur le patch 16.21.1.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "val-sion-passive",
+      "split": "validation",
+      "query": "Qu'arrive-t-il à Sion après sa mort selon son passif ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1619.602,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Après avoir été tué, Sion revient temporairement à la vie mais ses PV diminuent rapidement selon son passif Gloire posthume.",
+          "evidence_ids": [
+            "a303c8aa-a6ad-5bc5-898e-7749c9d0e071"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Ses attaques deviennent très rapides, le soignent et infligent des dégâts supplémentaires basés sur les PV max de la cible.",
+          "evidence_ids": [
+            "a303c8aa-a6ad-5bc5-898e-7749c9d0e071"
+          ]
+        }
+      ],
+      "exercise": "Observe bien ton écran lorsque Sion meurt et essaie de repérer le moment où ses PV commencent à diminuer rapidement pour estimer le temps qu'il te reste pour attaquer.",
+      "citation_ids": [
+        "a303c8aa-a6ad-5bc5-898e-7749c9d0e071"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les informations proviennent uniquement du passage fourni pour le patch 16.21.1.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "val-lux-r",
+      "split": "validation",
+      "query": "Comment fonctionne Éclat final de Lux ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 2036.593,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Après avoir chargé de l'énergie, Lux tire un rayon lumineux qui inflige des dégâts à toutes les cibles dans la zone.",
+          "evidence_ids": [
+            "c79057c0-07d5-51f2-8244-056787c7f0d1"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Éclat final déclenche la compétence passive de Lux et rafraîchit la durée du sortilège d'Illumination.",
+          "evidence_ids": [
+            "c79057c0-07d5-51f2-8244-056787c7f0d1"
+          ]
+        }
+      ],
+      "exercise": "Observe comment le déclenchement de la compétence passive et le rafraîchissement d'Illumination se produisent lorsque tu lances Éclat final sur une cible.",
+      "citation_ids": [
+        "c79057c0-07d5-51f2-8244-056787c7f0d1"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les données se limitent à la description de la compétence fournie pour le patch 16.21.1.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "val-doran",
+      "split": "validation",
+      "query": "Quelles statistiques apporte la Lame de Doran ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1826.896,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "La Lame de Doran apporte +10 dégâts d'attaque.",
+          "evidence_ids": [
+            "22d983fa-9a34-5156-954e-3d4867d91b80"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Elle octroie également +80 PV.",
+          "evidence_ids": [
+            "22d983fa-9a34-5156-954e-3d4867d91b80"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Elle procure enfin 2.5% d'omnivampirisme.",
+          "evidence_ids": [
+            "22d983fa-9a34-5156-954e-3d4867d91b80"
+          ]
+        }
+      ],
+      "exercise": "Regarde la description de la Lame de Doran dans la boutique en jeu et identifie ses trois statistiques principales.",
+      "citation_ids": [
+        "22d983fa-9a34-5156-954e-3d4867d91b80"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les données fournies se limitent au patch 16.21.1 et ne couvrent pas l'intégralité des objets du jeu.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "val-zhonya",
+      "split": "validation",
+      "query": "Décris l'effet du Sablier de Zhonya.",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1434.069,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Le Sablier de Zhonya confère 105 de puissance et 50 d'armure.",
+          "evidence_ids": [
+            "93a15e00-0280-552b-ad3d-c547e33c3e43"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Sa compétence Pause temporelle permet d'entrer en stase pendant 2,5 secondes.",
+          "evidence_ids": [
+            "93a15e00-0280-552b-ad3d-c547e33c3e43"
+          ]
+        }
+      ],
+      "exercise": "Observe le texte fourni et indique combien de secondes dure la stase de la Pause temporelle.",
+      "citation_ids": [
+        "93a15e00-0280-552b-ad3d-c547e33c3e43"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les données fournies se limitent au patch 16.21.1 et ne couvrent pas l'intégralité du jeu ou de la méta.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "val-aery",
+      "split": "validation",
+      "query": "Quels sont les effets de Invocation d'Aery ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 1716.507,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Blesser un champion ennemi avec une attaque de base ou une compétence envoie Aery vers lui, lui infligeant 10 - 50 selon le niveau (+ 0.05 puissance ) (+ 0.1 dégâts d'attaque supplémentaires ).",
+          "evidence_ids": [
+            "00c232ed-9733-5012-8c83-ab84206af4f7"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Renforcer ou protéger un allié avec une compétence envoie Aery vers lui, lui octroyant un bouclier absorbant 20 - 100 selon le niveau (+ 0.05 puissance ) (+ 0.1 dégâts d'attaque bonus ).",
+          "evidence_ids": [
+            "00c232ed-9733-5012-8c83-ab84206af4f7"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Aery ne peut plus être envoyée tant qu'elle n'est pas revenue auprès de vous.",
+          "evidence_ids": [
+            "224aa494-d11e-533a-b886-89008cef606a"
+          ]
+        }
+      ],
+      "exercise": "Observe bien le moment où Aery revient vers toi après une attaque ou un soin pour savoir quand elle est de nouveau disponible.",
+      "citation_ids": [
+        "00c232ed-9733-5012-8c83-ab84206af4f7",
+        "224aa494-d11e-533a-b886-89008cef606a"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les informations proviennent uniquement des passages fournis pour le patch 16.21.1.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "val-teleport",
+      "split": "validation",
+      "query": "Que fait le sort d'invocateur Téléportation ?",
+      "expected_status": "answered",
+      "execution": "completed",
+      "elapsed_ms": 8709.195,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "answered",
+      "claims": [
+        {
+          "kind": "sourced_fact",
+          "text": "Le sort d'invocateur Téléportation permet, après une courte canalisation, de devenir impossible à cibler et de voyager jusqu'à l'unité alliée ciblée.",
+          "evidence_ids": [
+            "1c492f3a-ac46-57a4-8f6f-953181c27f42"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Il s'améliore en Téléportation débridée, ce qui augmente considérablement la vitesse du voyage.",
+          "evidence_ids": [
+            "1c492f3a-ac46-57a4-8f6f-953181c27f42"
+          ]
+        },
+        {
+          "kind": "sourced_fact",
+          "text": "Le temps de recharge de la Téléportation est de 300.",
+          "evidence_ids": [
+            "1c492f3a-ac46-57a4-8f6f-953181c27f42"
+          ]
+        }
+      ],
+      "exercise": "Examine le texte de la description pour identifier combien de temps dure la canalisation et sur quel type de cible le sort peut être lancé.",
+      "citation_ids": [
+        "1c492f3a-ac46-57a4-8f6f-953181c27f42"
+      ],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Les informations proviennent uniquement du passage fourni pour le patch 16.21.1.",
+        "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+      ]
+    },
+    {
+      "id": "val-build",
+      "split": "validation",
+      "query": "Quel est le meilleur build de Garen pour gagner ?",
+      "expected_status": "out_of_scope",
+      "execution": "completed",
+      "elapsed_ms": 0.04,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "out_of_scope",
+      "claims": [],
+      "exercise": "",
+      "citation_ids": [],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Cette demande dépasse les descriptions statiques disponibles."
+      ]
+    },
+    {
+      "id": "val-match",
+      "split": "validation",
+      "query": "Analyse ma dernière partie avec Morgana.",
+      "expected_status": "out_of_scope",
+      "execution": "completed",
+      "elapsed_ms": 0.011,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "out_of_scope",
+      "claims": [],
+      "exercise": "",
+      "citation_ids": [],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Cette demande dépasse les descriptions statiques disponibles."
+      ]
+    },
+    {
+      "id": "val-unknown",
+      "split": "validation",
+      "query": "Explique une compétence.",
+      "expected_status": "needs_clarification",
+      "execution": "completed",
+      "elapsed_ms": 0.008,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "needs_clarification",
+      "claims": [],
+      "exercise": "",
+      "citation_ids": [],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Préciser un champion, objet, rune ou sort d'invocateur."
+      ]
+    },
+    {
+      "id": "val-locale-missing",
+      "split": "validation",
+      "query": "Describe Ahri's passive.",
+      "expected_status": "no_results",
+      "execution": "completed",
+      "elapsed_ms": 0.009,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "no_results",
+      "claims": [],
+      "exercise": "",
+      "citation_ids": [],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Aucun document pour ce patch, cette langue et ce type."
+      ]
+    },
+    {
+      "id": "dev-long-sword-ambiguous",
+      "split": "development",
+      "query": "Quel est le prix de l'Épée longue ?",
+      "expected_status": "needs_clarification",
+      "execution": "completed",
+      "elapsed_ms": 0.013,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "needs_clarification",
+      "claims": [],
+      "exercise": "",
+      "citation_ids": [],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Plusieurs entités détectées : fournir des filtres explicites."
+      ]
+    },
+    {
+      "id": "val-doran-ambiguous",
+      "split": "validation",
+      "query": "Quelles statistiques apporte la Lame de Doran ?",
+      "expected_status": "needs_clarification",
+      "execution": "completed",
+      "elapsed_ms": 0.01,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "needs_clarification",
+      "claims": [],
+      "exercise": "",
+      "citation_ids": [],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Plusieurs entités détectées : fournir des filtres explicites."
+      ]
+    },
+    {
+      "id": "val-zhonya-ambiguous",
+      "split": "validation",
+      "query": "Décris l'effet du Sablier de Zhonya.",
+      "expected_status": "needs_clarification",
+      "execution": "completed",
+      "elapsed_ms": 0.058,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "needs_clarification",
+      "claims": [],
+      "exercise": "",
+      "citation_ids": [],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Plusieurs entités détectées : fournir des filtres explicites."
+      ]
+    },
+    {
+      "id": "dev-flash-ambiguous",
+      "split": "development",
+      "query": "Décris le sort d'invocateur Saut éclair.",
+      "expected_status": "needs_clarification",
+      "execution": "completed",
+      "elapsed_ms": 0.02,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "needs_clarification",
+      "claims": [],
+      "exercise": "",
+      "citation_ids": [],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Plusieurs entités détectées : fournir des filtres explicites."
+      ]
+    },
+    {
+      "id": "val-teleport-ambiguous",
+      "split": "validation",
+      "query": "Que fait le sort d'invocateur Téléportation ?",
+      "expected_status": "needs_clarification",
+      "execution": "completed",
+      "elapsed_ms": 0.015,
+      "status_matches_expected": true,
+      "human_review": {
+        "facts_supported": null,
+        "no_invented_numbers": null,
+        "pedagogy_useful": null,
+        "notes": ""
+      },
+      "status": "needs_clarification",
+      "claims": [],
+      "exercise": "",
+      "citation_ids": [],
+      "limitations": [
+        "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+        "Le score mesure la similarité, pas la probabilité de vérité.",
+        "Plusieurs entités détectées : fournir des filtres explicites."
+      ]
+    }
+  ],
+  "agent_review": {
+    "reviewed_positive_cases": 24,
+    "reviewer": "development agent, not independent human review",
+    "issues": [
+      {
+        "id": "val-teleport",
+        "issue": "Exercise requested missing channel duration; corrected in targeted rerun."
+      },
+      {
+        "id": "val-aery",
+        "issue": "Formula transcription is grounded but not fully pedagogical; targeted rerun now adds unresolved-value limits."
+      }
+    ],
+    "targeted_rechecks": [
+      {
+        "id": "val-aery",
+        "status": "answered",
+        "claims": [
+          {
+            "kind": "sourced_fact",
+            "text": "Blesser un champion ennemi avec une attaque de base ou une compétence envoie Aery vers lui, lui infligeant 10 - 50 selon le niveau (+ 0.05 puissance) (+ 0.1 dégâts d'attaque supplémentaires).",
+            "evidence_ids": [
+              "00c232ed-9733-5012-8c83-ab84206af4f7"
+            ]
+          },
+          {
+            "kind": "sourced_fact",
+            "text": "Renforcer ou protéger un allié avec une compétence envoie Aery vers lui, lui octroyant un bouclier absorbant 20 - 100 selon le niveau (+ 0.05 puissance) (+ 0.1 dégâts d'attaque bonus).",
+            "evidence_ids": [
+              "00c232ed-9733-5012-8c83-ab84206af4f7"
+            ]
+          },
+          {
+            "kind": "sourced_fact",
+            "text": "Aery ne peut plus être envoyée tant qu'elle n'est pas revenue auprès de vous.",
+            "evidence_ids": [
+              "224aa494-d11e-533a-b886-89008cef606a"
+            ]
+          }
+        ],
+        "exercise": "Observe ton jeu et regarde bien si Aery est revenue auprès de toi avant d'essayer de l'envoyer à nouveau sur un ennemi ou un allié.",
+        "limitations": [
+          "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+          "Le score mesure la similarité, pas la probabilité de vérité.",
+          "Les preuves fournies ne contiennent pas les valeurs exactes des dégâts ou des boucliers pour chaque niveau spécifique.",
+          "Les données statiques ne permettent pas d'analyser une partie ou la méta.",
+          "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+        ]
+      },
+      {
+        "id": "val-teleport",
+        "status": "answered",
+        "claims": [
+          {
+            "kind": "sourced_fact",
+            "text": "Après une courte canalisation, le sort Téléportation permet de devenir impossible à cibler et de voyager jusqu'à l'unité alliée ciblée.",
+            "evidence_ids": [
+              "1c492f3a-ac46-57a4-8f6f-953181c27f42"
+            ]
+          },
+          {
+            "kind": "sourced_fact",
+            "text": "Le sort possède un délai de récupération de 300, un coût de 0 et une portée de 25000.",
+            "evidence_ids": [
+              "1c492f3a-ac46-57a4-8f6f-953181c27f42"
+            ]
+          },
+          {
+            "kind": "sourced_fact",
+            "text": "La Téléportation s'améliore en Téléportation débridée, ce qui augmente considérablement la vitesse du voyage.",
+            "evidence_ids": [
+              "1c492f3a-ac46-57a4-8f6f-953181c27f42"
+            ]
+          }
+        ],
+        "exercise": "Observe le texte de la description et indique quelle cible est nécessaire pour utiliser le sort Téléportation.",
+        "limitations": [
+          "Corpus Riot statique : ces passages ne constituent pas une réponse de coaching.",
+          "Le score mesure la similarité, pas la probabilité de vérité.",
+          "Les preuves fournies ne précisent pas la durée exacte de la canalisation ni les conditions précises d'amélioration en Téléportation débridée.",
+          "Les références sont vérifiées ; leur soutien sémantique aux affirmations nécessite une évaluation. Les conseils restent des hypothèses de coaching."
+        ]
+      }
+    ]
+  },
+  "limitations": [
+    "Small authored dataset; no universal quality claim.",
+    "Full run predates the targeted prompt refinement; only two affected cases rerun.",
+    "Human review fields deliberately remain null.",
+    "No match data, player identifiers, API keys or raw corpus text published."
+  ]
+}
