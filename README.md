@@ -11,7 +11,9 @@ produit des passages avec provenance/patch/langue, génère de vrais embeddings
 multilingues et les indexe dans Qdrant. SQLite conserve passages et rapports.
 Le rejeu d'un lot identique évite les doublons ; les échecs sont explicites.
 
-La recherche de contrôle retrouve les passages indexés. Le Coach LLM, Match-v5
+Le retrieval retourne des preuves structurées, filtre les entités et demande
+des précisions lorsqu'un nom est ambigu. Une baseline versionnée compare ses
+résultats à la recherche brute sur 37 cas annotés. Le Coach LLM, Match-v5
 et l'orchestration LangGraph restent à développer. Les données Riot seules ne
 constituent pas un corpus exhaustif de pédagogie macro/micro.
 
@@ -33,17 +35,21 @@ statique complet. Les données sont écrites dans `.runtime/`, ignoré par Git.
 Pour chercher, utiliser le patch du rapport :
 
 ```powershell
-rtk proxy uv run --frozen nexusmind search "Quels sont les sorts de Ahri ?" --patch 16.21.1
+rtk proxy uv run --frozen nexusmind retrieve "Quels sont les sorts de Ahri ?" --patch 16.21.1
 ```
 
 Le [guide d'ingestion](docs/ingestion.md) décrit les versions explicites,
 catégories, options de stockage, serveur Qdrant et limites du rejeu.
+Le [guide retrieval](docs/retrieval.md) décrit filtres, statuts, clarifications
+et commande `evaluate`. Les [mesures](docs/validation/retrieval-2026-10-31.md)
+portent sur un jeu limité de questions, sans valider le futur Coach.
 
 ## Structure
 
 ```text
 src/nexusmind/   # domaine, application Scout, infrastructure et CLI maintenus
 tests/          # tests hors ligne et intégration Qdrant isolée
+evaluation/     # annotations et rapport mesuré, sans corpus
 docs/           # architecture, décisions et procédures
 .github/        # CI, modèles d'issues et de PR
 .runtime/       # archives, SQLite et Qdrant locaux (non versionnés)

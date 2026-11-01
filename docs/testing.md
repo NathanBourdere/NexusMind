@@ -30,8 +30,10 @@ rtk proxy uv run --frozen ruff format --check src tests
 rtk proxy uv run --frozen pytest -m integration
 ```
 
-Les suites live et d'évaluation décrites plus bas restent à créer. Marquer leurs
-tests lors de leur introduction. Documenter les variables et fixtures réellement
+La mesure de retrieval existe via `nexusmind evaluate` : voir le
+[protocole](retrieval.md). La CI ne charge pas le modèle ; elle vérifie les
+métriques sur exemples manuels, les contrats et l'intégrité suite/rapport.
+Les tests live restent à créer. Documenter les variables et fixtures réellement
 nécessaires aux intégrations. Aucun appel live dans le contrôle obligatoire d'une PR.
 
 | Niveau / emplacement cible | Ce qu'il prouve | Ressources |
